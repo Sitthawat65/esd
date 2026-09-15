@@ -61,6 +61,11 @@ def hhmm(ts=None):
     return datetime.datetime.fromtimestamp(ts or time.time(), TZ).strftime("%H:%M")
 
 
+def lr(tag):
+    """ชื่อจุดสำหรับข้อความแจ้งเตือน ใช้ L/R ให้ตรงกับตารางบนแผนภาพ"""
+    return TA.label(tag).replace("(ซ้าย)", "(L)").replace("(ขวา)", "(R)")
+
+
 def alarm_text(cfg, hot, st, nag_no):
     thr = cfg["threshold"]
     lines = [f"🚨 อุณหภูมิเกิน {thr}°C — ต้องกดรับทราบ",
@@ -71,8 +76,9 @@ def alarm_text(cfg, hot, st, nag_no):
     lines.append("")
     for tag, v in sorted(hot, key=lambda x: -x[1]):
         warn = "  ⚠️ ค่าผิดปกติ ตรวจเซนเซอร์" if v >= FAULTY else ""
-        lines.append(f"• {TA.label(tag)}\n   {v:.1f} °C{warn}")
-    lines += ["", f"จะเตือนซ้ำทุก {cfg.get('nag_minutes', 2)} นาที จนกว่าจะกดปุ่มรับทราบข้างล่าง",
+        lines.append(f"• {lr(tag)}\n   {v:.1f} °C{warn}")
+    lines += ["", "🔧 ให้ทีมงานเข้าเช็คระบบ",
+              "", f"เตือนซ้ำทุก {cfg.get('nag_minutes', 2)} นาที จนกว่าจะกดรับทราบ",
               cfg["dashboard_url"]]
     return "\n".join(lines)
 
@@ -118,7 +124,7 @@ def pump(cfg, st, hot, now=None):
 
     if not hot:
         if st.get("active"):
-            names = ", ".join(TA.label(t) for t, _ in st.get("points", []))
+            names = ", ".join(lr(t) for t, _ in st.get("points", []))
             broadcast(cfg, f"✅ อุณหภูมิกลับสู่ปกติแล้ว (ต่ำกว่า {cfg['threshold']:.0f}°C)\n{names}\n"
                            f"เวลา {hhmm(now)} น.")
             st.clear()
@@ -188,7 +194,7 @@ def status_text(cfg):
         t = updated
     lines = [("🚨 มีจุดเกินเกณฑ์" if hot else "✅ ทุกจุดปกติ") + f" · เกณฑ์ {thr:.0f}°C",
              f"ข้อมูล ณ {t} น. · {len(temps)} จุด", ""]
-    lines += [f"{'🔴' if v >= thr else '•'} {TA.label(tg)}  {v:.1f}°C" for tg, v in top]
+    lines += [f"{'🔴' if v >= thr else '•'} {lr(tg)}  {v:.1f}°C" for tg, v in top]
     lines += ["", cfg["dashboard_url"]]
     return "\n".join(lines)
 

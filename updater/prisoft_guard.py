@@ -534,6 +534,58 @@ def check_data(cfg, s, st, up):
         do_reset(cfg, s, st, "ระบบอัตโนมัติ (ไม่มีใครกดปุ่ม)")
 
 
+LISTENER_CODE = ("telegram_listener.py", "telegram_alarm.py", "telegram_alert.py", "line_alert.py")
+
+
+def ensure_listener(st, up):
+    """บอท Telegram (listener) ต้องทำงานอยู่ และต้องใช้โค้ดล่าสุด
+    ตัวอัปเดตดึงโค้ดใหม่จาก GitHub เองทุกรอบ แต่ listener เปิดค้างไว้ จะยังถือโค้ดเก่า
+    -> ถ้าไฟล์โค้ดใหม่กว่าเวลาที่ listener เริ่ม ให้ปิดแล้วเปิดใหม่"""
+    if up < 3 * 60 or now() - float(st.get("listener_kick", 0)) < 5 * 60:
+        return
+    ps = ("Get-CimInstance Win32_Process -Filter \"Name='pythonw.exe' or Name='python.exe'\" | "
+          "Where-Object { $_.CommandLine -match 'telegram_listener\\.py' } | "
+          "Select-Object ProcessId,@{n='Start';e={$_.CreationDate.ToUniversalTime().ToString('o')}} | "
+          "ConvertTo-Json -Compress")
+    try:
+        r = subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=60, creationflags=NO_WINDOW)
+        if r.returncode != 0:
+            return                                    # อ่านไม่ได้ -> ไม่ทำอะไร
+        out = r.stdout.strip()
+        procs = json.loads(out) if out else []
+        procs = procs if isinstance(procs, list) else [procs]
+    except Exception:
+        return
+    code_mtime = max((HERE / f).stat().st_mtime for f in LISTENER_CODE if (HERE / f).exists())
+    reason = None
+    if not procs:
+        reason = "not running"
+    else:
+        starts = []
+        for p in procs:
+            try:
+                starts.append(datetime.datetime.fromisoformat(p["Start"].replace("Z", "+00:00")).timestamp())
+            except Exception:
+                pass
+        if starts and min(starts) < code_mtime - 5:
+            reason = "code updated"
+            for p in procs:
+                kill_pid(p["ProcessId"])
+            time.sleep(2)
+    if not reason:
+        return
+    st["listener_kick"] = now()
+    vbs = pathlib.Path(os.environ.get("APPDATA", "")) / r"Microsoft\Windows\Start Menu\Programs\Startup\ITH_Telegram_Listener.vbs"
+    if vbs.exists():
+        subprocess.Popen(["wscript.exe", str(vbs)], creationflags=NO_WINDOW)
+    else:
+        exe = pathlib.Path(sys.executable)
+        pyw = exe.with_name("pythonw.exe") if exe.name.lower() == "python.exe" else exe
+        _spawn([str(pyw), str(HERE / "telegram_listener.py")], str(HERE))
+    log(f"listener restarted ({reason})")
+
+
 def run_once():
     cfg = TA.load_config()
     s = settings(cfg)
@@ -544,6 +596,8 @@ def run_once():
         handle_request(cfg, s, st)
         save_json(STATE, st)
         ensure_backend(cfg, s, st, up)
+        save_json(STATE, st)
+        ensure_listener(st, up)
         save_json(STATE, st)
         check_data(cfg, s, st, up)
     except Exception as e:
