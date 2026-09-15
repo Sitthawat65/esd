@@ -43,6 +43,8 @@
   /* ป้าย "Technician ควรเข้าตรวจสอบ" — แถบเล็กติดใต้ตารางของจุดที่มีค่า ≥ 80 (อยู่กับตารางนั้นชัดเจน) */
   .tech{position:absolute;transform:translate(-50%,0);display:flex;align-items:center;gap:.35cqw;padding:.2cqw .55cqw .2cqw .25cqw;border-radius:0 0 .5cqw .5cqw;background:#fff;border:.1cqw solid #d10000;border-top:0;box-shadow:0 .15cqw .45cqw rgba(0,0,0,.18);cursor:help;z-index:2;white-space:nowrap}
   .tech[hidden]{display:none!important}
+  /* แบบอยู่เหนือตาราง (ใช้กับจุดที่ใต้ตารางมีรูปเครื่องจักร) */
+  .tech.up{transform:translate(-50%,-100%);border-radius:.5cqw .5cqw 0 0;border-top:.1cqw solid #d10000;border-bottom:0;box-shadow:0 -.15cqw .45cqw rgba(0,0,0,.18)}
   .tech img{width:2.9cqw;height:2.9cqw;display:block;flex:none;animation:techflash 1s steps(1,end) infinite}
   .tech .tl{display:flex;flex-direction:column;line-height:1.1;animation:techlbl 1s steps(1,end) infinite}
   .tech .tl b{font-size:max(8px,.78cqw);letter-spacing:.05cqw}
@@ -145,9 +147,9 @@
     <!-- TAKE UP (bottom center) -->
     <span class="tv" id="TAKE_UP_L" style="left:52.68%;top:84.39%"></span>
     <span class="tv" id="TAKE_UP_R" style="left:57.01%;top:84.39%"></span>
-    <!-- ป้ายเตือน Technician: ติดใต้ตารางแต่ละจุด (left = กึ่งกลางตาราง, top = ขอบล่างตาราง) -->
-    <div class="tech" id="TECH_DCV_TC"  data-pair="DCV_TC"  data-name="DCV TC"  style="left:74.15%;top:31.7%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
-    <div class="tech" id="TECH_BEND"    data-pair="BEND"    data-name="BEND"    style="left:54.7%;top:40.0%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
+    <!-- ป้ายเตือน Technician: left = กึ่งกลางตาราง · top = ขอบบนตาราง (.up) หรือขอบล่างตาราง — ไม่ให้ทับรูปเครื่องจักร -->
+    <div class="tech up" id="TECH_DCV_TC"  data-pair="DCV_TC"  data-name="DCV TC"  style="left:74.15%;top:22.1%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
+    <div class="tech up" id="TECH_BEND"    data-pair="BEND"    data-name="BEND"    style="left:54.7%;top:30.5%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
     <div class="tech" id="TECH_TAKE_UP" data-pair="TAKE_UP" data-name="TAKE UP" style="left:54.85%;top:86.0%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
   </div>
 
