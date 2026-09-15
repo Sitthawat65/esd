@@ -238,7 +238,7 @@ def caption(page, items, updated, hot, shown):
             top = max(tags, key=lambda t2: items[t2][0])
             v, seen = items[top]
             old = "  (ค่าเก่า)" if age_minutes(seen) > STALE_MIN else ""
-            lines.append(f"สูงสุด: {short_label(top)}  {v:.1f}°C{old}")
+            lines.append(f"Temp สูงสุด: {short_label(top)}  {v:.1f}°C{old}")
     return "\n".join(lines)
 
 
