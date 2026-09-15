@@ -198,10 +198,13 @@ def handle_update(cfg, st, upd):
     cq = upd.get("callback_query")
     if cq:
         who = (cq.get("from") or {}).get("first_name") or "ไม่ทราบชื่อ"
-        if (cq.get("data") or "") == "ack":
+        data = cq.get("data") or ""
+        if data == "ack":
             acknowledge(cfg, st, who)
             TA.call(cfg, "answerCallbackQuery",
                     {"callback_query_id": cq["id"], "text": "รับทราบแล้ว ✅"})
+        elif data.startswith("pg_"):
+            prisoft_request(cfg, cq, who, data)
         else:
             TA.call(cfg, "answerCallbackQuery", {"callback_query_id": cq["id"]})
         return True
@@ -243,6 +246,16 @@ def handle_update(cfg, st, upd):
         send_msg(cfg, chat, status_text(cfg))
         return True
 
+    if low.startswith("/prisoft"):
+        if int(chat) not in [int(c) for c in (cfg.get("chat_ids") or [])]:
+            send_msg(cfg, chat, "ขออภัย สั่งงาน Prisoft ได้เฉพาะแชทที่ลงทะเบียนไว้")
+            return True
+        send_msg(cfg, chat, "⚙️ ควบคุม Prisoft (คอม PRISOFT-SERVER)\n\n"
+                            "🔄 รีเซต = ปิดโปรแกรม Prisoft แล้วเปิดใหม่ (OFF → ON)\n"
+                            "🔧 PM = แจ้งว่ามีงานซ่อม/ย้ายเครื่องจักร/ดับไฟ หยุดถามจนกว่าค่าจะกลับมา",
+                 PRISOFT_BUTTONS)
+        return True
+
     if low.startswith("/join"):
         who = (msg.get("from") or {}).get("id")
         ids = [int(c) for c in (cfg.get("chat_ids") or [])]
@@ -272,6 +285,7 @@ def handle_update(cfg, st, upd):
         send_msg(cfg, chat,
                  "คำสั่งที่ใช้ได้\n"
                  "/status — ดูอุณหภูมิล่าสุดเดี๋ยวนี้\n"
+                 "/prisoft — ปุ่มรีเซต Prisoft / แจ้งงาน PM\n"
                  "/join — ให้แชท/กลุ่มนี้เริ่มรับข้อมูล\n"
                  "/leave — เลิกรับข้อมูลในแชทนี้\n\n"
                  f"ระบบส่งภาพอุณหภูมิทุก ~5 นาที และเตือนเมื่อมีจุดใดเกิน "
@@ -279,6 +293,36 @@ def handle_update(cfg, st, upd):
                  f"จนกว่าจะกดปุ่มรับทราบ")
         return True
     return False
+
+
+PRISOFT_BUTTONS = {"inline_keyboard": [
+    [{"text": "🔄 รีเซต Prisoft (OFF → ON)", "callback_data": "pg_reset"}],
+    [{"text": "🔧 PM / ย้ายเครื่องจักร / ดับไฟ", "callback_data": "pg_pm"}],
+]}
+PRISOFT_REQUEST = HERE / ".prisoft_request.json"
+
+
+def prisoft_request(cfg, cq, who, action):
+    """ปุ่มควบคุม Prisoft ถูกกด -> ฝากคำสั่งให้ prisoft_guard.py ทำ แล้วปลุกมันทันที"""
+    chat = ((cq.get("message") or {}).get("chat") or {}).get("id")
+    if chat is None or int(chat) not in [int(c) for c in (cfg.get("chat_ids") or [])]:
+        TA.call(cfg, "answerCallbackQuery", {"callback_query_id": cq["id"],
+                                             "text": "แชทนี้ไม่มีสิทธิ์สั่งงาน", "show_alert": True})
+        return
+    PRISOFT_REQUEST.write_text(json.dumps({"action": action, "who": who, "ts": time.time(),
+                                           "chat": chat}, ensure_ascii=False), encoding="utf-8")
+    text = {"pg_reset": "กำลังรีเซต Prisoft… ผลจะแจ้งในแชท",
+            "pg_pm": "บันทึกโหมด PM แล้ว 🔧",
+            "pg_ignore": "รับทราบ ไม่ต้องทำอะไร"}.get(action, "รับคำสั่งแล้ว")
+    TA.call(cfg, "answerCallbackQuery", {"callback_query_id": cq["id"], "text": text})
+    try:                                   # ไม่ต้องรอรอบ 1 นาทีของ Task Scheduler
+        import subprocess, os
+        exe = pathlib.Path(sys.executable)
+        pyw = exe.with_name("pythonw.exe") if exe.name.lower() == "python.exe" else exe
+        subprocess.Popen([str(pyw), str(HERE / "prisoft_guard.py")], cwd=str(HERE),
+                         creationflags=0x08000000 if os.name == "nt" else 0, close_fds=True)
+    except Exception as e:
+        print(f"(alarm) ปลุก prisoft_guard ไม่ได้: {e}")
 
 
 def touch(**kw):

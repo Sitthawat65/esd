@@ -24,3 +24,9 @@ updater/.telegram_alert_state.json
 updater/.telegram_snapshot_state.json
 updater/.telegram_alarm_state.json
 updater/primus_session.json
+updater/.prisoft_guard_state.json
+updater/.prisoft_request.json
+updater/.prisoft_guard.lock
+updater/prisoft_guard.log
+updater/prisoft_guard.old.log
+updater/prisoft_backend.log
