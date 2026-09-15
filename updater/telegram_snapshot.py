@@ -217,26 +217,28 @@ def render(page, items, updated):
     return buf.getvalue(), hot, shown
 
 
+def short_label(tag):
+    """ชื่อจุดแบบสั้นสำหรับข้อความใต้รูป: ตัดชื่อเครื่องออก (หัวข้อบอกอยู่แล้ว) และใช้ L/R
+       "Tripper car · Take-up (ขวา)" -> "Take-up (R)" """
+    name = label(tag).split(" · ", 1)[-1]
+    return name.replace("(ซ้าย)", "(L)").replace("(ขวา)", "(R)")
+
+
 def caption(page, items, updated, hot, shown):
-    _img, html_name, full = PAGES[page]
-    try:
-        t = datetime.datetime.fromisoformat(updated).strftime("%H:%M")
-    except Exception:
-        t = "-"
-    head = f"{'🚨' if hot else '📊'} {page} — {full}"
-    lines = [head, f"อัปเดต {t} น. · {shown} จุด"]
+    """ข้อความใต้รูปแบบสั้น — เวลาอัปเดตมีในรูปมุมล่างขวาอยู่แล้ว"""
+    _img, html_name, _full = PAGES[page]
+    lines = [f"{'🚨' if hot else '📊'} {page}"]
     if hot:
-        lines.append("")
         lines.append(f"เกิน {ALARM}°C:")
         for tag, v in sorted(hot, key=lambda x: -x[1]):
-            lines.append(f"• {label(tag)}  {v:.1f}°C")
+            lines.append(f"• {short_label(tag)}  {v:.1f}°C")
     else:
         tags = [t2 for t2, _, _ in spans_of(html_name) if t2 in items]
         if tags:
             top = max(tags, key=lambda t2: items[t2][0])
             v, seen = items[top]
             old = "  (ค่าเก่า)" if age_minutes(seen) > STALE_MIN else ""
-            lines.append(f"สูงสุด: {label(top)}  {v:.1f}°C{old}")
+            lines.append(f"สูงสุด: {short_label(top)}  {v:.1f}°C{old}")
     return "\n".join(lines)
 
 
