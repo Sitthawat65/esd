@@ -34,11 +34,22 @@
   .tv{position:absolute;transform:translate(-50%,-50%);font-weight:500;font-size:1.5cqw;color:#111;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1;text-align:center}
   .tv.ok{color:#0a6b2d}
   .tv.warn{color:#e07d00}
-  .tv.alarm{color:#d10000;animation:blink 1s steps(1,end) infinite}
+  /* ≥ 80: ตัวเลขสลับ ส้ม ⇄ แดง กะพริบ (ไม่หายไป จะได้อ่านค่าได้ตลอด) */
+  .tv.alarm{font-weight:800;animation:hotflash 1s steps(1,end) infinite}
+  @keyframes hotflash{0%,49%{color:#e00000;text-shadow:0 0 .5cqw rgba(224,0,0,.35)}50%,100%{color:#ff8a00;text-shadow:none}}
   /* ค่าเก่า: ใช้สีเทาแทนการทำจาง จะได้ยังอ่านตัวเลขออกชัดๆ */
   .tv.stale{color:#6b7683}
-  .tv.alarm.stale{color:#d10000}   /* จุดร้อนต้องเห็นเป็นสีแดงเสมอ แม้ค่าจะเก่า */
-  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:.15}}
+
+  /* ป้าย "Technician ควรเข้าตรวจสอบ" — แสดงข้างตารางคู่ L/R ที่มีค่า ≥ 80 */
+  .tech{position:absolute;transform:translate(-100%,-50%);display:flex;flex-direction:column;align-items:center;gap:.3cqw;pointer-events:auto;cursor:help;z-index:2}
+  .tech[hidden]{display:none!important}
+  .tech img{width:6.6cqw;height:6.6cqw;display:block;animation:techflash 1s steps(1,end) infinite}
+  .tech .tl{display:flex;flex-direction:column;align-items:center;padding:.3cqw .7cqw;border-radius:.6cqw;color:#fff;line-height:1.15;white-space:nowrap;box-shadow:0 .2cqw .6cqw rgba(0,0,0,.25);animation:techlbl 1s steps(1,end) infinite}
+  .tech .tl b{font-size:max(9px,1.05cqw);letter-spacing:.08cqw}
+  .tech .tl span{font-size:max(9px,1cqw);font-weight:600}
+  @keyframes techflash{0%,49%{opacity:1;transform:scale(1.06);filter:drop-shadow(0 0 .6cqw rgba(255,40,0,.85))}50%,100%{opacity:.45;transform:scale(1);filter:none}}
+  @keyframes techlbl{0%,49%{background:#d10000}50%,100%{background:#ff7a00}}
+  @media print{ .tech img,.tech .tl,.tv.alarm{animation:none!important} .tech .tl{background:#d10000} .tv.alarm{color:#d10000} }
 
   footer{max-width:1100px;margin:22px auto 0;color:var(--muted);font-size:12px;text-align:center;line-height:1.7}
   .tv.fault{color:#e08a55!important;font-size:80%}
@@ -134,10 +145,14 @@
     <!-- TAKE UP (bottom center) -->
     <span class="tv" id="TAKE_UP_L" style="left:52.68%;top:84.39%"></span>
     <span class="tv" id="TAKE_UP_R" style="left:57.01%;top:84.39%"></span>
+    <!-- ป้ายเตือน Technician: ชิดซ้ายของตารางแต่ละจุด (left = ขอบซ้ายตาราง) -->
+    <div class="tech" id="TECH_DCV_TC"  data-pair="DCV_TC"  data-name="DCV TC"  style="left:69.2%;top:25.2%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
+    <div class="tech" id="TECH_BEND"    data-pair="BEND"    data-name="BEND"    style="left:49.7%;top:35.2%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
+    <div class="tech" id="TECH_TAKE_UP" data-pair="TAKE_UP" data-name="TAKE UP" style="left:49.9%;top:81.2%" hidden><img src="tech-alert.png" alt=""><div class="tl"><b>TECHNICIAN</b><span>ควรเข้าตรวจสอบ</span></div></div>
   </div>
 
   <footer>
-    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69 ปกติ</span> · <span style="color:#f5a623">70–79 เตือน</span> · <span style="color:#e02424">≥ 80 แจ้งเตือน (กะพริบ + ป๊อปอัปให้กดรับทราบ เตือนซ้ำทุก 15 นาที)</span></div>
+    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69 ปกติ</span> · <span style="color:#f5a623">70–79 เตือน</span> · <span style="color:#e02424">≥ 80 แจ้งเตือน (ตัวเลขกะพริบส้ม/แดง + ป้าย Technician ควรเข้าตรวจสอบ + ป๊อปอัปให้กดรับทราบ เตือนซ้ำทุก 15 นาที)</span></div>
     <div style="margin-top:6px">แหล่งข้อมูลอัปเดตทุก ~5 นาที · หน่วย °C</div>
   </footer>
 
@@ -183,7 +198,28 @@ function render(){
     el.className=cls;
     el.textContent = age > STALE_MS ? v.toFixed(1)+'*' : v.toFixed(1);
   });
+  renderTech(map);
+  syncBlink();
   document.getElementById('updated').textContent = fmtTime(DATA.updated);
+}
+
+// แสดงป้าย Technician ข้างตารางที่ L หรือ R ≥ ALARM (ไม่นับค่าที่เซ็นเซอร์เสีย)
+function renderTech(map){
+  document.querySelectorAll('.tech').forEach(box=>{
+    const pair = box.dataset.pair, hot = [];
+    [['L','ซ้าย'],['R','ขวา']].forEach(([s,th])=>{
+      const it = map[pair+'_'+s], v = Number(it && it.value);
+      if(it && it.value!=null && !isNaN(v) && v>=ALARM && v<=T_MAX) hot.push(th+' '+v.toFixed(1)+' °C');
+    });
+    box.hidden = !hot.length;
+    box.title = hot.length ? box.dataset.name+' · '+hot.join(', ')+' (≥ '+ALARM+' °C)\nช่างเทคนิคควรเข้าตรวจสอบแบริ่งพูลเลย์' : '';
+  });
+}
+
+// ให้ตัวเลขและป้ายกะพริบพร้อมกันทุกจุด (อิงนาฬิกาเดียวกัน)
+function syncBlink(){
+  const d = -(Date.now() % 1000) + 'ms';
+  document.querySelectorAll('.tv.alarm, .tech img, .tech .tl').forEach(e=>{ e.style.animationDelay = d; });
 }
 
 async function load(){
