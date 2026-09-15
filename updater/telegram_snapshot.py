@@ -43,9 +43,17 @@ FONT_CANDIDATES = [
 ]
 
 
-def _font(size):
+# ป้าย TECHNICIAN ต้องใช้ฟอนต์ที่มีภาษาไทย (arial ไม่มี)
+THAI_FONTS = ["C:/Windows/Fonts/LeelawUI.ttf", "C:/Windows/Fonts/tahoma.ttf",
+              "/usr/share/fonts/truetype/noto/NotoSansThai-Regular.ttf",
+              "/usr/share/fonts/opentype/noto/NotoSansThai-Regular.ttf"]
+BOLD_FONTS = ["C:/Windows/Fonts/LeelaUIb.ttf", "C:/Windows/Fonts/arialbd.ttf", "C:/Windows/Fonts/tahomabd.ttf",
+              "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"]
+
+
+def _font(size, candidates=None):
     from PIL import ImageFont
-    for path in FONT_CANDIDATES:
+    for path in (candidates or FONT_CANDIDATES):
         try:
             return ImageFont.truetype(path, size)
         except Exception:
@@ -65,6 +73,10 @@ DEFAULT_PAGES = ["SPD", "Tripper car", "BWE2"]
 
 COL_OK, COL_WARN, COL_ALARM, COL_STALE = (10, 107, 45), (224, 125, 0), (209, 0, 0), (107, 118, 131)
 SPAN_RE = re.compile(r'<span class="tv"\s+id="([A-Za-z0-9_]+)"\s+style="left:([\d.]+)%;top:([\d.]+)%"')
+# ป้าย "TECHNICIAN ควรเข้าตรวจสอบ" — ตำแหน่งเดียวกับหน้าเว็บ (tech-badge.js)
+TECH_RE = re.compile(r'<div class="tech([^"]*)"\s+data-pair="([A-Za-z0-9_]+)"[^>]*?style="left:([\d.]+)%;top:([\d.]+)%"')
+T_MAX = 150                         # เกินนี้ = เซนเซอร์ผิดปกติ ไม่ขึ้นป้ายช่าง (เหมือนหน้าเว็บ)
+TECH_ICON = REPO_DIR / "tech-alert.png"
 
 try:
     from line_alert import label
@@ -89,6 +101,53 @@ def spans_of(html_name):
     """อ่านตำแหน่งช่องค่าจากหน้าเว็บ -> [(tag, left%, top%)]"""
     html = (REPO_DIR / html_name).read_text(encoding="utf-8")
     return [(m[0], float(m[1]), float(m[2])) for m in SPAN_RE.findall(html)]
+
+
+def techs_of(html_name):
+    """อ่านตำแหน่งป้ายช่างจากหน้าเว็บ -> [(pair, left%, top%, up?, tight?)]"""
+    html = (REPO_DIR / html_name).read_text(encoding="utf-8")
+    return [(m[1], float(m[2]), float(m[3]), " up" in f" {m[0]} ", "tight" in m[0])
+            for m in TECH_RE.findall(html)]
+
+
+def draw_tech_badge(im, x, y, up, tight):
+    """วาดป้ายแบบเดียวกับหน้าเว็บ: ไอคอน + TECHNICIAN / ควรเข้าตรวจสอบ ติดขอบตาราง
+    ขนาดคิดเป็นสัดส่วนความกว้างรูป (1 cqw = W/100) ให้ตรงกับบนเว็บ"""
+    from PIL import Image, ImageDraw
+    W = im.size[0]
+    cq = W / 100.0
+    icon_px = round((2.3 if tight else 2.9) * cq)
+    f_b = _font(max(9, round(0.78 * cq)), BOLD_FONTS)
+    f_t = _font(max(9, round(0.74 * cq)), THAI_FONTS)
+    d = ImageDraw.Draw(im)
+    l1, l2 = "TECHNICIAN", "ควรเข้าตรวจสอบ"
+    b1, b2 = d.textbbox((0, 0), l1, font=f_b), d.textbbox((0, 0), l2, font=f_t)
+    tw = max(b1[2] - b1[0], b2[2] - b2[0])
+    lh1, lh2 = f_b.size * 1.1, f_t.size * 1.15
+    th = lh1 + lh2
+    pl, pr, pv, gap = 0.25 * cq, 0.55 * cq, (0.1 if tight else 0.2) * cq, 0.35 * cq
+    bw = pl + icon_px + gap + tw + pr
+    bh = pv * 2 + max(icon_px, th)
+    x0 = x - bw / 2
+    y0 = y - bh if up else y
+    red, bdr, rad = (209, 0, 0), max(1, round(0.1 * cq)), max(2, round(0.5 * cq))
+    box = [round(x0), round(y0), round(x0 + bw), round(y0 + bh)]
+    d.rounded_rectangle(box, radius=rad, fill=(255, 255, 255), outline=red, width=bdr)
+    # ด้านที่ติดตาราง: ไม่มีขอบและไม่โค้ง (เหมือนแท็บห้อยจากตาราง)
+    edge = box[3] if up else box[1]
+    d.rectangle([box[0], edge - (rad if up else 0), box[2], edge + (0 if up else rad)], fill=(255, 255, 255))
+    d.line([box[0], edge - (rad if up else 0), box[0], edge + (0 if up else rad)], fill=red, width=bdr)
+    d.line([box[2] - bdr + 1, edge - (rad if up else 0), box[2] - bdr + 1, edge + (0 if up else rad)],
+           fill=red, width=bdr)
+    try:
+        icon = Image.open(TECH_ICON).convert("RGBA").resize((icon_px, icon_px), Image.LANCZOS)
+        im.paste(icon, (round(x0 + pl), round(y0 + (bh - icon_px) / 2)), icon)
+    except Exception:
+        pass
+    tx = x0 + pl + icon_px + gap
+    ty = y0 + (bh - th) / 2
+    d.text((tx, ty - b1[1] + (lh1 - (b1[3] - b1[1])) / 2), l1, fill=red, font=f_b)
+    d.text((tx, ty + lh1 - b2[1] + (lh2 - (b2[3] - b2[1])) / 2), l2, fill=red, font=f_t)
 
 
 def age_minutes(seen_iso, now=None):
@@ -133,6 +192,13 @@ def render(page, items, updated):
             shown += 1
         bb = d.textbbox((0, 0), txt, font=font)
         d.text((x - (bb[2] - bb[0]) / 2, y - (bb[3] - bb[1]) / 2 - bb[1]), txt, fill=col, font=font)
+
+    # ป้ายช่าง: คู่ L/R ที่มีค่า >= 80 (ไม่นับค่าผิดปกติ > 150 ซึ่งหน้าเว็บแสดงว่า "เสีย")
+    for pair, lx, ty, up, tight in techs_of(html_name):
+        vals = [items[f"{pair}_{s}"][0] for s in ("L", "R") if f"{pair}_{s}" in items]
+        if any(ALARM <= v <= T_MAX for v in vals):
+            draw_tech_badge(im, lx / 100 * W, ty / 100 * H, up, tight)
+    d = ImageDraw.Draw(im)
 
     # แถบเวลาเล็กๆ มุมล่างขวา เผื่อรูปถูกส่งต่อออกไปจะได้รู้ว่าเป็นค่าเมื่อไหร่
     try:
