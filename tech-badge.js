@@ -7,7 +7,7 @@
        .up  = วางเหนือตาราง (top = ขอบบนตาราง)   ไม่มี = วางใต้ตาราง (top = ขอบล่างตาราง)
        left = กึ่งกลางตาราง
    - หน้า Table: เรียก techBadgeHTML(side) ในช่องที่ ≥ 80
-   - ?demo=1 ต่อท้าย URL = โหมดตัวอย่าง จำลองค่าเกิน 80 ให้ดูหน้าตาป้าย (ไม่กระทบข้อมูลจริง)
+   - ?demo=1 ต่อท้าย URL = โหมดตัวอย่าง จำลองทุกจุดเกิน 80 ให้ดูหน้าตาป้าย (ไม่กระทบข้อมูลจริง)
    ============================================================ */
 (function () {
   'use strict';
@@ -96,10 +96,9 @@
   }
 
   // ---------- โหมดตัวอย่าง ----------
-  // จำลอง: คู่ที่ 1 ร้อนฝั่งซ้าย · คู่ที่ 2 ร้อนฝั่งขวา · คู่ที่ 3 ร้อนทั้งคู่ · วนไป
+  // จำลอง: ทุกจุดเกิน 80 °C (ทั้งซ้ายและขวา) เพื่อดูการจัดวางป้ายครบทุกตำแหน่ง
   function demoVal(i, side){
-    var k = i % 3, hot = (k === 0 && side === 'L') || (k === 1 && side === 'R') || k === 2;
-    return hot ? 82.4 + (i * 3.1) % 9 : 55.2 + (i * 4.7) % 12;
+    return 81.5 + (i * 3.1 + (side === 'R' ? 4.4 : 0)) % 9;
   }
   function demoStage(){
     var pairs = [];
@@ -139,6 +138,13 @@
         return r;
       };
     }
+    // หน้าตัวอย่าง: ซ่อนป๊อปอัป/แถบเตือนของค่าจริง จะได้ดูป้ายได้ไม่มีอะไรบัง
+    // &still=1 = หยุดกะพริบ (ไว้ถ่ายภาพหน้าจอ)
+    var hs = document.createElement('style');
+    hs.textContent = '.tal-ov,.tal-bar{display:none!important}'
+      + (/[?&]still=1\b/.test(location.search) ? '.tech img,.tech .tl,.tbadge img,.tbadge .tl,.tv.alarm,.num.alarm .v{animation:none!important;opacity:1!important}'
+        + '.tech .tl{color:#d10000}.tbadge .tl{color:#ff6b6b}.tv.alarm,.num.alarm .v{color:#e00000!important}' : '');
+    document.head.appendChild(hs);
     var tag = document.createElement('div');
     tag.className = 'tb-demo';
     tag.textContent = 'โหมดตัวอย่าง (DEMO) — ค่าจำลอง ไม่ใช่ค่าจริง';
