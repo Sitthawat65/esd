@@ -142,10 +142,16 @@
     <!-- DCV DE -->
     <span class="tv" id="CR2_DE_DCV_L" style="left:92.29%;top:50.00%"></span>
     <span class="tv" id="CR2_DE_DCV_R" style="left:97.10%;top:50.00%"></span>
+    <!-- ป้าย Technician ควรเข้าตรวจสอบ (tech-badge.js): left = กึ่งกลางตาราง · .up = เหนือตาราง (top = ขอบบน) / ไม่มี = ใต้ตาราง (top = ขอบล่าง) -->
+    <div class="tech" data-pair="CR2_NDE_SPL" data-name="SPL NDE" style="left:14.21%;top:86.27%" hidden></div>
+    <div class="tech" data-pair="CR2_DE_SPL" data-name="SPL DE" style="left:49.55%;top:86.27%" hidden></div>
+    <div class="tech up" data-pair="CR2_NDE_DCV" data-name="DCV NDE" style="left:57.98%;top:31.49%" hidden></div>
+    <div class="tech up" data-pair="CR2_SNUB" data-name="SNUB" style="left:78.77%;top:32.09%" hidden></div>
+    <div class="tech up" data-pair="CR2_DE_DCV" data-name="DCV DE" style="left:94.69%;top:41.19%" hidden></div>
   </div>
 
   <footer>
-    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69 ปกติ</span> · <span style="color:#f5a623">70–79 เตือน</span> · <span style="color:#e02424">≥ 80 แจ้งเตือน (กะพริบ + ป๊อปอัปให้กดรับทราบ เตือนซ้ำทุก 15 นาที)</span></div>
+    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69 ปกติ</span> · <span style="color:#f5a623">70–79 เตือน</span> · <span style="color:#e02424">≥ 80 แจ้งเตือน (ตัวเลขกะพริบส้ม/แดง + ป้าย Technician ควรเข้าตรวจสอบ + ป๊อปอัปให้กดรับทราบ เตือนซ้ำทุก 15 นาที)</span></div>
     <div style="margin-top:6px">แหล่งข้อมูลอัปเดตทุก ~5 นาที · หน่วย °C</div>
   </footer>
 
@@ -242,6 +248,7 @@ load();            // show data right away
 if(!cdGet() || cdGet() <= Date.now()) cdSet(Date.now() + PERIOD);   // start a cycle only if none is running
 drawCountdown();   // continue the shared countdown (do NOT reset on page switch)
 </script>
+<script src="tech-badge.js"></script>
 <script src="temp-alert.js" defer></script>
 <script>
 /* สภาพอากาศ หงสา (เมืองหงสา แขวงไซยบุรี สปป.ลาว) — Open-Meteo ฟรี ไม่ต้องใช้คีย์ */

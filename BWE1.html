@@ -139,10 +139,15 @@
     <!-- CVW NDE -->
     <span class="tv" id="BWE1_NDE_WCV_L" style="left:21.76%;top:67.68%"></span>
     <span class="tv" id="BWE1_NDE_WCV_R" style="left:26.09%;top:67.68%"></span>
+    <!-- ป้าย Technician ควรเข้าตรวจสอบ (tech-badge.js): left = กึ่งกลางตาราง · .up = เหนือตาราง (top = ขอบบน) / ไม่มี = ใต้ตาราง (top = ขอบล่าง) · .tight = ย่อให้พอดีช่องแคบใต้หัวข้อ -->
+    <div class="tech up tight" data-pair="BWE1_DE_WCV" data-name="CVW DE" style="left:34.39%;top:11.53%" hidden></div>
+    <div class="tech up" data-pair="BWE1_DE_DCV" data-name="DCV DE" style="left:74.11%;top:14.07%" hidden></div>
+    <div class="tech" data-pair="BWE1_NDE_DCV" data-name="DCV NDE" style="left:79.50%;top:49.81%" hidden></div>
+    <div class="tech up" data-pair="BWE1_NDE_WCV" data-name="CVW NDE" style="left:23.93%;top:61.60%" hidden></div>
   </div>
 
   <footer>
-    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69 ปกติ</span> · <span style="color:#f5a623">70–79 เตือน</span> · <span style="color:#e02424">≥ 80 แจ้งเตือน (กะพริบ + ป๊อปอัปให้กดรับทราบ เตือนซ้ำทุก 15 นาที)</span></div>
+    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69 ปกติ</span> · <span style="color:#f5a623">70–79 เตือน</span> · <span style="color:#e02424">≥ 80 แจ้งเตือน (ตัวเลขกะพริบส้ม/แดง + ป้าย Technician ควรเข้าตรวจสอบ + ป๊อปอัปให้กดรับทราบ เตือนซ้ำทุก 15 นาที)</span></div>
     <div style="margin-top:6px">แหล่งข้อมูลอัปเดตทุก ~5 นาที · หน่วย °C · กล่อง CVW = tag WCV ในระบบ Primus</div>
   </footer>
 
@@ -239,6 +244,7 @@ load();            // show data right away
 if(!cdGet() || cdGet() <= Date.now()) cdSet(Date.now() + PERIOD);   // start a cycle only if none is running
 drawCountdown();   // continue the shared countdown (do NOT reset on page switch)
 </script>
+<script src="tech-badge.js"></script>
 <script src="temp-alert.js" defer></script>
 <script>
 /* สภาพอากาศ หงสา (เมืองหงสา แขวงไซยบุรี สปป.ลาว) — Open-Meteo ฟรี ไม่ต้องใช้คีย์ */

@@ -182,7 +182,7 @@
   </div>
 
   <footer>
-    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69°C ปกติ</span> · <span style="color:#f5a623">70–79°C เตือน</span> · <span style="color:#e02424">≥ 80°C แจ้งเตือน (กะพริบ)</span></div>
+    <div>เกณฑ์สี: <span style="color:#2ecc71">0–69°C ปกติ</span> · <span style="color:#f5a623">70–79°C เตือน</span> · <span style="color:#e02424">≥ 80°C แจ้งเตือน (กะพริบส้ม/แดง + ป้าย Technician ควรเข้าตรวจสอบ)</span></div>
     <div style="margin-top:6px">หน้าปัดสเกล 0–100 °C · เข็มชี้ระดับจริงของแต่ละจุด · ขีดสเกลทุก 25 °C</div>
     <div style="margin-top:6px">ข้อมูลรีเฟรชอัตโนมัติทุก 60 วินาที · แหล่งข้อมูลอัปเดตทุก ~5 นาที</div>
   </footer>
@@ -337,7 +337,7 @@ function render(){
     if(item.color) byBase[base].color = item.color;
   });
 
-  const cell = (val, seen)=>{
+  const cell = (val, seen, side, base)=>{
     const v = Number(val);
     if(val==null || isNaN(v)) return '<td class="num empty"><span class="v">—</span></td>';
     // ค่านอกช่วงที่เป็นไปได้ = เซ็นเซอร์ผิดปกติ/สายขาด ไม่ใช่อุณหภูมิ
@@ -355,16 +355,22 @@ function render(){
         + '<span class="v">'+v.toFixed(1)+'</span><span class="u">°C</span>'
         + '<div class="agetag">ค้าง '+ageText(age)+'</div></div></div></td>';
     }
-    return '<td class="'+cls+'"><div class="gwrap">'+gaugeSVG(v)+'<div class="gval">'
-      + '<span class="v">'+v.toFixed(1)+'</span><span class="u">°C</span></div></div></td>';
+    // ≥ 80: ป้าย TECHNICIAN ควรเข้าตรวจสอบ — ฝั่งซ้ายวางหน้าหน้าปัด, ฝั่งขวาวางหลังตัวเลข
+    const tb = (v>=ALARM && typeof techBadgeHTML==='function')
+      ? techBadgeHTML(baseLabel(base)+' · '+(side==='L'?'ซ้าย':'ขวา')+' '+v.toFixed(1)+' °C (≥ '+ALARM+' °C) · ช่างเทคนิคควรเข้าตรวจสอบแบริ่งพูลเลย์') : '';
+    return '<td class="'+cls+'"><div class="gwrap">'+(side==='L'?tb:'')+gaugeSVG(v)+'<div class="gval">'
+      + '<span class="v">'+v.toFixed(1)+'</span><span class="u">°C</span></div>'+(side==='R'?(tb||(hotR?'<span class="tslot"></span>':'')):'')+'</div></td>';
   };
+
+  // ถ้ามีป้ายฝั่งขวาในกลุ่มนี้ เว้นช่องว่างเท่าป้ายให้ทุกแถว ตัวเลขฝั่งขวาจะได้ตรงแนวกัน
+  const hotR = order.some(base=>{ const v=Number(byBase[base].R); return byBase[base].R!=null && v>=ALARM && v<=T_MAX; });
 
   const rows = document.getElementById('rows');
   rows.innerHTML = order.map(base=>{
     const b = byBase[base];
     return '<tr>'+
       '<td><span class="bng"><span class="sw-b" style="background:'+(b.color||'#334')+'"></span>'+baseLabel(base)+'</span></td>'+
-      cell(b.L, b.Ls)+cell(b.R, b.Rs)+
+      cell(b.L, b.Ls, 'L', base)+cell(b.R, b.Rs, 'R', base)+
     '</tr>';
   }).join('');
 
@@ -417,6 +423,7 @@ load();            // show data right away
 if(!cdGet() || cdGet() <= Date.now()) cdSet(Date.now() + PERIOD);   // start a cycle only if none is running
 drawCountdown();   // continue the shared countdown (do NOT reset on page switch)
 </script>
+<script src="tech-badge.js"></script>
 <script src="temp-alert.js" defer></script>
 <script>
 /* สภาพอากาศ หงสา (เมืองหงสา แขวงไซยบุรี สปป.ลาว) — Open-Meteo ฟรี ไม่ต้องใช้คีย์ */
