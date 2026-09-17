@@ -88,6 +88,15 @@ def load_config():
     c.setdefault("threshold", 80)
     c.setdefault("repeat_minutes", 15)
     c.setdefault("notify_recovery", True)
+    # เว็บย้ายไป sitthawat65.github.io/esd (2026-09-17) — แก้ลิงก์เก่าใน config ให้อัตโนมัติ
+    u = c.get("dashboard_url") or ""
+    if "/ith-hongsa-overhaul-dashboard/" in u:
+        c["dashboard_url"] = u.replace("/ith-hongsa-overhaul-dashboard/", "/esd/")
+        try:
+            raw = CONFIG.read_text(encoding="utf-8")
+            CONFIG.write_text(raw.replace("/ith-hongsa-overhaul-dashboard/", "/esd/"), encoding="utf-8")
+        except Exception:
+            pass
     c.setdefault("dashboard_url",
                  "https://sitthawat65.github.io/esd/home.html")
     return c
