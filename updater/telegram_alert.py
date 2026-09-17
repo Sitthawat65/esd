@@ -295,7 +295,7 @@ def main():
         temps, updated = read_temps()
         top = sorted(temps.items(), key=lambda kv: -kv[1])[:3]
         detail = "\n".join(f"• {label(t)}  {v:.1f} °C" for t, v in top)
-        ok = send(cfg, "🔔 ทดสอบการแจ้งเตือน Bearing Pulley Temp\n"
+        ok = send(cfg, "🔔 ทดสอบการแจ้งเตือน Pulley Bearing Temp\n"
                        f"เกณฑ์แจ้งเตือน {cfg['threshold']}°C · เตือนซ้ำทุก "
                        f"{cfg['repeat_minutes']} นาที\n\n"
                        f"จุดที่ร้อนที่สุดตอนนี้:\n{detail}\n\n"

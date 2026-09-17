@@ -8,7 +8,7 @@ cd /d "%LOCALAPPDATA%"
 set "SCRIPT=%~dp0update_temps.py"
 
 echo ==================================================
-echo    ITH BEARING PULLEY TEMP  -  RESET DASHBOARD
+echo    ITH PULLEY BEARING TEMP  -  RESET DASHBOARD
 echo ==================================================
 echo.
 

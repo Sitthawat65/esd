@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ITH Bearing Pulley Temp — auto updater  (socket.io first)
+ITH Pulley Bearing Temp — auto updater  (socket.io first)
 ---------------------------------------------------------
 ดึงค่าอุณหภูมิกลุ่ม SPD จากระบบ Primus แล้วเขียนทับ temps.json + push ขึ้น GitHub
 ให้หน้า dashboard ออนไลน์อัปเดตเอง
