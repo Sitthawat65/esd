@@ -39,7 +39,7 @@ TZ = datetime.timezone(datetime.timedelta(hours=7))
 
 API = "https://api.telegram.org/bot{token}/{method}"
 FAULTY = 200          # สูงเกินจริง น่าจะเซนเซอร์ผิดปกติ
-HOME_URL = "https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/home.html"
+HOME_URL = "https://sitthawat65.github.io/esd/home.html"
 
 # ชื่อจุดวัดที่อ่านเข้าใจง่าย — ใช้ชุดเดียวกับ LINE/หน้าเว็บ ถ้าหาไม่เจอค่อยตั้งเอง
 try:

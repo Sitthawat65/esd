@@ -18,7 +18,7 @@ except Exception:
 
 HERE = pathlib.Path(__file__).resolve().parent
 CONFIG = HERE / "telegram_config.json"
-REPO = "Sitthawat65/ith-hongsa-overhaul-dashboard"
+REPO = "Sitthawat65/esd"
 
 GH = shutil.which("gh") or r"C:\Program Files\GitHub CLI\gh.exe"
 

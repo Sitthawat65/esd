@@ -14,7 +14,7 @@
   "threshold": 80,               // °C เกินเท่านี้ถึงแจ้ง
   "repeat_minutes": 15,          // เตือนซ้ำทุกกี่นาทีถ้ายังร้อนอยู่
   "notify_recovery": true,       // แจ้งเมื่อกลับสู่ปกติด้วย
-  "dashboard_url": "https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/home.html"
+  "dashboard_url": "https://sitthawat65.github.io/esd/home.html"
 }
 
 ใช้งาน:
@@ -89,7 +89,7 @@ def load_config():
     c.setdefault("repeat_minutes", 15)
     c.setdefault("notify_recovery", True)
     c.setdefault("dashboard_url",
-                 "https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/home.html")
+                 "https://sitthawat65.github.io/esd/home.html")
     return c
 
 

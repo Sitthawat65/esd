@@ -7,7 +7,7 @@
  * Usage: <script src="ith-hub.js"></script> in <head>, then <script>ITHHUB.nav()</script> right after <body>.
  */
 (function () {
-  var LIVE_BASE = 'https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/';
+  var LIVE_BASE = 'https://sitthawat65.github.io/esd/';
   var AUTH_HASH = '5d5cde11a3ee1966f86d8abbabd795a8f77d7129e21f7c329f337db471ff244c';
 
   // ---- scale whole page (layout designed for 1920px; same on every hub dashboard) ----

@@ -17,7 +17,7 @@ import json, os, sys, urllib.request, urllib.parse, datetime, pathlib
 STALE_MIN = int(os.environ.get("STALE_MIN", "20"))
 REPO      = pathlib.Path(__file__).resolve().parents[2]
 TEMPS     = REPO / "temps.json"
-DASH_URL  = ("https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/"
+DASH_URL  = ("https://sitthawat65.github.io/esd/"
              "Bearing-Pulley-Temp-Monitoring-ITH-CV.html")
 
 

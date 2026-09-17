@@ -48,7 +48,7 @@ echo.
 echo ==================================================
 echo    DONE!  Prices updated, auto-update is ON.
 echo.
-echo    Live: https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/flights.html
+echo    Live: https://sitthawat65.github.io/esd/flights.html
 echo ==================================================
 echo.
 pause

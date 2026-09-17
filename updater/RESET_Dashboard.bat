@@ -80,7 +80,7 @@ echo ==================================================
 echo    DONE!  Dashboard updated, auto-update is ON.
 echo    The PC will now wake from sleep to keep updating.
 echo.
-echo    Live: https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/motor_temp.html
+echo    Live: https://sitthawat65.github.io/esd/motor_temp.html
 echo    ^(the site refreshes ~1 min after each update^)
 echo ==================================================
 echo.
