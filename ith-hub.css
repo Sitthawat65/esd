@@ -160,3 +160,15 @@ body > footer{margin-top:8px!important;line-height:1.5!important}
 table.temps thead th .ithstat.on-tabs{position:static;vertical-align:middle;margin-left:14px;font-size:10.5px;padding:4px 9px 4px 8px;text-transform:none}
 @media (max-width:640px){.stagecard .ithstat.on-card{top:8px;left:8px;font-size:10px;padding:3px 7px}.stage a.tile .ithstat.on-tile{font-size:8.5px;padding:2px 6px}}
 @media print{.ithstat{animation:none!important}.ithstat i{animation:none!important}}
+
+/* ===== status pills keep the same proportion on every screen (phone / iPad / PC / TV) =====
+   sized from the card / tile width instead of fixed px, so they look exactly like on the PC */
+.stagecard{container-type:inline-size}
+.stage a.tile{container-type:inline-size}
+.stagecard .ithstat.on-card{font-size:clamp(6px,1.2cqw,14px)!important;top:1.3cqw!important;left:1.5cqw!important;
+  padding:.38em .8em .38em .62em!important;gap:.45em!important;border-width:1px}
+.stagecard .ithstat.on-card i{width:.62em;height:.62em}
+.stage a.tile .ithstat.on-tile{font-size:clamp(4px,2.15cqw,9px)!important;right:1.6cqw!important;bottom:1.1cqw!important;
+  padding:.27em .8em .27em .67em!important;gap:.5em!important;letter-spacing:.05em!important}
+.stage a.tile .ithstat.on-tile i{width:.66em;height:.66em}
+.stage a.tile .ithstat.on-tile.st-dev i,.stagecard .ithstat.on-card.st-dev i{width:auto;height:auto}
