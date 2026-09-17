@@ -194,7 +194,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:6px;l
     <span class="mode-sep"></span>
     <span class="modebadge view" id="modeBadge">👁 Visitor Mode</span>
     <button class="theme-btn" id="themeBtn" type="button">◐ สลับธีม</button>
-    <button class="editbtn" id="editBtn" type="button">🔒 เข้าโหมดแก้ไข</button>
+    <button class="editbtn" id="editBtn" type="button">🔒 Developer Mode</button>
   </div>
 
   <header class="masthead">
@@ -296,7 +296,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:6px;l
 
 <div class="overlay" id="overlay">
   <form class="login" id="loginForm" autocomplete="off">
-    <h3>เข้าโหมดแก้ไข</h3>
+    <h3>🔒 Developer Mode</h3>
     <p>เฉพาะผู้ดูแล — กรอก ID และรหัสผ่านเพื่อปลดล็อกการเลือกใช้งาน (dropdown)</p>
     <label for="loginId">ID</label>
     <input id="loginId" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false">
@@ -484,8 +484,8 @@ function applyFilter(){
 /* ---- mode / login ---- */
 function updateModeUI(){
   const badge=document.getElementById("modeBadge"), btn=document.getElementById("editBtn");
-  if(editMode){ badge.className="modebadge edit"; badge.textContent="✔ Developer Mode"; btn.className="editbtn out"; btn.textContent="ออกจากโหมดแก้ไข"; }
-  else { badge.className="modebadge view"; badge.textContent="👁 Visitor Mode"; btn.className="editbtn"; btn.textContent="🔒 เข้าโหมดแก้ไข"; }
+  if(editMode){ badge.className="modebadge edit"; badge.textContent="✔ Developer Mode"; btn.className="editbtn out"; btn.textContent="🔓 Exit Developer Mode"; }
+  else { badge.className="modebadge view"; badge.textContent="👁 Visitor Mode"; btn.className="editbtn"; btn.textContent="🔒 Developer Mode"; }
 }
 const overlay=document.getElementById("overlay");
 function openLogin(){ document.getElementById("loginErr").textContent=""; document.getElementById("loginPw").value=""; overlay.classList.add("show"); document.getElementById("loginId").focus(); }
