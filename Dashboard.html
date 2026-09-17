@@ -243,7 +243,6 @@
   :root[data-theme="light"] .movl{background:rgba(15,23,42,.35)}
   :root[data-theme="light"] .mEditBtn,:root[data-theme="light"] .hist-save,:root[data-theme="light"] .mlogin button.pri{color:#fff}
   :root[data-theme="light"] .mEditBtn.out{color:var(--pink)}
-  :root[data-theme="light"] .pie3d ellipse{opacity:.35}
   /* bright accent text set inline by JS -> darker shades for contrast on white */
   :root[data-theme="light"] [style^="color:#fbbf24"],:root[data-theme="light"] [style*=";color:#fbbf24"]{color:#b45309!important}
   :root[data-theme="light"] [style^="color:#34d399"],:root[data-theme="light"] [style*=";color:#34d399"]{color:#047857!important}
@@ -2185,8 +2184,13 @@ function renderDonut(){
   const tot=cc.reduce((a,x)=>a+x.n,0);
   const host=document.getElementById("pie3d");
   if(!tot){host.innerHTML='<div style="color:var(--muted);font-size:12px;padding:30px 0;text-align:center">ไม่มีข้อมูล</div>';return;}
-  const W=640,H=290,CX=320,CY=118,RX=150,K=.52,RI=.44,DEP=38,EXP=8,TAU=Math.PI*2;
-  const shade=(hex,f)=>{const v=parseInt(hex.slice(1),16),c=[v>>16&255,v>>8&255,v&255].map(x=>Math.round(f<1?x*f:x+(255-x)*(f-1)));return `rgb(${c})`;};
+  const W=640,H=280,CX=320,CY=116,RX=150,K=.5,RI=.5,DEP=26,EXP=5,TAU=Math.PI*2;
+  const LIGHT=document.documentElement.getAttribute('data-theme')==='light', BASE=LIGHT?'#ffffff':'#121829';
+  // matte: blend each status colour a little toward the card background instead of glossy gradients
+  const mix=(c1,c2,t)=>{const a=parseInt(c1.slice(1),16),b=parseInt(c2.slice(1),16),m=s=>Math.round((a>>s&255)*(1-t)+(b>>s&255)*t);return '#'+((1<<24)+(m(16)<<16)+(m(8)<<8)+m(0)).toString(16).slice(1);};
+  const shadeRaw=(hex,f)=>{const v=parseInt(hex.slice(1),16),c=[v>>16&255,v>>8&255,v&255].map(x=>Math.round(f<1?x*f:x+(255-x)*(f-1)));return '#'+c.map(x=>x.toString(16).padStart(2,'0')).join('');};
+  const shade=(hex,f)=>mix(shadeRaw(hex,LIGHT?Math.min(1,f+.2):f),BASE,LIGHT?.1:.22);
+  const topC=c=>mix(c,BASE,LIGHT?.12:.24);
   const P=(a,rr,ox,oy,z)=>[CX+ox+rr*Math.cos(a),CY+oy+rr*K*Math.sin(a)+z];
   const f2=n=>n.toFixed(2);
   // elliptical arc split into <=90deg chunks so a full 360deg slice still renders
@@ -2197,25 +2201,24 @@ function renderDonut(){
   const big=cc.reduce((m,x,i)=>x.n>cc[m].n?i:m,0);let before=0;for(let i=0;i<big;i++)before+=cc[i].n/tot*TAU;
   let a=Math.PI*1.5-(before+cc[big].n/tot*TAU/2);
   const sl=cc.map(x=>{const span=x.n/tot*TAU,a0=a,a1=a+span,m=(a0+a1)/2;a=a1;
-    const e=cc.length>1?EXP:0;return {...x,a0,a1,m,span,ox:Math.cos(m)*e,oy:Math.sin(m)*e*K,pc:Math.round(x.n/tot*100)};});
+    const e=cc.length>1?EXP:0;return {...x,c:(LIGHT&&{'#34d399':'#10b981','#fbbf24':'#f59e0b','#60a5fa':'#3b82f6','#94a3b8':'#8b98ab'}[x.c])||x.c,a0,a1,m,span,ox:Math.cos(m)*e,oy:Math.sin(m)*e*K,pc:Math.round(x.n/tot*100)};});
   const RIN=RX*RI;
   let inner='',sides=[],outer='',tops='';
   sl.forEach((s,i)=>{
     const g=`data-s="${esc(s.s)}"`;
-    clip(s.a0,s.a1,Math.PI,TAU).forEach(b=>{inner+=`<path ${g} d="${wall(b[0],b[1],RIN,s.ox,s.oy)}" fill="${shade(s.c,.42)}"/>`;});
+    clip(s.a0,s.a1,Math.PI,TAU).forEach(b=>{inner+=`<path ${g} d="${wall(b[0],b[1],RIN,s.ox,s.oy)}" fill="${shade(s.c,.45)}"/>`;});
     if(cc.length>1){
       [[s.a0,-Math.cos(s.a0)],[s.a1,Math.cos(s.a1)]].forEach(([ang,vis])=>{if(vis<=0)return;
         const p1=P(ang,RIN,s.ox,s.oy,0),p2=P(ang,RX,s.ox,s.oy,0),p3=P(ang,RX,s.ox,s.oy,DEP),p4=P(ang,RIN,s.ox,s.oy,DEP);
-        sides.push({y:(p1[1]+p2[1])/2,h:`<path ${g} d="M${f2(p1[0])} ${f2(p1[1])}L${f2(p2[0])} ${f2(p2[1])}L${f2(p3[0])} ${f2(p3[1])}L${f2(p4[0])} ${f2(p4[1])}Z" fill="${shade(s.c,.5)}"/>`});});
+        sides.push({y:(p1[1]+p2[1])/2,h:`<path ${g} d="M${f2(p1[0])} ${f2(p1[1])}L${f2(p2[0])} ${f2(p2[1])}L${f2(p3[0])} ${f2(p3[1])}L${f2(p4[0])} ${f2(p4[1])}Z" fill="${shade(s.c,.56)}"/>`});});
     }
-    clip(s.a0,s.a1,0,Math.PI).forEach(b=>{outer+=`<path ${g} d="${wall(b[0],b[1],RX,s.ox,s.oy)}" fill="url(#pw${i})"/>`;});
+    clip(s.a0,s.a1,0,Math.PI).forEach(b=>{outer+=`<path ${g} d="${wall(b[0],b[1],RX,s.ox,s.oy)}" fill="${shade(s.c,.7)}"/>`;});
     const o0=P(s.a0,RX,s.ox,s.oy,0),i1=P(s.a1,RIN,s.ox,s.oy,0);
     const top=`M${f2(o0[0])} ${f2(o0[1])}${arc(s.a0,s.a1,RX,s.ox,s.oy,0)}L${f2(i1[0])} ${f2(i1[1])}${arc(s.a1,s.a0,RIN,s.ox,s.oy,0)}Z`;
-    tops+=`<path ${g} d="${top}" fill="${s.c}"/><path d="${top}" fill="url(#ptopHi)" pointer-events="none"/>`;
+    tops+=`<path ${g} d="${top}" fill="${topC(s.c)}" stroke="${BASE}" stroke-opacity=".35" stroke-width="1"/>`;
     if(s.span>=.5){const t=P(s.m,(RX+RIN)/2,s.ox,s.oy,0);
-      tops+=`<text x="${f2(t[0])}" y="${f2(t[1]+6)}" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" stroke="rgba(0,0,0,.35)" stroke-width="3" paint-order="stroke" pointer-events="none">${s.pc}%</text>`;}
+      tops+=`<text x="${f2(t[0])}" y="${f2(t[1]+6)}" text-anchor="middle" font-size="15" font-weight="700" fill="#0b1220" fill-opacity=".82" pointer-events="none">${s.pc}%</text>`;}
   });
-  const defs=sl.map((s,i)=>`<linearGradient id="pw${i}" x1="0" x2="1"><stop offset="0" stop-color="${shade(s.c,.5)}"/><stop offset=".45" stop-color="${shade(s.c,.78)}"/><stop offset="1" stop-color="${shade(s.c,.45)}"/></linearGradient>`).join('');
   // callout labels, stacked per side without overlap
   const labs=sl.map(s=>{const side=Math.cos(s.m)<0?-1:1,an=P(s.m,RX+2,s.ox,s.oy,Math.sin(s.m)>0?DEP*.5:0);return {s,side,ax:an[0],ay:an[1],y:an[1]};});
   [-1,1].forEach(side=>{const L=labs.filter(l=>l.side===side).sort((p,q)=>p.y-q.y);const G=44;
@@ -2223,18 +2226,18 @@ function renderDonut(){
     for(let i=L.length-1;i>=0;i--){L[i].y=Math.min(L[i].y,i<L.length-1?L[i+1].y-G:H-22);}
   });
   const labHTML=labs.map(l=>{const s=l.s,ex=CX+l.side*(RX+44),tx=l.side<0?16:W-16,anc=l.side<0?'start':'end',ex2=l.side<0?16:W-16;
-    return `<g class="lab" pointer-events="none"><polyline points="${f2(l.ax)},${f2(l.ay)} ${f2(ex)},${f2(l.y)} ${f2(ex2)},${f2(l.y)}" fill="none" stroke="${s.c}" stroke-opacity=".75" stroke-width="1.3"/>
-      <circle cx="${f2(l.ax)}" cy="${f2(l.ay)}" r="3" fill="${s.c}"/>
+    return `<g class="lab" pointer-events="none"><polyline points="${f2(l.ax)},${f2(l.ay)} ${f2(ex)},${f2(l.y)} ${f2(ex2)},${f2(l.y)}" fill="none" stroke="${s.c}" stroke-opacity=".45" stroke-width="1"/>
+      <circle cx="${f2(l.ax)}" cy="${f2(l.ay)}" r="2.5" fill="${s.c}" fill-opacity=".85"/>
       <text x="${tx}" y="${f2(l.y-7)}" text-anchor="${anc}" font-size="14" font-weight="700" style="fill:var(--txt)">${esc(s.s)}</text>
       <text x="${tx}" y="${f2(l.y+17)}" text-anchor="${anc}" font-size="12.5" style="fill:var(--muted)"><tspan font-weight="800" fill="${s.c}">${s.n}</tspan> unit · ${s.pc}%</text></g>`;}).join('');
   sides.sort((p,q)=>p.y-q.y);
   host.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Status: ${sl.map(s=>esc(s.s)+' '+s.n).join(', ')}">
-    <defs>${defs}<linearGradient id="ptopHi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>
-    <radialGradient id="pshadow"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+    <defs>
+    <radialGradient id="pshadow"><stop offset="0" stop-color="#000" stop-opacity="${LIGHT?.12:.35}"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
     <ellipse cx="${CX}" cy="${CY+DEP+18}" rx="${RX*1.18}" ry="${RX*K*.7}" fill="url(#pshadow)"/>
     <g class="rise">${inner}${sides.map(x=>x.h).join('')}${outer}${tops}
-    <text x="${CX}" y="${CY+4}" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" stroke="rgba(0,0,0,.45)" stroke-width="3" paint-order="stroke" pointer-events="none">${tot}</text>
-    <text x="${CX}" y="${CY+18}" text-anchor="middle" font-size="10" fill="#cbd5e1" pointer-events="none">Unit</text></g>
+    <text x="${CX}" y="${CY+2}" text-anchor="middle" font-size="22" font-weight="700" style="fill:var(--txt);stroke:var(--panel)" stroke-width="4" stroke-linejoin="round" paint-order="stroke" pointer-events="none">${tot}</text>
+    <text x="${CX}" y="${CY+16}" text-anchor="middle" font-size="10" style="fill:var(--muted);stroke:var(--panel)" stroke-width="3" paint-order="stroke" pointer-events="none">Unit</text></g>
     ${labHTML}</svg>`;
   // hover highlights every piece of a slice; click filters the motor list by status
   sl.forEach(s=>{const ps=host.querySelectorAll(`[data-s="${CSS.escape(s.s)}"]`);
@@ -2571,7 +2574,7 @@ document.getElementById("schedFilter").addEventListener("change",e=>{schedFilter
 document.getElementById("genTime").textContent="ประมาณการสด "+new Date().toLocaleString("th-TH",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
 document.getElementById("kpis").addEventListener("click",e=>{const card=e.target.closest(".kpi.clickable");if(!card)return;const act=card.dataset.act;typeFilter="";brandFilter="";statusFilter="";ohFilter="";document.getElementById("ohFilter").value="";schedFilter="";q="";document.getElementById("q").value="";document.getElementById("typeFilter").value="";document.getElementById("statusFilter").value="";if(act==="running"){statusFilter="Running";document.getElementById("statusFilter").value="Running";}else if(act==="over"){schedFilter="over";}else if(act==="soon"){schedFilter="soon";}document.getElementById("schedFilter").value=schedFilter;updateBrandBtn();renderMotors();document.getElementById("mlTitle").scrollIntoView({behavior:"smooth",block:"start"});});
 buildMotorFilters();renderAll();
-(function(){const b=document.getElementById('themeBtn');const lbl=()=>{};b.addEventListener('click',()=>{const light=document.documentElement.getAttribute('data-theme')!=='light';if(light)document.documentElement.setAttribute('data-theme','light');else document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('ith_theme',light?'light':'dark');}catch(e){}lbl();});})();
+(function(){const b=document.getElementById('themeBtn');const lbl=()=>{};b.addEventListener('click',()=>{const light=document.documentElement.getAttribute('data-theme')!=='light';if(light)document.documentElement.setAttribute('data-theme','light');else document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('ith_theme',light?'light':'dark');}catch(e){}lbl();renderDonut();});})();
 </script>
 <div class="movl" id="movl">
   <form class="mlogin" id="mForm" autocomplete="off">
