@@ -366,6 +366,9 @@ html{scrollbar-gutter:stable}
 .ithnav > .livechip{box-sizing:border-box!important;height:30px!important;margin:0!important;font-family:inherit!important}
 @media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{height:32px!important;padding:0 11px!important;font-size:12px!important}}
 @media (max-width:640px){.wrap{padding:14px 12px 48px!important}}
+
+.ithnav > a.on{color:#fff!important;background:rgba(34,211,238,.16)!important;border-color:rgba(34,211,238,.65)!important}
+:root[data-theme="light"] .ithnav > a.on{color:#0e7490!important;background:rgba(14,116,144,.09)!important;border-color:rgba(14,116,144,.5)!important}
 </style>
 </head>
 <body>
@@ -373,9 +376,10 @@ html{scrollbar-gutter:stable}
 
   <div class="navbar ithnav" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px">
     <a href="index.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">← หน้าหลัก</a>
-    <a href="FiberOptic_Report.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">🔬 Fiber Optic Dashboard</a>
-    <a href="iso-ee.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">📋 ISO EE Plan Tracker</a>
-    <a href="spreader.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">🌡️ Spreader Temp</a>
+    <a href="Dashboard.html" class="on" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">⚙️ Overhaul Motor</a>
+    <a href="FiberOptic_Report.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">🔬 Fiber Optic</a>
+    <a href="iso-ee.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">📋 ISO EE</a>
+    <a href="home.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">🌡️ BEARING TEMP PL</a>
     <span class="livechip"><i></i>LIVE · <b id="genTime">—</b></span>
     <span style="flex:1 1 auto"></span>
     <button class="themeBtn" id="themeBtn" type="button" title="สลับธีม สว่าง / มืด">◐ สลับธีม</button>

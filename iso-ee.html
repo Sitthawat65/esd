@@ -420,6 +420,9 @@ html{scrollbar-gutter:stable}
   border-radius:999px!important;white-space:nowrap!important;text-decoration:none!important}
 .ithnav > .livechip{box-sizing:border-box!important;height:30px!important;margin:0!important;font-family:inherit!important}
 @media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{height:32px!important;padding:0 11px!important;font-size:12px!important}}
+
+.ithnav > a.on{color:#fff!important;background:rgba(34,211,238,.16)!important;border-color:rgba(34,211,238,.65)!important}
+:root[data-theme="light"] .ithnav > a.on{color:#0e7490!important;background:rgba(14,116,144,.09)!important;border-color:rgba(14,116,144,.5)!important}
 </style>
 
 <div class="wrap" id="root"></div>
@@ -1391,10 +1394,12 @@ html{scrollbar-gutter:stable}
   function render(){
     var items = currentItems();
     var root = document.getElementById("root");
-    var head = '<nav class="hubnav ithnav"><a href="index.html">← หน้าหลัก</a>'
-      + '<a href="Dashboard.html">⚙️ Overhaul Motor Dashboard</a>'
-      + '<a href="FiberOptic_Report.html">🔬 Fiber Optic Dashboard</a>'
-      + '<a href="spreader.html">🌡️ Spreader Temp</a>'
+    var head = '<nav class="hubnav ithnav">'
+      + '<a href="index.html">← หน้าหลัก</a>'
+      + '<a href="Dashboard.html">⚙️ Overhaul Motor</a>'
+      + '<a href="FiberOptic_Report.html">🔬 Fiber Optic</a>'
+      + '<a href="iso-ee.html" class="on">📋 ISO EE</a>'
+      + '<a href="home.html">🌡️ BEARING TEMP PL</a>'
       + '<span class="navsp"></span>'
       + '<button class="themebtn" type="button" data-theme-toggle="1">◐ สลับธีม</button>'
       + '<span class="modebadge' + (editMode ? " on" : "") + '">' + (editMode ? "✔ Developer Mode" : "👁 Visitor Mode") + '</span>'

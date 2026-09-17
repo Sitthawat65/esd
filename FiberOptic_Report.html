@@ -198,6 +198,9 @@ html{scrollbar-gutter:stable}
 .ithnav > .livechip{box-sizing:border-box!important;height:30px!important;margin:0!important;font-family:inherit!important}
 @media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{height:32px!important;padding:0 11px!important;font-size:12px!important}}
 @media (max-width:640px){.wrap{padding:14px 12px 48px!important}}
+
+.ithnav > a.on{color:#fff!important;background:rgba(34,211,238,.16)!important;border-color:rgba(34,211,238,.65)!important}
+:root[data-theme="light"] .ithnav > a.on{color:#0e7490!important;background:rgba(14,116,144,.09)!important;border-color:rgba(14,116,144,.5)!important}
 </style>
 </head>
 <body>
@@ -205,9 +208,10 @@ html{scrollbar-gutter:stable}
 
   <div class="modebar ithnav">
     <a class="homebtn" href="index.html">← หน้าหลัก</a>
-    <a class="homebtn" href="Dashboard.html">⚙️ Overhaul Motor Dashboard</a>
-    <a class="homebtn" href="iso-ee.html">📋 ISO EE Plan Tracker</a>
-    <a class="homebtn" href="spreader.html">🌡️ Spreader Temp</a>
+    <a class="homebtn" href="Dashboard.html">⚙️ Overhaul Motor</a>
+    <a class="homebtn on" href="FiberOptic_Report.html">🔬 Fiber Optic</a>
+    <a class="homebtn" href="iso-ee.html">📋 ISO EE</a>
+    <a class="homebtn" href="home.html">🌡️ BEARING TEMP PL</a>
     <span class="livechip"><i></i>LIVE · <b id="genTime">—</b></span>
     <span class="mode-sep"></span>
     <button class="theme-btn" id="themeBtn" type="button">◐ สลับธีม</button>

@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spreader Bearing Temp — ITH-CV</title>
-<script>try{var t=localStorage.getItem('ith_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <style>
   :root{--bg:#0f1720;--panel:#16212e;--muted:#8aa0b6;--line:#243244;--shadow:0 6px 18px rgba(0,0,0,.25);--warn:#f5a623;--alarm:#e02424;}
   *{box-sizing:border-box} html,body{margin:0}
@@ -84,81 +83,12 @@
     .wx{grid-column:1;justify-self:center;margin-top:2px}
   }
   @media print{ .wx{display:none!important} }
-
-/* ===== shared frame: same width, top offset and navbar on every ITH dashboard ===== */
-html{scrollbar-gutter:stable}
-.ithnav{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;
-  min-height:36px!important;margin:0 0 18px!important;padding:0!important;border:0!important;border-radius:0!important;
-  background:none!important;box-shadow:none!important;font-family:"Segoe UI",Tahoma,"Sarabun",system-ui,sans-serif!important}
-.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{box-sizing:border-box!important;height:36px!important;
-  display:inline-flex!important;align-items:center!important;gap:6px!important;margin:0!important;padding:0 14px!important;
-  font-family:inherit!important;font-size:13px!important;font-weight:600!important;line-height:1!important;
-  border-radius:999px!important;white-space:nowrap!important;text-decoration:none!important}
-.ithnav > .livechip{box-sizing:border-box!important;height:30px!important;margin:0!important;font-family:inherit!important}
-@media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{height:32px!important;padding:0 11px!important;font-size:12px!important}}
-
-/* page frame aligned with the other hub dashboards (content width 1352 = 1400 - 2x24) */
-body{padding:20px 24px 70px!important}
-.ithnav,.topnav,header,.stage,footer{max-width:1352px!important}
-.ithnav{margin-left:auto!important;margin-right:auto!important}
-@media (max-width:640px){body{padding:14px 12px 48px!important}}
-.ithnav .navsp{flex:1 1 auto}
-.ithnav > a,.ithnav > button{background:#16212e;color:#cdd9e5;border:1px solid #243244;cursor:pointer}
-.ithnav > a:hover,.ithnav > button:hover{background:#1c2a3a;border-color:#31465c}
-.ithnav > .mbadge{background:#16212e;color:#8aa0b6;border:1px solid #243244}
-.ithnav > .mbadge.on{color:#34d399;border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.1)}
-.ithnav > .mEditBtn{background:#22d3ee;border-color:#22d3ee;color:#06121f;font-weight:700!important}
-.ithnav > .mEditBtn:hover{background:#22d3ee;filter:brightness(1.06)}
-.ithnav > .mEditBtn.out{background:#16212e;color:#f472b6;border-color:rgba(244,114,182,.5)}
-.devnote{max-width:1352px;margin:0 auto 14px;padding:9px 14px;border-radius:10px;font-size:12.5px;border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);color:#a7f3d0}
-.movl{position:fixed;inset:0;z-index:300;background:rgba(4,8,14,.62);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px}
-.movl.show{display:flex}
-.mlogin{width:100%;max-width:360px;background:#16212e;border:1px solid #243244;border-radius:16px;box-shadow:var(--shadow);padding:24px}
-.mlogin h3{margin:0 0 4px;font-size:17px;font-weight:700;color:#e7eef6}
-.mlogin p{margin:0;font-size:12.5px;color:#8aa0b6}
-.mlogin label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8aa0b6;font-weight:700;margin:14px 0 5px}
-.mlogin input{width:100%;font:inherit;font-size:14px;padding:10px 12px;border:1px solid #31465c;border-radius:9px;background:#0f1720;color:#e7eef6;outline:none}
-.mlogin input:focus{border-color:#22d3ee}
-.mlogin .merr{color:#f472b6;font-size:12.5px;font-weight:600;margin-top:12px;min-height:18px}
-.mlogin .macts{display:flex;gap:10px;margin-top:14px}
-.mlogin button{flex:1;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;padding:10px;border-radius:9px;border:1px solid #31465c;background:#0f1720;color:#e7eef6}
-.mlogin button.pri{background:#22d3ee;border-color:#22d3ee;color:#06121f}
-@media print{.ithnav,.devnote,.movl{display:none!important}}
-
-/* light theme */
-:root[data-theme="light"]{--bg:#eef2f7;--panel:#ffffff;--muted:#5a6a7e;--line:#d5dde8;--shadow:0 1px 2px rgba(20,33,44,.06),0 8px 24px rgba(20,33,44,.08)}
-:root[data-theme="light"] body{background:linear-gradient(180deg,#f3f6fa,#e8eef5);color:#16212e}
-:root[data-theme="light"] .ithnav > a,:root[data-theme="light"] .ithnav > button,:root[data-theme="light"] .ithnav > .mbadge,
-:root[data-theme="light"] .topnav a,:root[data-theme="light"] .lnk,:root[data-theme="light"] .wx{background:#fff;color:#334155;border-color:#d5dde8}
-:root[data-theme="light"] .ithnav > a:hover,:root[data-theme="light"] .ithnav > button:hover,:root[data-theme="light"] .topnav a:hover,:root[data-theme="light"] .lnk:hover{background:#f1f5fa;border-color:#b8c4d3}
-:root[data-theme="light"] .topnav a.active{background:#1f6feb;border-color:#1f6feb;color:#fff}
-:root[data-theme="light"] .ithnav > .mbadge.on{color:#047857;border-color:rgba(5,150,105,.4);background:rgba(5,150,105,.08)}
-:root[data-theme="light"] .ithnav > .mEditBtn{background:#0e7490;border-color:#0e7490;color:#fff}
-:root[data-theme="light"] .ithnav > .mEditBtn.out{background:#fff;color:#db2777;border-color:rgba(219,39,119,.45)}
-:root[data-theme="light"] .titles h1,:root[data-theme="light"] .status b,:root[data-theme="light"] .wx .wx-main b,:root[data-theme="light"] .wx .wx-fc .p .tp{color:#16212e}
-:root[data-theme="light"] .cd{color:#1d4ed8;background:rgba(31,111,235,.08)}
-:root[data-theme="light"] .cd b{color:#1e3a8a}
-:root[data-theme="light"] .wx .wx-fc{border-left-color:#d5dde8}
-:root[data-theme="light"] .devnote{color:#065f46;background:rgba(5,150,105,.07)}
-:root[data-theme="light"] .mlogin{background:#fff;border-color:#d5dde8}
-:root[data-theme="light"] .mlogin h3{color:#16212e}
-:root[data-theme="light"] .mlogin input,:root[data-theme="light"] .mlogin button{background:#f6f8fb;color:#16212e;border-color:#cdd6e2}
-:root[data-theme="light"] .mlogin button.pri{background:#0e7490;border-color:#0e7490;color:#fff}
-:root[data-theme="light"] .movl{background:rgba(15,23,42,.35)}
 </style>
+<link rel="stylesheet" href="ith-hub.css">
+<script src="ith-hub.js"></script>
 </head>
 <body>
-  <nav class="ithnav">
-    <a href="index.html">← หน้าหลัก</a>
-    <a href="Dashboard.html">⚙️ Overhaul Motor Dashboard</a>
-    <a href="FiberOptic_Report.html">🔬 Fiber Optic Dashboard</a>
-    <a href="iso-ee.html">📋 ISO EE Plan Tracker</a>
-    <span class="navsp"></span>
-    <button type="button" id="themeBtn" title="สลับธีม สว่าง / มืด">◐ สลับธีม</button>
-    <span class="mbadge" id="mBadge">👁 Visitor Mode</span>
-    <button type="button" class="mEditBtn" id="mEditBtn">🔒 Developer Mode</button>
-  </nav>
-  <div class="devnote" id="devNote" hidden>✔ Developer Mode — เข้าสู่ระบบแล้ว (หน้านี้แสดงค่าจากระบบ Primus อัตโนมัติ ไม่มีช่องให้แก้ไขข้อมูล)</div>
+<script>ITHHUB.nav()</script>
   <nav class="topnav">
     <div class="navlinks">
     <a href="home.html">⌂ Home</a>
@@ -357,41 +287,5 @@ drawCountdown();   // continue the shared countdown (do NOT reset on page switch
 })();
 </script>
 
-<div class="movl" id="movl">
-  <form class="mlogin" id="mForm" autocomplete="off">
-    <h3>🔒 Developer Mode</h3>
-    <p>เฉพาะผู้มีรหัสเท่านั้น — กรอก ID และรหัสผ่าน</p>
-    <label for="mId">ID</label>
-    <input id="mId" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false">
-    <label for="mPw">Password</label>
-    <input id="mPw" type="password" autocomplete="new-password">
-    <div class="merr" id="mErr"></div>
-    <div class="macts"><button type="button" id="mCancel">ยกเลิก</button><button type="submit" class="pri">เข้าสู่ระบบ</button></div>
-  </form>
-</div>
-<script>
-/* Visitor / Developer Mode + theme — same login and session as the other hub dashboards */
-(function(){
-function sha256(ascii){function r(v,a){return (v>>>a)|(v<<(32-a));}var mp=Math.pow,mw=mp(2,32),out="";var words=[],bitLen=ascii.length*8;var h=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],pc=k.length,comp={};for(var cand=2;pc<64;cand++){if(!comp[cand]){for(var i=0;i<313;i+=cand){comp[i]=cand;}h[pc]=(mp(cand,.5)*mw)|0;k[pc++]=(mp(cand,1/3)*mw)|0;}}ascii+="\x80";while(ascii.length%64-56)ascii+="\x00";for(var i=0;i<ascii.length;i++){var j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8;}words[words.length]=((bitLen/mw)|0);words[words.length]=(bitLen);for(var j=0;j<words.length;){var w=words.slice(j,j+=16),oh=h;h=h.slice(0,8);for(var i=0;i<64;i++){var w15=w[i-15],w2=w[i-2],a=h[0],e=h[4];var t1=h[7]+(r(e,6)^r(e,11)^r(e,25))+((e&h[5])^((~e)&h[6]))+k[i]+(w[i]=i<16?w[i]:(w[i-16]+(r(w15,7)^r(w15,18)^(w15>>>3))+w[i-7]+(r(w2,17)^r(w2,19)^(w2>>>10)))|0);var t2=(r(a,2)^r(a,13)^r(a,22))+((a&h[1])^(a&h[2])^(h[1]&h[2]));h=[(t1+t2)|0].concat(h);h[4]=(h[4]+t1)|0;}for(var i=0;i<8;i++){h[i]=(h[i]+oh[i])|0;}}for(var i=0;i<8;i++){for(var j=3;j+1;j--){var b=(h[i]>>(j*8))&255;out+=((b<16)?0:"")+b.toString(16);}}return out;}
-var AUTH_HASH="5d5cde11a3ee1966f86d8abbabd795a8f77d7129e21f7c329f337db471ff244c";
-var editMode=sessionStorage.getItem("fo_auth")==="1";
-function apply(){var b=document.getElementById("mBadge"),e=document.getElementById("mEditBtn");
-  if(editMode){b.className="mbadge on";b.textContent="✔ Developer Mode";e.className="mEditBtn out";e.textContent="🔓 Exit Developer Mode";}
-  else{b.className="mbadge";b.textContent="👁 Visitor Mode";e.className="mEditBtn";e.textContent="🔒 Developer Mode";}
-  document.getElementById("devNote").hidden=!editMode;}
-var ovl=document.getElementById("movl");
-function op(){document.getElementById("mErr").textContent="";document.getElementById("mPw").value="";ovl.classList.add("show");document.getElementById("mId").focus();}
-function cl(){ovl.classList.remove("show");}
-document.getElementById("mEditBtn").addEventListener("click",function(){if(editMode){sessionStorage.removeItem("fo_auth");editMode=false;apply();}else op();});
-document.getElementById("mCancel").addEventListener("click",cl);
-ovl.addEventListener("click",function(ev){if(ev.target===ovl)cl();});
-document.getElementById("mForm").addEventListener("submit",function(ev){ev.preventDefault();var id=document.getElementById("mId").value.trim().toUpperCase();var pw=document.getElementById("mPw").value.trim();if(sha256(id+":"+pw)===AUTH_HASH){sessionStorage.setItem("fo_auth","1");editMode=true;cl();apply();}else document.getElementById("mErr").textContent="ID หรือรหัสผ่านไม่ถูกต้อง";});
-document.getElementById("themeBtn").addEventListener("click",function(){var light=document.documentElement.getAttribute("data-theme")!=="light";document.documentElement.setAttribute("data-theme",light?"light":"dark");try{localStorage.setItem("ith_theme",light?"light":"dark");}catch(e){}});
-apply();
-var qm=new URLSearchParams(location.search).get("mode");
-if(qm==="view"&&editMode){sessionStorage.removeItem("fo_auth");editMode=false;apply();}
-if(qm==="edit"&&!editMode)op();
-})();
-</script>
 </body>
 </html>

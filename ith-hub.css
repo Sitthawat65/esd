@@ -1,0 +1,83 @@
+/* ITH hub — shared frame for the Bearing Temp pages (same geometry as Overhaul / Fiber / ISO) */
+html{scrollbar-gutter:stable}
+body{padding:20px 24px 40px!important}
+@media (max-width:640px){body{padding:14px 12px 36px!important}}
+
+/* ---- top bar: identical on every dashboard ---- */
+.ithnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:36px;max-width:1352px;margin:0 auto 18px;padding:0;
+  font-family:"Segoe UI",Tahoma,"Sarabun",system-ui,sans-serif}
+.ithnav .navsp{flex:1 1 auto}
+.ithnav > a,.ithnav > button,.ithnav > .mbadge{box-sizing:border-box;height:36px;display:inline-flex;align-items:center;gap:6px;margin:0;
+  padding:0 14px;font-family:inherit;font-size:13px;font-weight:600;line-height:1;border-radius:999px;white-space:nowrap;text-decoration:none;
+  background:#16212e;color:#cdd9e5;border:1px solid #243244;cursor:pointer;transition:background .15s,border-color .15s}
+.ithnav > a:hover,.ithnav > button:hover{background:#1c2a3a;border-color:#31465c;color:#fff}
+.ithnav > a.on{color:#fff;background:rgba(34,211,238,.16);border-color:rgba(34,211,238,.65)}
+.ithnav > .mbadge{cursor:default;color:#8aa0b6}
+.ithnav > .mbadge.on{color:#34d399;border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.1)}
+.ithnav > .mEditBtn{background:#22d3ee;border-color:#22d3ee;color:#06121f;font-weight:700}
+.ithnav > .mEditBtn:hover{background:#22d3ee;border-color:#22d3ee;color:#06121f;filter:brightness(1.06)}
+.ithnav > .mEditBtn.out{background:#16212e;color:#f472b6;border-color:rgba(244,114,182,.5)}
+@media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge{height:32px;padding:0 11px;font-size:12px}}
+
+/* existing machine menu sits under the top bar with the same width */
+.topnav{max-width:1352px!important}
+
+/* ---- Developer Mode login ---- */
+.ithlogin{position:fixed;inset:0;z-index:2000;background:rgba(4,8,14,.62);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px}
+.ithlogin.show{display:flex}
+.ithlogin form{width:100%;max-width:360px;background:#16212e;border:1px solid #243244;border-radius:16px;box-shadow:0 18px 44px rgba(0,0,0,.5);padding:24px;font-family:"Segoe UI",Tahoma,sans-serif}
+.ithlogin h3{margin:0 0 4px;font-size:17px;color:#e7eef6}
+.ithlogin p{margin:0;font-size:12.5px;color:#8aa0b6}
+.ithlogin label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8aa0b6;font-weight:700;margin:14px 0 5px}
+.ithlogin input{box-sizing:border-box;width:100%;font:inherit;font-size:14px;padding:10px 12px;border:1px solid #31465c;border-radius:9px;background:#0f1720;color:#e7eef6;outline:none}
+.ithlogin input:focus{border-color:#22d3ee}
+.ithlogin .err{color:#f472b6;font-size:12.5px;font-weight:600;margin-top:12px;min-height:18px}
+.ithlogin .acts{display:flex;gap:10px;margin-top:14px}
+.ithlogin button{flex:1;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;padding:10px;border-radius:9px;border:1px solid #31465c;background:#0f1720;color:#e7eef6}
+.ithlogin button.pri{background:#22d3ee;border-color:#22d3ee;color:#06121f}
+
+@media print{.ithnav,.ithlogin{display:none!important}}
+
+/* ================= light theme ================= */
+:root[data-theme="light"]{--bg:#eef2f7;--panel:#ffffff;--muted:#5a6a7e;--line:#d5dde8;--shadow:0 1px 2px rgba(20,33,44,.06),0 8px 24px rgba(20,33,44,.08);color-scheme:light}
+:root[data-theme="light"] body{background:linear-gradient(180deg,#f3f6fa,#e8eef5)!important;color:#16212e}
+:root[data-theme="light"] .ithnav > a,:root[data-theme="light"] .ithnav > button,:root[data-theme="light"] .ithnav > .mbadge,
+:root[data-theme="light"] .topnav a,:root[data-theme="light"] .lnk,:root[data-theme="light"] .refresh,:root[data-theme="light"] .tab,
+:root[data-theme="light"] .wx,:root[data-theme="light"] .chip,:root[data-theme="light"] .mini,:root[data-theme="light"] .calnav{background:#fff;color:#334155;border-color:#d5dde8}
+:root[data-theme="light"] .ithnav > a:hover,:root[data-theme="light"] .ithnav > button:hover,:root[data-theme="light"] .topnav a:hover,
+:root[data-theme="light"] .lnk:hover,:root[data-theme="light"] .refresh:hover,:root[data-theme="light"] .chip:hover{background:#f1f5fa;border-color:#b8c4d3;color:#16212e}
+:root[data-theme="light"] .ithnav > a.on{color:#0e7490;background:rgba(14,116,144,.09);border-color:rgba(14,116,144,.5)}
+:root[data-theme="light"] .topnav a.active,:root[data-theme="light"] .tab.active,:root[data-theme="light"] .rng button.on,
+:root[data-theme="light"] #dateBtn.active{background:#1f6feb;border-color:#1f6feb;color:#fff}
+:root[data-theme="light"] .ithnav > .mbadge{color:#5a6a7e}
+:root[data-theme="light"] .ithnav > .mbadge.on{color:#047857;border-color:rgba(5,150,105,.4);background:rgba(5,150,105,.08)}
+:root[data-theme="light"] .ithnav > .mEditBtn{background:#0e7490;border-color:#0e7490;color:#fff}
+:root[data-theme="light"] .ithnav > .mEditBtn.out{background:#fff;color:#db2777;border-color:rgba(219,39,119,.45)}
+:root[data-theme="light"] .topnav a .devbdg,:root[data-theme="light"] .tab .devbdg{background:#e2e8f0;color:#475569}
+:root[data-theme="light"] .titles h1,:root[data-theme="light"] .status b,:root[data-theme="light"] .wx .wx-main b,
+:root[data-theme="light"] .wx .wx-fc .p .tp,:root[data-theme="light"] .caltitle{color:#16212e}
+:root[data-theme="light"] .wx .wx-fc{border-left-color:#d5dde8}
+:root[data-theme="light"] .cd{color:#1d4ed8;background:rgba(31,111,235,.08)}
+:root[data-theme="light"] .cd b{color:#1e3a8a}
+:root[data-theme="light"] .cd.soon{color:#b45309;background:rgba(245,166,35,.12)}
+:root[data-theme="light"] .cd.soon b{color:#92400e}
+:root[data-theme="light"] .ithlogin{background:rgba(15,23,42,.35)}
+:root[data-theme="light"] .ithlogin form{background:#fff;border-color:#d5dde8;box-shadow:0 18px 44px rgba(20,33,44,.18)}
+:root[data-theme="light"] .ithlogin h3{color:#16212e}
+:root[data-theme="light"] .ithlogin input,:root[data-theme="light"] .ithlogin button{background:#f6f8fb;color:#16212e;border-color:#cdd6e2}
+:root[data-theme="light"] .ithlogin button.pri{background:#0e7490;border-color:#0e7490;color:#fff}
+/* table page */
+:root[data-theme="light"] table.temps thead th{background:#f1f5f9;color:#475569;border-color:#d5dde8}
+:root[data-theme="light"] table.temps tbody tr:nth-child(even){background:rgba(15,23,42,.025)}
+:root[data-theme="light"] .bng{color:#16212e}
+:root[data-theme="light"] .num .v{color:#16212e}
+:root[data-theme="light"] .num.ok .v{color:#059669}
+:root[data-theme="light"] .gauge .gneedle{fill:#334155;stroke:#fff}
+:root[data-theme="light"] .gauge .ghub{fill:#475569;stroke:#fff}
+/* chart page */
+:root[data-theme="light"] .calpop,:root[data-theme="light"] .calpop::before{background:#fff}
+:root[data-theme="light"] .calgrid button{color:#334155}
+:root[data-theme="light"] .calgrid button:hover:not(:disabled){background:#eef2f7}
+:root[data-theme="light"] .tip{background:#fff;border-color:#cdd6e2;color:#16212e}
+:root[data-theme="light"] .hint b{color:#1d4ed8}
+:root[data-theme="light"] .stage{border-radius:14px;overflow:hidden}
