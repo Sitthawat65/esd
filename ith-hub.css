@@ -103,3 +103,6 @@ body > footer{margin-top:8px!important;line-height:1.5!important}
 :root[data-theme="light"] .tip{background:#fff;border-color:#cdd6e2;color:#16212e}
 :root[data-theme="light"] .hint b{color:#1d4ed8}
 :root[data-theme="light"] .stage{border-radius:14px;overflow:hidden}
+/* chart grid in light theme: as quiet as in dark theme */
+:root[data-theme="light"] #chartwrap line[stroke="#223142"]{stroke:#eef2f6}
+:root[data-theme="light"] #chartwrap line[stroke="#1b2836"]{stroke:transparent}
