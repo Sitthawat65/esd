@@ -79,23 +79,41 @@
     if (fitting) return; fitting = true;
     try {
       var stages = document.querySelectorAll('.stage'), hasStage = false;
+      var REF = 1305 / 743;                       // Tripper Car drawing = card shape on every machine page
       for (var i = 0; i < stages.length; i++) {
         var st = stages[i], img = st.querySelector('img');
         if (!img) continue;
         hasStage = true;
-        if (!img.naturalWidth || !st.offsetWidth) continue;
-        if (!st.dataset.baseMax) {
-          st.style.maxWidth = '';
-          st.dataset.baseMax = parseFloat(getComputedStyle(st).maxWidth) || 1100;
+        if (!img.naturalWidth) continue;
+        var machine = !!st.querySelector('.tv');
+        var box = st;
+        if (machine) {
+          box = st.parentElement;
+          if (!box.classList.contains('stagecard')) {
+            box = document.createElement('div'); box.className = 'stagecard';
+            st.parentNode.insertBefore(box, st); box.appendChild(st);
+          }
         }
-        var r = st.getBoundingClientRect();
-        var z = r.width / st.offsetWidth || 1;                 // visual px per CSS px
+        if (!box.offsetWidth) continue;
+        if (!box.dataset.baseMax) box.dataset.baseMax = machine ? 1100 : (parseFloat(getComputedStyle(st).maxWidth) || 1100);
+        var r = box.getBoundingClientRect();
+        var z = r.width / box.offsetWidth || 1;                // visual px per CSS px
         var below = 0, ft = document.querySelector('body > footer');
         if (ft && ft.offsetHeight) below = (ft.offsetHeight + parseFloat(getComputedStyle(ft).marginTop || 0)) * z;
         var avail = window.innerHeight - (r.top + window.scrollY) - below - 14 * z;
-        var w = (avail * img.naturalWidth / img.naturalHeight) / z;
-        w = Math.max(220, Math.min(+st.dataset.baseMax, w));
-        if (Math.abs(st.offsetWidth - w) > 2) st.style.maxWidth = Math.round(w) + 'px';
+        var ratio = machine ? REF : img.naturalWidth / img.naturalHeight;
+        var w = Math.max(220, Math.min(+box.dataset.baseMax, (avail * ratio) / z));
+        if (Math.abs(box.offsetWidth - w) > 2 || !box.style.maxWidth) box.style.maxWidth = Math.round(w) + 'px';
+        if (machine) {
+          var cw = box.clientWidth, ch = Math.round(cw / REF);
+          box.style.height = ch + 'px';
+          var iw = Math.min(cw, ch * img.naturalWidth / img.naturalHeight);
+          st.style.maxWidth = Math.floor(iw) + 'px';
+          // logo row + footer line up with the card edge, like Tripper Car
+          var hd = document.querySelector('body > header');
+          if (hd) hd.style.maxWidth = box.style.maxWidth;
+          if (ft) ft.style.maxWidth = box.style.maxWidth;
+        }
       }
       if (!hasStage) {
         var d = document.documentElement, base = +d.getAttribute('data-basez') || 1;
