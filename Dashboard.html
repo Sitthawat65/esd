@@ -227,9 +227,11 @@
   .oh-meta code{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#cfe3ff}
   .oh-parts{margin-top:9px}
   .oh-parts>span{display:block;font-size:9.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
-  .oh-parts ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 18px}
+  .oh-parts ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,280px));justify-content:start;gap:3px 28px}
   .oh-parts li{font-size:11.5px;color:#c9d6ee;line-height:1.45;padding-left:13px;position:relative}
   .oh-parts li::before{content:"";position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:2px;background:var(--kc);opacity:.8}
+  .oh-print{align-self:stretch;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(180deg,#1e3a5f,#15294a);color:#e0f2fe;border:1px solid rgba(34,211,238,.45);border-radius:10px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .oh-print:hover{border-color:var(--cyan);filter:brightness(1.12)}
   .oh-none{font-size:11.5px;color:var(--muted);font-style:italic;background:var(--bg2);border:1px dashed var(--line2);border-radius:10px;padding:10px 12px}
   .ohbadge{display:inline-flex!important;align-items:center;gap:4px;margin-top:4px!important;font-size:10px!important;font-weight:700;color:#7dd3fc!important;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);border-radius:999px;padding:1px 8px}
   @media(max-width:720px){.oh-meta{grid-template-columns:1fr 1fr}.oh-parts ul{grid-template-columns:1fr}.oh-row1{flex-direction:column;gap:6px}.oh-amt{text-align:left}.oh-stat{min-width:0}}
@@ -2211,15 +2213,15 @@ const OH_MASK = '******** บาท';
 function ohDate(s){if(!s)return '';const p=s.split('-');return +p[2]+'/'+(+p[1])+'/'+p[0];}
 function ohHTML(d){
   const a=ohFor(d), admin=ohIsAdmin();
-  const head=(stats)=>`<div class="oh-top"><div class="oh-title"><span class="ico">🛠</span><div>ประวัติการซ่อม / Overhaul History<small>อ้างอิง S/N · ที่มา: HISTORY MOTOR ITH-CV</small></div></div>${stats}</div>`;
+  const pbtn=`<button type="button" class="oh-print" title="พิมพ์ออกเครื่องพิมพ์ หรือบันทึกเป็น PDF" onclick="ohPrint('${d._id}')">🖨 พิมพ์ / PDF</button>`;
+  const head=(stats)=>`<div class="oh-top"><div class="oh-title"><span class="ico">🛠</span><div>ประวัติการซ่อม / Overhaul History<small>อ้างอิง S/N · ที่มา: HISTORY MOTOR ITH-CV</small></div></div><div class="oh-stats">${stats}${pbtn}</div></div>`;
   if(!a.length) return `<div class="ohsec">${head('')}<div class="oh-none">ยังไม่มีประวัติการซ่อม / Overhaul ของ S/N นี้ในฐานข้อมูล</div></div>`;
   const dated=a.filter(h=>h.date);
   const tot=a.reduce((s,h)=>s+(h.a?ohAmt(h.a)||0:0),0);
-  const stats=`<div class="oh-stats">
+  const stats=`
       <div class="oh-stat"><span>จำนวนครั้ง</span><b>${a.length} รายการ</b></div>
       <div class="oh-stat"><span>ซ่อมล่าสุด</span><b>${dated.length?ohDate(dated[0].date):'–'}</b></div>
-      <div class="oh-stat"><span>${admin?'ค่าใช้จ่ายรวม':'🔒 ค่าใช้จ่ายรวม'}</span><b style="color:${admin?'var(--amber)':'var(--muted2)'}">${admin?ohBaht(tot):OH_MASK}</b></div>
-    </div>`;
+      <div class="oh-stat"><span>${admin?'ค่าใช้จ่ายรวม':'🔒 ค่าใช้จ่ายรวม'}</span><b style="color:${admin?'var(--amber)':'var(--muted2)'}">${admin?ohBaht(tot):OH_MASK}</b></div>`;
   const items=a.map(h=>{
     const add=/addition/i.test(h.desc), kc=add?'#fbbf24':'#22d3ee';
     const v=h.a?ohAmt(h.a):null;
@@ -2241,6 +2243,68 @@ function ohHTML(d){
     </div>`;
   }).join('');
   return `<div class="ohsec">${head(stats)}<div class="oh-tl">${items}</div></div>`;
+}
+function ohPrint(id){
+  const d=DATA.find(x=>x._id===id); if(!d) return;
+  const a=ohFor(d), admin=ohIsAdmin();
+  const logo=(document.querySelector('.logo img')||{}).src||'';
+  const inst=!d.location?'–':(/stand\s*by/i.test(d.location)?'สำรอง (Stand by)':locDisp(d.location,d.system)+(d.position?' · '+posLabel(d.position):''));
+  const tot=a.reduce((s,h)=>s+(h.a?ohAmt(h.a)||0:0),0);
+  const money=h=>!h.a?'–':admin?ohBaht(ohAmt(h.a)):OH_MASK;
+  const info=[["Motor",d.name],["Serial No.",d.serial||'–'],["Brand",d.brand||'–'],["Power / Voltage",fmtP(d.power)+' kW · '+fmt(d.voltage)+' V'],
+    ["System",d.system],["ติดตั้งที่",inst],["Status",d.status||'–'],["SMU ปัจจุบัน",fmt(d.smu_now)+' ชม.'],
+    ["SMU OH#1",fmt(d.smu_oh1)+' ชม.'],["คงเหลือถึง OH#2",fmt(d.remain_oh2)+' ชม.'],["วันที่ OH ครั้งหน้า",d.next_oh||'–'],["จำนวนประวัติ",a.length+' รายการ']];
+  const rows=a.map((h,i)=>`<tr>
+      <td class="c">${i+1}</td>
+      <td class="nw">${h.date?ohDate(h.date):'ไม่ระบุ'}</td>
+      <td><span class="k ${/addition/i.test(h.desc)?'ad':'oh'}">${/addition/i.test(h.desc)?'ADDITION':'OVERHAUL'}</span><div class="ds">${esc(h.desc||'–')}</div></td>
+      <td>${esc(h.fac||'–')}</td>
+      <td class="mono">${esc(h.ro||'–')}</td>
+      <td class="mono">${h.po.length?h.po.map(esc).join('<br>'):'–'}</td>
+      <td>${h.parts.length?'<ul>'+h.parts.map(p=>`<li>${esc(p)}</li>`).join('')+'</ul>':'–'}${h.rem?`<div class="rm">หมายเหตุ: ${esc(h.rem)}</div>`:''}</td>
+      <td class="r nw">${money(h)}</td></tr>`).join('');
+  const now=new Date().toLocaleString('th-TH',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const doc=`<!doctype html><html lang="th"><head><meta charset="utf-8"><title>Overhaul History - ${esc(d.name)} - SN ${esc(d.serial||'')}</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+ @page{size:A4 landscape;margin:12mm}
+ *{box-sizing:border-box} body{margin:0;font-family:Sarabun,Tahoma,sans-serif;color:#0f172a;font-size:11px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .hd{display:flex;align-items:center;gap:14px;border-bottom:3px solid #0e7490;padding-bottom:8px;margin-bottom:10px}
+ .hd img{height:42px} .hd h1{margin:0;font-size:18px} .hd p{margin:2px 0 0;color:#475569;font-size:11px}
+ .hd .dt{margin-left:auto;text-align:right;color:#475569;font-size:10px}
+ .info{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #cbd5e1;border-radius:6px;overflow:hidden;margin-bottom:12px}
+ .info div{padding:5px 9px;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0}
+ .info span{display:block;font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.04em} .info b{font-size:12px}
+ h2{font-size:13px;margin:0 0 6px;color:#0e7490}
+ table{width:100%;border-collapse:collapse} thead{display:table-header-group} tr{page-break-inside:avoid}
+ th{background:#0e7490;color:#fff;font-size:10px;text-align:left;padding:5px 6px;font-weight:600}
+ td{border-bottom:1px solid #e2e8f0;padding:5px 6px;vertical-align:top} tbody tr:nth-child(even) td{background:#f8fafc}
+ .c{text-align:center}.r{text-align:right}.nw{white-space:nowrap}.mono{font-family:Consolas,monospace;font-size:10px}
+ ul{margin:0;padding-left:14px} li{margin:0}
+ .k{font-size:8.5px;font-weight:700;letter-spacing:.06em;padding:1px 6px;border-radius:9px}
+ .k.oh{background:#cffafe;color:#0e7490}.k.ad{background:#fef3c7;color:#b45309}
+ .ds{font-weight:600;margin-top:2px}.rm{color:#475569;margin-top:3px}
+ tfoot td{font-weight:700;border-top:2px solid #0e7490;background:#f1f5f9}
+ .empty{padding:18px;text-align:center;color:#64748b;border:1px dashed #cbd5e1;border-radius:6px}
+ .sig{display:flex;justify-content:flex-end;gap:60px;margin-top:34px;page-break-inside:avoid}
+ .sig div{text-align:center;width:190px;border-top:1px solid #334155;padding-top:4px;font-size:10px;color:#334155}
+</style></head><body>
+<div class="hd">${logo?`<img src="${logo}">`:''}<div><h1>ประวัติการซ่อม / Overhaul History</h1><p>ITH Hongsa · Overhaul Monitoring Dashboard</p></div>
+ <div class="dt">พิมพ์เมื่อ ${now}<br>ที่มา: HISTORY MOTOR ITH-CV</div></div>
+<div class="info">${info.map(x=>`<div><span>${x[0]}</span><b>${esc(x[1])}</b></div>`).join('')}</div>
+<h2>รายการซ่อม / Repair records</h2>
+${a.length?`<table><thead><tr><th style="width:26px">#</th><th>วันที่</th><th style="width:150px">งาน</th><th>ผู้รับซ่อม</th><th>RO No.</th><th>PO No.</th><th>รายการเปลี่ยน / เพิ่มเติม</th><th class="r">ค่าใช้จ่าย</th></tr></thead>
+<tbody>${rows}</tbody><tfoot><tr><td colspan="7" class="r">ค่าใช้จ่ายรวม</td><td class="r nw">${admin?ohBaht(tot):OH_MASK}</td></tr></tfoot></table>`
+ :'<div class="empty">ยังไม่มีประวัติการซ่อม / Overhaul ของ S/N นี้ในฐานข้อมูล</div>'}
+<div class="sig"><div>ผู้จัดทำ</div><div>ผู้ตรวจสอบ</div></div>
+</body></html>`;
+  let fr=document.getElementById('ohPrintFrame'); if(fr) fr.remove();
+  fr=document.createElement('iframe'); fr.id='ohPrintFrame';
+  fr.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+  document.body.appendChild(fr);
+  const w=fr.contentWindow; w.document.open(); w.document.write(doc); w.document.close();
+  const go=()=>{try{w.focus();w.print();}catch(e){alert('สั่งพิมพ์ไม่สำเร็จ: '+e.message);}};
+  (w.document.fonts&&w.document.fonts.ready?Promise.race([w.document.fonts.ready,new Promise(r=>setTimeout(r,1500))]):Promise.resolve()).then(()=>setTimeout(go,150));
 }
 function motorCard(d){
   const open=openSet.has(d._id);const lc=lifeColor(d.lifeUsed);const lw=d.lifeUsed==null?0:Math.min(100,Math.max(2,d.lifeUsed));const hk=safeK(d);
