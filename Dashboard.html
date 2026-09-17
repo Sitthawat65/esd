@@ -81,6 +81,14 @@
   .card h3{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:14px}
   .card h3 .dot{width:9px;height:9px;border-radius:3px;background:var(--cyan)}
   .card h3 small{margin-left:auto;font-weight:500;color:var(--muted);font-size:11.5px}
+  .pie3d{width:100%;max-width:640px;margin:-4px auto 0}
+  .pie3d svg{display:block;width:100%;height:auto;overflow:visible}
+  .pie3d [data-s]{cursor:pointer;transition:filter .15s ease}
+  .pie3d [data-s].hot{filter:brightness(1.18) saturate(1.1)}
+  .pie3d .lab{font-family:inherit}
+  .pie3d .rise{animation:pieRise .7s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes pieRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.pie3d .rise{animation:none}}
   .donut-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   .donut{position:relative;width:160px;height:160px;flex:0 0 auto}
   .donut .ctr{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
@@ -329,11 +337,7 @@
   <div class="grid g2x2">
     <div class="card">
       <h3><span class="dot" style="background:var(--green)"></span>Status <small id="stTitle">Status</small></h3>
-      <div class="donut-wrap">
-        <div class="donut"><div id="donut" style="position:absolute;inset:0"></div>
-          <div class="ctr"><b id="donutTot">0</b><span>Unit</span></div></div>
-        <div class="legend" id="statusLegend"></div>
-      </div>
+      <div class="pie3d" id="pie3d"></div>
     </div>
     <div class="card">
       <h3><span class="dot" style="background:var(--red)"></span>Time to next OH <small>OH#2</small></h3>
@@ -2130,12 +2134,67 @@ function renderKPIs(){
 function renderDonut(){
   const r=rowsOf(cur);const order=["Running","PRE OH","Finished","Stand by"];
   const cc=order.map(s=>({s,n:r.filter(d=>d.status===s).length,c:SC[s]})).filter(x=>x.n>0);
-  const tot=cc.reduce((a,x)=>a+x.n,0)||1;
-  document.getElementById("donutTot").textContent=tot;
-  const R=78,C=2*Math.PI*R;let off=0;
-  const segs=cc.map(x=>{const len=x.n/tot*C;const s=`<circle r="${R}" cx="80" cy="80" fill="none" stroke="${x.c}" stroke-width="22" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 80 80)"/>`;off+=len;return s;}).join("");
-  document.getElementById("donut").innerHTML=`<svg viewBox="0 0 160 160" width="160" height="160"><circle r="${R}" cx="80" cy="80" fill="none" stroke="#0c1322" stroke-width="22"/>${segs}</svg>`;
-  document.getElementById("statusLegend").innerHTML=cc.map(x=>`<div class="li"><i style="background:${x.c}"></i>${x.s}<b>${x.n}</b><span class="pct">${Math.round(x.n/tot*100)}%</span></div>`).join("")||'<div class="li" style="color:var(--muted)">ไม่มีข้อมูล</div>';
+  const tot=cc.reduce((a,x)=>a+x.n,0);
+  const host=document.getElementById("pie3d");
+  if(!tot){host.innerHTML='<div style="color:var(--muted);font-size:12px;padding:30px 0;text-align:center">ไม่มีข้อมูล</div>';return;}
+  const W=640,H=290,CX=320,CY=118,RX=150,K=.52,RI=.44,DEP=38,EXP=8,TAU=Math.PI*2;
+  const shade=(hex,f)=>{const v=parseInt(hex.slice(1),16),c=[v>>16&255,v>>8&255,v&255].map(x=>Math.round(f<1?x*f:x+(255-x)*(f-1)));return `rgb(${c})`;};
+  const P=(a,rr,ox,oy,z)=>[CX+ox+rr*Math.cos(a),CY+oy+rr*K*Math.sin(a)+z];
+  const f2=n=>n.toFixed(2);
+  // elliptical arc split into <=90deg chunks so a full 360deg slice still renders
+  const arc=(a0,a1,rr,ox,oy,z)=>{const n=Math.max(1,Math.ceil(Math.abs(a1-a0)/(Math.PI/2)));let s='';for(let i=1;i<=n;i++){const a=a0+(a1-a0)*i/n,p=P(a,rr,ox,oy,z);s+=`A${f2(rr)} ${f2(rr*K)} 0 0 ${a1>a0?1:0} ${f2(p[0])} ${f2(p[1])}`;}return s;};
+  const clip=(a0,a1,lo,hi)=>{const out=[];for(let k=-1;k<=2;k++){const b0=Math.max(a0,lo+k*TAU),b1=Math.min(a1,hi+k*TAU);if(b1-b0>1e-4)out.push([b0,b1]);}return out;};
+  const wall=(b0,b1,rr,ox,oy)=>{const p=P(b0,rr,ox,oy,0),q=P(b1,rr,ox,oy,DEP);return `M${f2(p[0])} ${f2(p[1])}${arc(b0,b1,rr,ox,oy,0)}L${f2(q[0])} ${f2(q[1])}${arc(b1,b0,rr,ox,oy,DEP)}Z`;};
+  // largest slice sits at the back so the small ones face the viewer
+  const big=cc.reduce((m,x,i)=>x.n>cc[m].n?i:m,0);let before=0;for(let i=0;i<big;i++)before+=cc[i].n/tot*TAU;
+  let a=Math.PI*1.5-(before+cc[big].n/tot*TAU/2);
+  const sl=cc.map(x=>{const span=x.n/tot*TAU,a0=a,a1=a+span,m=(a0+a1)/2;a=a1;
+    const e=cc.length>1?EXP:0;return {...x,a0,a1,m,span,ox:Math.cos(m)*e,oy:Math.sin(m)*e*K,pc:Math.round(x.n/tot*100)};});
+  const RIN=RX*RI;
+  let inner='',sides=[],outer='',tops='';
+  sl.forEach((s,i)=>{
+    const g=`data-s="${esc(s.s)}"`;
+    clip(s.a0,s.a1,Math.PI,TAU).forEach(b=>{inner+=`<path ${g} d="${wall(b[0],b[1],RIN,s.ox,s.oy)}" fill="${shade(s.c,.42)}"/>`;});
+    if(cc.length>1){
+      [[s.a0,-Math.cos(s.a0)],[s.a1,Math.cos(s.a1)]].forEach(([ang,vis])=>{if(vis<=0)return;
+        const p1=P(ang,RIN,s.ox,s.oy,0),p2=P(ang,RX,s.ox,s.oy,0),p3=P(ang,RX,s.ox,s.oy,DEP),p4=P(ang,RIN,s.ox,s.oy,DEP);
+        sides.push({y:(p1[1]+p2[1])/2,h:`<path ${g} d="M${f2(p1[0])} ${f2(p1[1])}L${f2(p2[0])} ${f2(p2[1])}L${f2(p3[0])} ${f2(p3[1])}L${f2(p4[0])} ${f2(p4[1])}Z" fill="${shade(s.c,.5)}"/>`});});
+    }
+    clip(s.a0,s.a1,0,Math.PI).forEach(b=>{outer+=`<path ${g} d="${wall(b[0],b[1],RX,s.ox,s.oy)}" fill="url(#pw${i})"/>`;});
+    const o0=P(s.a0,RX,s.ox,s.oy,0),i1=P(s.a1,RIN,s.ox,s.oy,0);
+    const top=`M${f2(o0[0])} ${f2(o0[1])}${arc(s.a0,s.a1,RX,s.ox,s.oy,0)}L${f2(i1[0])} ${f2(i1[1])}${arc(s.a1,s.a0,RIN,s.ox,s.oy,0)}Z`;
+    tops+=`<path ${g} d="${top}" fill="${s.c}"/><path d="${top}" fill="url(#ptopHi)" pointer-events="none"/>`;
+    if(s.span>=.5){const t=P(s.m,(RX+RIN)/2,s.ox,s.oy,0);
+      tops+=`<text x="${f2(t[0])}" y="${f2(t[1]+6)}" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" stroke="rgba(0,0,0,.35)" stroke-width="3" paint-order="stroke" pointer-events="none">${s.pc}%</text>`;}
+  });
+  const defs=sl.map((s,i)=>`<linearGradient id="pw${i}" x1="0" x2="1"><stop offset="0" stop-color="${shade(s.c,.5)}"/><stop offset=".45" stop-color="${shade(s.c,.78)}"/><stop offset="1" stop-color="${shade(s.c,.45)}"/></linearGradient>`).join('');
+  // callout labels, stacked per side without overlap
+  const labs=sl.map(s=>{const side=Math.cos(s.m)<0?-1:1,an=P(s.m,RX+2,s.ox,s.oy,Math.sin(s.m)>0?DEP*.5:0);return {s,side,ax:an[0],ay:an[1],y:an[1]};});
+  [-1,1].forEach(side=>{const L=labs.filter(l=>l.side===side).sort((p,q)=>p.y-q.y);const G=44;
+    L.forEach((l,i)=>{l.y=Math.max(l.y,i?L[i-1].y+G:26);});
+    for(let i=L.length-1;i>=0;i--){L[i].y=Math.min(L[i].y,i<L.length-1?L[i+1].y-G:H-22);}
+  });
+  const labHTML=labs.map(l=>{const s=l.s,ex=CX+l.side*(RX+44),tx=l.side<0?16:W-16,anc=l.side<0?'start':'end',ex2=l.side<0?16:W-16;
+    return `<g class="lab" pointer-events="none"><polyline points="${f2(l.ax)},${f2(l.ay)} ${f2(ex)},${f2(l.y)} ${f2(ex2)},${f2(l.y)}" fill="none" stroke="${s.c}" stroke-opacity=".75" stroke-width="1.3"/>
+      <circle cx="${f2(l.ax)}" cy="${f2(l.ay)}" r="3" fill="${s.c}"/>
+      <text x="${tx}" y="${f2(l.y-7)}" text-anchor="${anc}" font-size="14" font-weight="700" fill="#e7eefb">${esc(s.s)}</text>
+      <text x="${tx}" y="${f2(l.y+17)}" text-anchor="${anc}" font-size="12.5" fill="#8da0c0"><tspan font-weight="800" fill="${s.c}">${s.n}</tspan> unit · ${s.pc}%</text></g>`;}).join('');
+  sides.sort((p,q)=>p.y-q.y);
+  host.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Status: ${sl.map(s=>esc(s.s)+' '+s.n).join(', ')}">
+    <defs>${defs}<linearGradient id="ptopHi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <radialGradient id="pshadow"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+    <ellipse cx="${CX}" cy="${CY+DEP+18}" rx="${RX*1.18}" ry="${RX*K*.7}" fill="url(#pshadow)"/>
+    <g class="rise">${inner}${sides.map(x=>x.h).join('')}${outer}${tops}
+    <text x="${CX}" y="${CY+4}" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" stroke="rgba(0,0,0,.45)" stroke-width="3" paint-order="stroke" pointer-events="none">${tot}</text>
+    <text x="${CX}" y="${CY+18}" text-anchor="middle" font-size="10" fill="#cbd5e1" pointer-events="none">Unit</text></g>
+    ${labHTML}</svg>`;
+  // hover highlights every piece of a slice; click filters the motor list by status
+  sl.forEach(s=>{const ps=host.querySelectorAll(`[data-s="${CSS.escape(s.s)}"]`);
+    ps.forEach(p=>{const t=document.createElementNS('http://www.w3.org/2000/svg','title');t.textContent=`${s.s}: ${s.n} unit (${s.pc}%) — คลิกเพื่อกรอง`;p.appendChild(t);
+      p.addEventListener('mouseenter',()=>ps.forEach(x=>x.classList.add('hot')));
+      p.addEventListener('mouseleave',()=>ps.forEach(x=>x.classList.remove('hot')));
+      p.addEventListener('click',()=>{statusFilter=s.s;document.getElementById('statusFilter').value=s.s;renderMotors();document.getElementById('mlTitle').scrollIntoView({behavior:'smooth',block:'start'});});});
+  });
 }
 function renderUrg(){
   const r=rowsOf(cur);
