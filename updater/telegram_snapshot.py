@@ -315,7 +315,8 @@ def caption(page, items, updated, hot, shown):
         if tags:
             top = max(tags, key=lambda t2: items[t2][0])
             v, seen = items[top]
-            old = "  (ค่าเก่า)" if age_minutes(seen) > STALE_MIN else ""
+            # COMMU ERROR บอกอยู่แล้วว่าเป็นค่าเดิม ไม่ต้องต่อท้าย (ค่าเก่า) ซ้ำ
+            old = "  (ค่าเก่า)" if (st != "err" and age_minutes(seen) > STALE_MIN) else ""
             lines.append(f"Temp สูงสุด: {short_label(top)}  {v:.1f}°C{old}")
     return "\n".join(lines)
 
