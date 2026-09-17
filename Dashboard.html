@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ITH Hongsa · Overhaul Monitoring Dashboard</title>
+<script>try{if(localStorage.getItem('ith_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
 <style>
   :root{
     --bg:#0a0e17; --bg2:#0e1320; --panel:#121829; --panel2:#161d30;
@@ -204,6 +205,52 @@
   .lc-legend i{width:10px;height:10px;border-radius:3px;flex:0 0 auto}
   .lc-legend b{color:var(--txt);font-variant-numeric:tabular-nums;font-weight:700}
 
+
+  /* ===== light theme (toggle, same idea as Fiber Optic dashboard) ===== */
+  :root[data-theme="light"]{
+    --bg:#eef2f7; --bg2:#f6f8fb; --panel:#ffffff; --panel2:#fbfcfe;
+    --line:#dde3ec; --line2:#cdd6e2; --txt:#16212e; --muted:#5a6a7e; --muted2:#8a97a8;
+    --green:#059669; --amber:#b45309; --red:#e11d48; --blue:#2563eb;
+    --cyan:#0e7490; --purple:#7c3aed; --pink:#db2777; --gray:#64748b;
+    --shadow:0 1px 2px rgba(20,33,44,.06),0 8px 24px rgba(20,33,44,.07);
+    color-scheme:light;
+  }
+  :root[data-theme="light"],:root[data-theme="light"] body{background:radial-gradient(1200px 700px at 80% -10%,#dbe8f7 0%,var(--bg) 55%)}
+  :root[data-theme="light"] body::before{opacity:.025}
+  :root[data-theme="light"] .brand h1{text-shadow:none}
+  :root[data-theme="light"] .tab.on{box-shadow:0 0 0 1px var(--tc,#0e7490) inset,0 8px 20px rgba(20,33,44,.1)}
+  :root[data-theme="light"] .hb .track,:root[data-theme="light"] .ucell{background:#eef2f7}
+  :root[data-theme="light"] .tg .sw{background:#cbd5e1}
+  :root[data-theme="light"] .motor{background:#fff}
+  :root[data-theme="light"] .motor.open{background:#f2f8ff;border-color:rgba(14,116,144,.55);box-shadow:0 0 0 1px rgba(14,116,144,.2),0 10px 26px rgba(20,33,44,.1)}
+  :root[data-theme="light"] .mhead .lifebar{background:#e8edf4}
+  :root[data-theme="light"] .dcell,:root[data-theme="light"] .smu-track,:root[data-theme="light"] .lc-bar,
+  :root[data-theme="light"] .oh-it,:root[data-theme="light"] .hist-item,:root[data-theme="light"] .smu-act{background:#fff}
+  :root[data-theme="light"] .lc-now,:root[data-theme="light"] .lc-now::after{background:#0f172a;box-shadow:0 0 4px rgba(15,23,42,.5)}
+  :root[data-theme="light"] .lc-tgt{border-left-color:rgba(15,23,42,.45)}
+  :root[data-theme="light"] .oh-it::before{box-shadow:0 0 0 3px #f2f8ff}
+  :root[data-theme="light"] .oh-meta{border-top-color:rgba(15,23,42,.08)}
+  :root[data-theme="light"] .oh-meta code{color:#1e3a8a}
+  :root[data-theme="light"] .oh-parts li{color:#334155}
+  :root[data-theme="light"] .oh-print{background:linear-gradient(180deg,#fff,#eef6fb);color:#0e7490;border-color:rgba(14,116,144,.4)}
+  :root[data-theme="light"] .mhead .h-name .ohico{color:#0e7490;background:rgba(14,116,144,.08);border-color:rgba(14,116,144,.4)}
+  :root[data-theme="light"] .mhead .h-name .ohico em{background:#0e7490;color:#fff}
+  :root[data-theme="light"] .b-run{color:#047857}:root[data-theme="light"] .b-pre{color:#b45309}
+  :root[data-theme="light"] .b-fin{color:#1d4ed8}:root[data-theme="light"] .b-stb{color:#475569}
+  :root[data-theme="light"] .smu-hold,:root[data-theme="light"] .motor.smupaused .h-name>b{color:#b45309}
+  :root[data-theme="light"] .smu-btn{border-color:#b45309;color:#b45309}
+  :root[data-theme="light"] .smu-btn.go{border-color:#059669;color:#059669}
+  :root[data-theme="light"] .movl{background:rgba(15,23,42,.35)}
+  :root[data-theme="light"] .mEditBtn,:root[data-theme="light"] .hist-save,:root[data-theme="light"] .mlogin button.pri{color:#fff}
+  :root[data-theme="light"] .mEditBtn.out{color:var(--pink)}
+  :root[data-theme="light"] .pie3d ellipse{opacity:.35}
+  /* bright accent text set inline by JS -> darker shades for contrast on white */
+  :root[data-theme="light"] [style^="color:#fbbf24"],:root[data-theme="light"] [style*=";color:#fbbf24"]{color:#b45309!important}
+  :root[data-theme="light"] [style^="color:#34d399"],:root[data-theme="light"] [style*=";color:#34d399"]{color:#047857!important}
+  :root[data-theme="light"] [style^="color:#fb7185"],:root[data-theme="light"] [style*=";color:#fb7185"]{color:#be123c!important}
+  :root[data-theme="light"] [style^="color:#60a5fa"],:root[data-theme="light"] [style*=";color:#60a5fa"]{color:#1d4ed8!important}
+  .themeBtn{font:inherit;font-size:13px;font-weight:600;color:var(--muted);padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);cursor:pointer;transition:.15s}
+  .themeBtn:hover{color:var(--txt);border-color:var(--cyan)}
   /* overhaul / repair history (from HISTORY MOTOR ITH-CV.xlsx) */
   .ohsec{margin-top:18px;border-top:1px dashed var(--line2);padding-top:14px}
   .oh-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -308,6 +355,7 @@
     <a href="FiberOptic_Report.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">🔬 Fiber Optic Dashboard</a>
     <span style="flex:1 1 auto"></span>
     <span class="mbadge" id="mBadge">👁 โหมดดูอย่างเดียว</span>
+    <button class="themeBtn" id="themeBtn" type="button" title="สลับธีม สว่าง / มืด">◐ สลับธีม</button>
     <button class="mEditBtn" id="mEditBtn" type="button">🔒 เข้าโหมดแก้ไข</button>
   </div>
 
@@ -2177,8 +2225,8 @@ function renderDonut(){
   const labHTML=labs.map(l=>{const s=l.s,ex=CX+l.side*(RX+44),tx=l.side<0?16:W-16,anc=l.side<0?'start':'end',ex2=l.side<0?16:W-16;
     return `<g class="lab" pointer-events="none"><polyline points="${f2(l.ax)},${f2(l.ay)} ${f2(ex)},${f2(l.y)} ${f2(ex2)},${f2(l.y)}" fill="none" stroke="${s.c}" stroke-opacity=".75" stroke-width="1.3"/>
       <circle cx="${f2(l.ax)}" cy="${f2(l.ay)}" r="3" fill="${s.c}"/>
-      <text x="${tx}" y="${f2(l.y-7)}" text-anchor="${anc}" font-size="14" font-weight="700" fill="#e7eefb">${esc(s.s)}</text>
-      <text x="${tx}" y="${f2(l.y+17)}" text-anchor="${anc}" font-size="12.5" fill="#8da0c0"><tspan font-weight="800" fill="${s.c}">${s.n}</tspan> unit · ${s.pc}%</text></g>`;}).join('');
+      <text x="${tx}" y="${f2(l.y-7)}" text-anchor="${anc}" font-size="14" font-weight="700" style="fill:var(--txt)">${esc(s.s)}</text>
+      <text x="${tx}" y="${f2(l.y+17)}" text-anchor="${anc}" font-size="12.5" style="fill:var(--muted)"><tspan font-weight="800" fill="${s.c}">${s.n}</tspan> unit · ${s.pc}%</text></g>`;}).join('');
   sides.sort((p,q)=>p.y-q.y);
   host.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Status: ${sl.map(s=>esc(s.s)+' '+s.n).join(', ')}">
     <defs>${defs}<linearGradient id="ptopHi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>
@@ -2380,10 +2428,10 @@ function ohPrintCard(id){
   const logo=(document.querySelector('.logo img')||{}).src||'';
   const medit=document.documentElement.getAttribute('data-medit')||'0';
   const now=new Date().toLocaleString('th-TH',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  const doc=`<!doctype html><html lang="th" data-medit="${medit}"><head><meta charset="utf-8"><title>Motor Card - ${esc(d.name)} - SN ${esc(d.serial||'')}</title>
+  const doc=`<!doctype html><html lang="th" data-medit="${medit}"${document.documentElement.getAttribute('data-theme')==='light'?' data-theme="light"':''}><head><meta charset="utf-8"><title>Motor Card - ${esc(d.name)} - SN ${esc(d.serial||'')}</title>
 <style>${css}
  @page{size:A4 landscape;margin:0}
- html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#0a0e17!important}
+ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--bg)!important}
  body{padding:7mm 8mm}
  body::before{display:none}
  .pc-wrap{width:1300px;zoom:.815}
@@ -2523,6 +2571,7 @@ document.getElementById("schedFilter").addEventListener("change",e=>{schedFilter
 document.getElementById("genTime").textContent="ประมาณการสด "+new Date().toLocaleString("th-TH",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
 document.getElementById("kpis").addEventListener("click",e=>{const card=e.target.closest(".kpi.clickable");if(!card)return;const act=card.dataset.act;typeFilter="";brandFilter="";statusFilter="";ohFilter="";document.getElementById("ohFilter").value="";schedFilter="";q="";document.getElementById("q").value="";document.getElementById("typeFilter").value="";document.getElementById("statusFilter").value="";if(act==="running"){statusFilter="Running";document.getElementById("statusFilter").value="Running";}else if(act==="over"){schedFilter="over";}else if(act==="soon"){schedFilter="soon";}document.getElementById("schedFilter").value=schedFilter;updateBrandBtn();renderMotors();document.getElementById("mlTitle").scrollIntoView({behavior:"smooth",block:"start"});});
 buildMotorFilters();renderAll();
+(function(){const b=document.getElementById('themeBtn');const lbl=()=>{};b.addEventListener('click',()=>{const light=document.documentElement.getAttribute('data-theme')!=='light';if(light)document.documentElement.setAttribute('data-theme','light');else document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('ith_theme',light?'light':'dark');}catch(e){}lbl();});})();
 </script>
 <div class="movl" id="movl">
   <form class="mlogin" id="mForm" autocomplete="off">
