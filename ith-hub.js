@@ -33,7 +33,7 @@
   function sha256(ascii){function r(v,a){return (v>>>a)|(v<<(32-a));}var mp=Math.pow,mw=mp(2,32),out="";var words=[],bitLen=ascii.length*8;var h=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],pc=k.length,comp={};for(var cand=2;pc<64;cand++){if(!comp[cand]){for(var i=0;i<313;i+=cand){comp[i]=cand;}h[pc]=(mp(cand,.5)*mw)|0;k[pc++]=(mp(cand,1/3)*mw)|0;}}ascii+="\x80";while(ascii.length%64-56)ascii+="\x00";for(var i=0;i<ascii.length;i++){var j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8;}words[words.length]=((bitLen/mw)|0);words[words.length]=(bitLen);for(var j=0;j<words.length;){var w=words.slice(j,j+=16),oh=h;h=h.slice(0,8);for(var i=0;i<64;i++){var w15=w[i-15],w2=w[i-2],a=h[0],e=h[4];var t1=h[7]+(r(e,6)^r(e,11)^r(e,25))+((e&h[5])^((~e)&h[6]))+k[i]+(w[i]=i<16?w[i]:(w[i-16]+(r(w15,7)^r(w15,18)^(w15>>>3))+w[i-7]+(r(w2,17)^r(w2,19)^(w2>>>10)))|0);var t2=(r(a,2)^r(a,13)^r(a,22))+((a&h[1])^(a&h[2])^(h[1]&h[2]));h=[(t1+t2)|0].concat(h);h[4]=(h[4]+t1)|0;}for(var i=0;i<8;i++){h[i]=(h[i]+oh[i])|0;}}for(var i=0;i<8;i++){for(var j=3;j+1;j--){var b=(h[i]>>(j*8))&255;out+=((b<16)?0:"")+b.toString(16);}}return out;}
 
   var editMode = false;
-  try { editMode = sessionStorage.getItem('fo_auth') === '1'; } catch (e) {}
+  try { editMode = sessionStorage.getItem('fo_auth') === '1' || localStorage.getItem('ith_dev') === '1'; } catch (e) {}
 
   function $(id) { return document.getElementById(id); }
 
@@ -160,7 +160,7 @@
 
     var dev = $('ithDev'), th = $('ithTheme');
     if (dev) dev.addEventListener('click', function () {
-      if (editMode) { try { sessionStorage.removeItem('fo_auth'); } catch (e) {} editMode = false; applyMode(); }
+      if (editMode) { try { sessionStorage.removeItem('fo_auth'); localStorage.removeItem('ith_dev'); localStorage.setItem('iso_ee_editmode_v1', '0'); } catch (e) {} editMode = false; applyMode(); }
       else openLogin();
     });
     if (th) th.addEventListener('click', function () {
@@ -174,13 +174,13 @@
       ev.preventDefault();
       var id = $('ithId').value.trim().toUpperCase(), pw = $('ithPw').value.trim();
       if (sha256(id + ':' + pw) === AUTH_HASH) {
-        try { sessionStorage.setItem('fo_auth', '1'); } catch (e) {}
+        try { sessionStorage.setItem('fo_auth', '1'); localStorage.setItem('ith_dev', '1'); localStorage.setItem('iso_ee_editmode_v1', '1'); } catch (e) {}
         editMode = true; closeLogin(); applyMode();
       } else $('ithErr').textContent = 'ID หรือรหัสผ่านไม่ถูกต้อง';
     });
 
     var qm = new URLSearchParams(location.search).get('mode');
-    if (qm === 'view' && editMode) { try { sessionStorage.removeItem('fo_auth'); } catch (e) {} editMode = false; }
+    if (qm === 'view' && editMode) { try { sessionStorage.removeItem('fo_auth'); localStorage.removeItem('ith_dev'); localStorage.setItem('iso_ee_editmode_v1', '0'); } catch (e) {} editMode = false; }
     applyMode();
     if (qm === 'edit' && !editMode) openLogin();
 

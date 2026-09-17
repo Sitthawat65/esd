@@ -203,6 +203,8 @@ html{scrollbar-gutter:stable}
 .ithnav > a.on{color:#fff!important;background:rgba(34,211,238,.16)!important;border-color:rgba(34,211,238,.65)!important}
 :root[data-theme="light"] .ithnav > a.on{color:#0e7490!important;background:rgba(14,116,144,.09)!important;border-color:rgba(14,116,144,.5)!important}
 @media print{html{zoom:1!important}}
+:root:not([data-theme="light"]) .modebadge.edit{color:#2fe0b0!important;background:rgba(47,224,176,.1)!important;box-shadow:inset 0 0 0 1px rgba(47,224,176,.4)!important}
+:root:not([data-theme="light"]) .editbtn.out{color:#ff7b6b!important;border-color:rgba(255,123,107,.5)!important}
 </style>
 </head>
 <body>
@@ -444,7 +446,7 @@ function selHtml(si,ci,col,val,otherVal){
 }
 
 let CURRENT="h2", segFilter="all", failOnly=false, warnUp=false, passOnly=false;
-let editMode = sessionStorage.getItem("fo_auth")==="1";
+let editMode = (sessionStorage.getItem("fo_auth")==="1"||(function(){try{return localStorage.getItem("ith_dev")==="1"}catch(e){return false}})());
 
 function render(){
   const p=PERIODS[CURRENT], t=tally(p);
@@ -519,7 +521,7 @@ const overlay=document.getElementById("overlay");
 function openLogin(){ document.getElementById("loginErr").textContent=""; document.getElementById("loginPw").value=""; overlay.classList.add("show"); document.getElementById("loginId").focus(); }
 function closeLogin(){ overlay.classList.remove("show"); }
 document.getElementById("editBtn").addEventListener("click",()=>{
-  if(editMode){ sessionStorage.removeItem("fo_auth"); editMode=false; render(); updateModeUI(); }
+  if(editMode){ sessionStorage.removeItem("fo_auth");try{localStorage.removeItem("ith_dev");localStorage.setItem("iso_ee_editmode_v1","0")}catch(e){}; editMode=false; render(); updateModeUI(); }
   else openLogin();
 });
 document.getElementById("loginCancel").addEventListener("click",closeLogin);
@@ -529,7 +531,7 @@ document.getElementById("loginForm").addEventListener("submit",e=>{
   const id=document.getElementById("loginId").value.trim().toUpperCase();
   const pw=document.getElementById("loginPw").value.trim();
   if(sha256(id+":"+pw)===AUTH_HASH){
-    sessionStorage.setItem("fo_auth","1"); editMode=true; closeLogin(); render(); updateModeUI();
+    sessionStorage.setItem("fo_auth","1");try{localStorage.setItem("ith_dev","1");localStorage.setItem("iso_ee_editmode_v1","1")}catch(e){}; editMode=true; closeLogin(); render(); updateModeUI();
   } else {
     document.getElementById("loginErr").textContent="ID หรือรหัสผ่านไม่ถูกต้อง";
   }
@@ -569,7 +571,7 @@ document.getElementById("themeBtn").addEventListener("click",()=>{
 render();
 updateModeUI();
 const qMode=new URLSearchParams(location.search).get("mode");
-if(qMode==="view" && editMode){ sessionStorage.removeItem("fo_auth"); editMode=false; render(); updateModeUI(); }
+if(qMode==="view" && editMode){ sessionStorage.removeItem("fo_auth");try{localStorage.removeItem("ith_dev");localStorage.setItem("iso_ee_editmode_v1","0")}catch(e){}; editMode=false; render(); updateModeUI(); }
 if(qMode==="edit" && !editMode) openLogin();
 
 (function(){var el=document.getElementById("genTime");if(!el)return;var d=new Date(),m=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."],p=function(n){return String(n).padStart(2,"0")};el.textContent="อัปเดต "+d.getDate()+" "+m[d.getMonth()]+" "+p(d.getHours())+":"+p(d.getMinutes());})();

@@ -556,11 +556,14 @@ html{scrollbar-gutter:stable}
   var artifactApi = null, mode = "local", saving = "idle";
   // editMode = สลับเองได้ เริ่มต้นที่ “ดูอย่างเดียว” กันกดโดนโดยไม่ตั้งใจ
   var editMode = false;
-  try { editMode = localStorage.getItem(LS_EDIT) === "1"; } catch(e){}
+  try { editMode = localStorage.getItem(LS_EDIT) === "1" || localStorage.getItem("ith_dev") === "1" || sessionStorage.getItem("fo_auth") === "1"; } catch(e){}
   function canEdit(){ return mode !== "readonly" && editMode; }
   function setEditMode(v){
     editMode = !!v;
-    try { localStorage.setItem(LS_EDIT, editMode ? "1" : "0"); } catch(e){}
+    try { localStorage.setItem(LS_EDIT, editMode ? "1" : "0");
+      // share login with the other dashboards
+      if(editMode){ localStorage.setItem("ith_dev","1"); sessionStorage.setItem("fo_auth","1"); }
+      else { localStorage.removeItem("ith_dev"); sessionStorage.removeItem("fo_auth"); } } catch(e){}
     clearRows();
     render();
   }

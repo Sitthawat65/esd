@@ -124,3 +124,7 @@ body > footer{margin-top:8px!important;line-height:1.5!important}
 :root[data-theme="light"] .topnav a.ith-live:not(.active),:root[data-theme="light"] .tab:not(.nodata):not(.active):not(.blink):not(:has(.devbdg)){background:rgba(13,148,136,.07)!important;border-color:rgba(13,148,136,.4)!important;color:#0f5e57!important}
 :root[data-theme="light"] .topnav a.ith-dev,:root[data-theme="light"] .tab.nodata,:root[data-theme="light"] .tab:has(.devbdg){background:#f3f5f8!important;border-color:#cbd5e1!important;color:#94a3b8!important}
 :root[data-theme="light"] .topnav a.ith-dev.active,:root[data-theme="light"] .tab.nodata.active{background:#e2e8f0!important;border-color:#94a3b8!important;color:#334155!important}
+
+/* same Developer Mode colours as ISO EE */
+:root:not([data-theme="light"]) .ithnav > .mbadge.on{color:#2fe0b0;border-color:rgba(47,224,176,.4);background:rgba(47,224,176,.1)}
+:root:not([data-theme="light"]) .ithnav > .mEditBtn.out{color:#ff7b6b;border-color:rgba(255,123,107,.5)}
