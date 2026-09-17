@@ -132,3 +132,27 @@ body > footer{margin-top:8px!important;line-height:1.5!important}
 .tabs{gap:6px!important}
 .tab.nodata,.tab:has(.devbdg){padding-left:11px!important;padding-right:10px!important}
 .tab.nodata::after,.tab:has(.devbdg)::after{font-size:10px!important;letter-spacing:0!important;margin-left:4px!important}
+
+/* ===== machine status pill: RUNNING / COMMU ERROR / IN DEVELOPMENT ===== */
+.ithstat{position:absolute;z-index:6;display:inline-flex;align-items:center;gap:6px;box-sizing:border-box;
+  font-family:"Segoe UI",Tahoma,system-ui,sans-serif;font-weight:800;letter-spacing:.08em;line-height:1;white-space:nowrap;
+  padding:5px 10px 5px 8px;border-radius:999px;border:1px solid;pointer-events:auto;cursor:help;user-select:none}
+.ithstat i{width:8px;height:8px;border-radius:50%;flex:none;background:currentColor}
+.ithstat.st-run{color:#15803d;background:#ecfdf3;border-color:#86efac;box-shadow:0 1px 4px rgba(21,128,61,.18)}
+.ithstat.st-run i{animation:ithBlinkRun 1.4s ease-in-out infinite}
+.ithstat.st-err{color:#dc2626;background:#fef2f2;border-color:#fca5a5;box-shadow:0 1px 4px rgba(220,38,38,.2);animation:ithBlinkErr 1s steps(2,jump-none) infinite}
+.ithstat.st-err i{box-shadow:0 0 0 3px rgba(220,38,38,.18)}
+.ithstat.st-dev{color:#c2410c;background:#fff7ed;border-color:#fdba74}
+.ithstat.st-dev i{background:none;width:auto;height:auto;font-style:normal;font-size:.95em}
+.ithstat.st-dev i::before{content:"⚙️"}
+@keyframes ithBlinkRun{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.55)}50%{opacity:.35;box-shadow:0 0 0 4px rgba(34,197,94,0)}}
+@keyframes ithBlinkErr{0%{opacity:1}100%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.ithstat,.ithstat i{animation:none!important}}
+/* positions */
+.stagecard .ithstat.on-card{top:14px;left:16px;font-size:13px}
+.stage a.tile{position:absolute}
+.stage a.tile .ithstat.on-tile{right:3.5%;bottom:5%;font-size:10.5px;padding:4px 8px 4px 7px}
+.stage a.tile .ithstat.on-tile i{width:7px;height:7px}
+table.temps thead th .ithstat.on-tabs{position:static;vertical-align:middle;margin-left:14px;font-size:10.5px;padding:4px 9px 4px 8px;text-transform:none}
+@media (max-width:640px){.stagecard .ithstat.on-card{top:8px;left:8px;font-size:10px;padding:3px 7px}.stage a.tile .ithstat.on-tile{font-size:8.5px;padding:2px 6px}}
+@media print{.ithstat{animation:none!important}.ithstat i{animation:none!important}}

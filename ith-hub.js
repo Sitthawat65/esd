@@ -147,6 +147,97 @@
     }
   }
 
+
+  // ---- machine status: RUNNING / COMMU ERROR / IN DEVELOPMENT ----
+  var STATUS_STALE_MS = 20 * 60 * 1000;
+  var MACHINES = {
+    SPD:     { page: 'spreader.html', tags: ['RCV_DE_L','RCV_DE_R','RCV_NDE_L','RCV_NDE_R','DCV_DE_L','DCV_DE_R','DCV_NDE_L','DCV_NDE_R'] },
+    TRIPPER: { page: 'tripper.html',  tags: ['DCV_TC_L','DCV_TC_R','BEND_L','BEND_R','TAKE_UP_L','TAKE_UP_R'] },
+    BWE1:    { page: 'BWE1.html', prefix: 'BWE1_' },
+    BWE2:    { page: 'BWE2.html', prefix: 'BWE2_' },
+    CR1:     { page: 'CR1.html',  prefix: 'CR1_' },
+    CR2:     { page: 'CR2.html',  prefix: 'CR2_' }
+  };
+  var STATUS_TEXT = { run: 'RUNNING', err: 'COMMU ERROR', dev: 'IN DEVELOPMENT' };
+  var STATUS_TIP = { run: 'รับข้อมูลจาก Primus ปกติ', err: 'ระบบสื่อสารผิดปกติ — ไม่มีค่าใหม่เกิน 20 นาที (แสดงค่าล่าสุดที่ดึงได้)', dev: 'อยู่ในขั้นตอนการพัฒนา' };
+  var tempsData = null;
+
+  function allItems() {
+    var out = [], g = (tempsData && tempsData.groups) || {};
+    for (var k in g) for (var i = 0; i < g[k].length; i++) out.push(g[k][i]);
+    return out;
+  }
+  function statusOfItems(items, dev) {
+    if (dev) return 'dev';
+    var newest = 0, any = false;
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i]; if (it.value == null || isNaN(Number(it.value))) continue;
+      any = true;
+      var t = Date.parse(it.seen || (tempsData && tempsData.updated));
+      if (!isNaN(t) && t > newest) newest = t;
+    }
+    if (!any) return 'dev';
+    return (Date.now() - newest) <= STATUS_STALE_MS ? 'run' : 'err';
+  }
+  function statusOfMachine(key) {
+    var m = MACHINES[key]; if (!m) return 'dev';
+    var items = allItems().filter(function (it) {
+      return m.tags ? m.tags.indexOf(it.tag) > -1 : it.tag.indexOf(m.prefix) === 0;
+    });
+    return statusOfItems(items, DEV_MACHINES.indexOf(key) > -1);
+  }
+  function statusOfGroup(g) {
+    var items = ((tempsData && tempsData.groups) || {})[g] || [];
+    return statusOfItems(items, DEV_MACHINES.indexOf(g) > -1);
+  }
+  function pill(st, extra) {
+    var el = document.createElement('span');
+    el.className = 'ithstat st-' + st + (extra ? ' ' + extra : '');
+    el.title = STATUS_TIP[st];
+    el.innerHTML = '<i></i>' + STATUS_TEXT[st];
+    return el;
+  }
+  function setPill(host, st, extra) {
+    if (!host) return;
+    var old = host.querySelector(':scope > .ithstat');
+    if (old && old.classList.contains('st-' + st)) return;
+    if (old) old.remove();
+    host.appendChild(pill(st, extra));
+  }
+  function keyOfHref(href) {
+    href = (href || '').split('?')[0].split('/').pop();
+    for (var k in MACHINES) if (MACHINES[k].page === href) return k;
+    return null;
+  }
+  function paintStatus() {
+    if (!tempsData) return;
+    var here = keyOfHref(location.pathname);
+    // machine drawing page: top-left of the white card
+    if (here) { var card = document.querySelector('.stagecard'); if (card) setPill(card, statusOfMachine(here), 'on-card'); }
+    // home: bottom-right of every machine tile
+    var tiles = document.querySelectorAll('.stage a.tile');
+    for (var i = 0; i < tiles.length; i++) {
+      var k = keyOfHref(tiles[i].getAttribute('href'));
+      if (k) setPill(tiles[i], statusOfMachine(k), 'on-tile');
+    }
+    // table page: pill for the selected machine at the end of the tab row
+    var tabs = document.getElementById('tabs');
+    if (tabs && document.querySelector('table.temps')) {
+      var act = tabs.querySelector('.tab.active');
+      if (act) {
+        var g = (act.firstChild && act.firstChild.nodeType === 3 ? act.firstChild.nodeValue : act.textContent).trim();
+        setPill(document.querySelector('table.temps thead th'), statusOfGroup(g), 'on-tabs');
+      }
+    }
+  }
+  function loadStatus() {
+    if (location.pathname.split('/').pop().indexOf('chart') === 0) return;
+    fetch('temps.json?_=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { tempsData = d; paintStatus(); })
+      ['catch'](function () {});
+  }
+
   function init() {
     // login dialog (overlay — never affects layout)
     document.body.insertAdjacentHTML('beforeend',
@@ -189,6 +280,9 @@
       if (imgs[i].complete) fit(); else imgs[i].addEventListener('load', fit);
     }
     markMachines();
+    loadStatus(); setInterval(loadStatus, 60 * 1000);
+    var tabsEl = document.getElementById('tabs');
+    if (tabsEl && window.MutationObserver) new MutationObserver(function () { paintStatus(); }).observe(tabsEl, { childList: true });
     window.addEventListener('resize', fit);
     window.addEventListener('load', fit);
     // weather widget / fonts load later and push the drawing down -> fit again

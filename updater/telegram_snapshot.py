@@ -150,6 +150,70 @@ def draw_tech_badge(im, x, y, up, tight):
     d.text((tx, ty + lh1 - b2[1] + (lh2 - (b2[3] - b2[1])) / 2), l2, fill=red, font=f_t)
 
 
+# ------------------------------------------------------------------ สถานะเครื่องจักร (ตรงกับหน้าเว็บ ith-hub.js)
+DEV_PAGES = {"BWE1", "CR2"}          # กำลังพัฒนา — ตรงกับ DEV_MACHINES บนหน้าเว็บ
+STATUS_STYLE = {                     # (ข้อความ, สีตัวอักษร, พื้น, ขอบ, emoji ในข้อความ)
+    "run": ("RUNNING",        (21, 128, 61),  (236, 253, 243), (134, 239, 172), "🟢"),
+    "err": ("COMMU ERROR",    (220, 38, 38),  (254, 242, 242), (252, 165, 165), "🔴"),
+    "dev": ("IN DEVELOPMENT", (194, 65, 12),  (255, 247, 237), (253, 186, 116), "🟠"),
+}
+
+
+def page_status(page, items):
+    """run = มีค่าใหม่ใน 20 นาที · err = มีค่าเดิมแต่ไม่อัปเดต (ระบบสื่อสารผิดปกติ) · dev = กำลังพัฒนา/ไม่มีข้อมูล"""
+    if page in DEV_PAGES:
+        return "dev"
+    _img, html_name, _full = PAGES[page]
+    ages = [age_minutes(items[t][1]) for t, _, _ in spans_of(html_name) if t in items]
+    if not ages:
+        return "dev"
+    return "run" if min(ages) <= STALE_MIN else "err"
+
+
+def draw_status(im, st):
+    """ป้ายสถานะมุมขวาบนของรูป แบบเดียวกับหน้าเว็บ"""
+    from PIL import ImageDraw
+    W = im.size[0]
+    text, fg, bg, bd, _e = STATUS_STYLE[st]
+    f = _font(max(13, round(W * 0.0165)), BOLD_FONTS)
+    d = ImageDraw.Draw(im)
+    bb = d.textbbox((0, 0), text, font=f)
+    tw, th = bb[2] - bb[0], bb[3] - bb[1]
+    dot = round(f.size * 0.62)
+    padx, pady, gap = round(f.size * 0.75), round(f.size * 0.45), round(f.size * 0.5)
+    w, h = padx + dot + gap + tw + padx, pady * 2 + max(th, dot)
+    x0, y0 = W - round(W * 0.012) - w, round(W * 0.011)   # มุมขวาบน (ไม่ทับหัวข้อรูป)
+    # ถ้าแถบหัวข้อสีของรูปยาวมาถึงมุมขวา (เช่น BWE) ให้เลื่อนป้ายลงมาใต้แถบหัวข้อ
+    rgb = im.convert("RGB")
+    band_bottom = 0
+    for yy in range(0, round(im.size[1] * 0.16)):
+        colored = 0
+        for xx in range(x0 - round(W * 0.01), x0 + w, 3):
+            r, g, b = rgb.getpixel((min(xx, W - 1), yy))
+            if max(r, g, b) - min(r, g, b) > 60:
+                colored += 1
+        if colored >= 2:
+            band_bottom = yy
+    if band_bottom:
+        y0 = band_bottom + round(W * 0.008)
+    d.rounded_rectangle([x0, y0, x0 + w, y0 + h], radius=h // 2, fill=bg, outline=bd, width=max(1, round(W * 0.0012)))
+    cy = y0 + h / 2
+    if st == "dev":
+        # ฟันเฟืองเล็ก: วงกลมมีฟัน
+        import math
+        cx, r = x0 + padx + dot / 2, dot / 2
+        pts = []
+        for i in range(16):
+            a = math.pi * 2 * i / 16
+            rr = r if i % 2 == 0 else r * 0.72
+            pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
+        d.polygon(pts, fill=fg)
+        d.ellipse([cx - r * 0.3, cy - r * 0.3, cx + r * 0.3, cy + r * 0.3], fill=bg)
+    else:
+        d.ellipse([x0 + padx, cy - dot / 2, x0 + padx + dot, cy + dot / 2], fill=fg)
+    d.text((x0 + padx + dot + gap, cy - th / 2 - bb[1]), text, fill=fg, font=f)
+
+
 def age_minutes(seen_iso, now=None):
     try:
         seen = datetime.datetime.fromisoformat(seen_iso)
@@ -200,6 +264,9 @@ def render(page, items, updated):
             draw_tech_badge(im, lx / 100 * W, ty / 100 * H, up, tight)
     d = ImageDraw.Draw(im)
 
+    draw_status(im, page_status(page, items))
+    d = ImageDraw.Draw(im)
+
     # แถบเวลาเล็กๆ มุมล่างขวา เผื่อรูปถูกส่งต่อออกไปจะได้รู้ว่าเป็นค่าเมื่อไหร่
     try:
         stamp = datetime.datetime.fromisoformat(updated).strftime("Updated %d %b %Y  %H:%M")
@@ -227,7 +294,8 @@ def short_label(tag):
 def caption(page, items, updated, hot, shown):
     """ข้อความใต้รูปแบบสั้น — เวลาอัปเดตมีในรูปมุมล่างขวาอยู่แล้ว"""
     _img, html_name, _full = PAGES[page]
-    lines = [f"{'🚨' if hot else '📊'} {page}"]
+    st = page_status(page, items)
+    lines = [f"{'🚨' if hot else '📊'} {page}   {STATUS_STYLE[st][4]} {STATUS_STYLE[st][0]}"]
     if hot:
         lines.append(f"เกิน {ALARM}°C:")
         for tag, v in sorted(hot, key=lambda x: -x[1]):
