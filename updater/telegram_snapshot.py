@@ -181,7 +181,8 @@ def draw_status(im, st):
     tw, th = bb[2] - bb[0], bb[3] - bb[1]
     dot = round(f.size * 0.62)
     padx, pady, gap = round(f.size * 0.75), round(f.size * 0.45), round(f.size * 0.5)
-    w, h = padx + dot + gap + tw + padx, pady * 2 + max(th, dot)
+    icon_w = round(dot * 2.45) if st == "dev" else dot   # dev = ฟันเฟือง + ประแจ
+    w, h = padx + icon_w + gap + tw + padx, pady * 2 + max(th, dot)
     x0, y0 = W - round(W * 0.012) - w, round(W * 0.011)   # มุมขวาบน (ไม่ทับหัวข้อรูป)
     # ถ้าแถบหัวข้อสีของรูปยาวมาถึงมุมขวา (เช่น BWE) ให้เลื่อนป้ายลงมาใต้แถบหัวข้อ
     rgb = im.convert("RGB")
@@ -194,6 +195,8 @@ def draw_status(im, st):
                 colored += 1
         if colored >= 2:
             band_bottom = yy
+        elif band_bottom and yy > band_bottom + 3:
+            break                      # จบแถบหัวข้อแล้ว ไม่นับตาราง/รูปที่อยู่ด้านล่าง
     if band_bottom:
         y0 = band_bottom + round(W * 0.008)
     d.rounded_rectangle([x0, y0, x0 + w, y0 + h], radius=h // 2, fill=bg, outline=bd, width=max(1, round(W * 0.0012)))
@@ -207,11 +210,18 @@ def draw_status(im, st):
             a = math.pi * 2 * i / 16
             rr = r if i % 2 == 0 else r * 0.72
             pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
-        d.polygon(pts, fill=fg)
+        d.polygon(pts, fill=(120, 120, 120))
         d.ellipse([cx - r * 0.3, cy - r * 0.3, cx + r * 0.3, cy + r * 0.3], fill=bg)
+        # ประแจเล็กข้างฟันเฟือง (สีเทาแบบเดียวกับหน้าเว็บ)
+        wx0, grey = cx + r + gap * 0.5, (120, 120, 120)
+        lw = max(2, round(dot * 0.22))
+        d.line([(wx0, cy + r * 0.9), (wx0 + dot * 0.95, cy - r * 0.55)], fill=grey, width=lw)
+        hx, hy, hr = wx0 + dot * 0.95, cy - r * 0.55, dot * 0.3
+        d.ellipse([hx - hr, hy - hr, hx + hr, hy + hr], fill=grey)
+        d.ellipse([hx - hr * 0.2, hy - hr * 1.05, hx + hr * 0.75, hy - hr * 0.1], fill=bg)
     else:
         d.ellipse([x0 + padx, cy - dot / 2, x0 + padx + dot, cy + dot / 2], fill=fg)
-    d.text((x0 + padx + dot + gap, cy - th / 2 - bb[1]), text, fill=fg, font=f)
+    d.text((x0 + padx + icon_w + gap, cy - th / 2 - bb[1]), text, fill=fg, font=f)
 
 
 def age_minutes(seen_iso, now=None):
