@@ -23,7 +23,7 @@
 :root[data-theme="dark"]{--bg:#0e151b;--panel:#151e26;--panel-2:#1a242d;--ink:#e7edf2;--ink-soft:#9aa9b6;--line:#26323d;--line-strong:#33414d;--accent:#3ec5dd;--accent-soft:#3ec5dd1f;--brand:#ff5b52;--amber:#fbbf24;--shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.4)}
 *{box-sizing:border-box}html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;padding:40px 18px}
-.wrap{max-width:900px;margin:0 auto;width:100%;flex:1;display:flex;flex-direction:column;gap:26px}
+.wrap{max-width:1180px;margin:0 auto;width:100%;flex:1;display:flex;flex-direction:column;gap:26px}
 .top{display:flex;align-items:center;gap:16px}
 .logo{width:104px;height:64px;border-radius:12px;flex:none;background:#fff;display:grid;place-items:center;overflow:hidden;padding:6px 9px;box-shadow:var(--shadow),inset 0 0 0 1px rgba(0,0,0,.08)}
 .logo img{width:100%;height:100%;object-fit:contain;display:block}
@@ -32,10 +32,11 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1
 .hero{margin:6px 0 0}
 .hero h2{margin:0;font-size:27px;font-weight:780;letter-spacing:-.02em;text-wrap:balance}
 .hero p{margin:6px 0 0;color:var(--ink-soft);font-size:14px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:980px){.cards{grid-template-columns:1fr 1fr}}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px 24px 22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
 .card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--c,var(--accent))}
-.card.motor{--c:var(--brand)} .card.fiber{--c:var(--accent)}
+.card.motor{--c:var(--brand)} .card.fiber{--c:var(--accent)} .card.iso{--c:#7c6cf0}
 .card .ico{font-size:26px;width:52px;height:52px;border-radius:13px;display:grid;place-items:center;background:var(--panel-2);box-shadow:inset 0 0 0 1px var(--line)}
 .card h3{margin:16px 0 4px;font-size:18px;font-weight:750}
 .card .desc{color:var(--ink-soft);font-size:13px;flex:1;margin-bottom:18px}
@@ -93,13 +94,23 @@ footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:28px;
         <a class="btn edit" href="FiberOptic_Report.html?mode=edit">🔒 แก้ไข (ผู้ดูแล)</a>
       </div>
     </div>
+
+    <div class="card iso">
+      <div class="ico">📋</div>
+      <h3>ISO EE Plan Tracker</h3>
+      <div class="desc">แผนติดตามงาน ISO · Electrical ITH-CV — ความคืบหน้างานตามรอบ รายเดือน / ไตรมาส / ครึ่งปี / รายปี ซิงค์สถานะทุกเครื่อง</div>
+      <div class="meta"><span class="tag">ISO · Electrical</span><span class="tag">M · Q · H · Y</span></div>
+      <div class="btnrow">
+        <a class="btn primary" href="iso-ee.html">👁 เข้าดู</a>
+      </div>
+    </div>
   </div>
 
   <div class="note">
     <b>หมายเหตุ:</b> เว็บนี้เป็นหน้าแสดงผลสาธารณะ (static) — ทุกคนเข้า “ดู” ได้ ปุ่ม “แก้ไข” ใช้ปลดล็อกช่องเลือกใช้งาน (dropdown) ในหน้า Fiber สำหรับผู้ดูแล โดยการเปลี่ยนแปลงจะบันทึกในเบราว์เซอร์ของผู้ดูแลเอง หากต้องการเผยแพร่ให้ทุกคนเห็น ต้องอัปเดตไฟล์ขึ้น GitHub อีกครั้ง
   </div>
 
-  <footer>ITH-CV · Fiber Optic &amp; Overhaul Motor Monitoring · 2025</footer>
+  <footer>ITH-CV · Overhaul Motor · Fiber Optic · ISO EE Plan Tracker</footer>
 </div>
 <script>
 document.getElementById("themeBtn").addEventListener("click",()=>{

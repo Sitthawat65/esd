@@ -34,6 +34,12 @@ body{
 .wrap{max-width:1320px; margin:0 auto; padding:18px 16px 60px}
 @media (max-width:640px){ .wrap{padding:12px 11px 48px} }
 
+/* ---------- แถบลิงก์ไปแดชบอร์ดอื่น ---------- */
+.hubnav{display:flex; gap:10px; flex-wrap:wrap; margin:0 0 16px}
+.hubnav a{font-size:13px; font-weight:600; color:var(--ink-soft); text-decoration:none; padding:7px 14px;
+  border:1px solid var(--line); border-radius:999px; background:var(--panel-2); transition:.15s}
+.hubnav a:hover{color:var(--ink); border-color:var(--cyan)}
+
 /* ---------- หัวเรื่อง ---------- */
 .top{display:flex; align-items:flex-start; gap:14px; flex-wrap:wrap; margin-bottom:14px}
 .brand{flex:1 1 220px; min-width:0}
@@ -1334,7 +1340,10 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
   function render(){
     var items = currentItems();
     var root = document.getElementById("root");
-    var head = '<div class="top"><div class="brand">'
+    var head = '<nav class="hubnav"><a href="index.html">← หน้าหลัก</a>'
+      + '<a href="Dashboard.html">⚙️ Overhaul Motor Dashboard</a>'
+      + '<a href="FiberOptic_Report.html">🔬 Fiber Optic Dashboard</a></nav>'
+      + '<div class="top"><div class="brand">'
       + '<h1>แผนติดตามงาน ISO · Electrical ITH-CV</h1>'
       + '<p>ITH Hongsa · ติดตามความคืบหน้าตามรอบงาน</p></div>'
       + '<div class="right"><div id="saveState" class="saving"></div><div>'
