@@ -547,7 +547,9 @@ document.getElementById("themeBtn").addEventListener("click",()=>{
 
 render();
 updateModeUI();
-if(new URLSearchParams(location.search).get("mode")==="edit" && !editMode) openLogin();
+const qMode=new URLSearchParams(location.search).get("mode");
+if(qMode==="view" && editMode){ sessionStorage.removeItem("fo_auth"); editMode=false; render(); updateModeUI(); }
+if(qMode==="edit" && !editMode) openLogin();
 
 (function(){var el=document.getElementById("genTime");if(!el)return;var d=new Date(),m=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."],p=function(n){return String(n).padStart(2,"0")};el.textContent="อัปเดต "+d.getDate()+" "+m[d.getMonth()]+" "+p(d.getHours())+":"+p(d.getMinutes());})();
 </script>

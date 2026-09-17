@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem('ith_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ISO EE Plan Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +40,41 @@ body{
 .hubnav a{font-size:13px; font-weight:600; color:var(--ink-soft); text-decoration:none; padding:7px 14px;
   border:1px solid var(--line); border-radius:999px; background:var(--panel-2); transition:.15s}
 .hubnav a:hover{color:var(--ink); border-color:var(--cyan)}
+
+/* ---------- แถบลิงก์ + ปุ่มโหมด (เรียงแบบเดียวกับแดชบอร์ดอื่น) ---------- */
+.hubnav{align-items:center}
+.hubnav .navsp{flex:1 1 auto}
+.hubnav .themebtn,.hubnav .modebadge,.hubnav .modebtn{font:inherit; font-size:13px; font-weight:600; margin:0;
+  padding:7px 14px; border-radius:999px; border:1px solid var(--line); background:var(--panel-2); color:var(--ink-soft); cursor:pointer}
+.hubnav .modebadge{cursor:default; font-size:12.5px}
+.hubnav .modebadge.on{color:var(--teal); border-color:rgba(47,224,176,.4); background:rgba(47,224,176,.1)}
+.hubnav .themebtn:hover{color:var(--ink); border-color:var(--cyan)}
+.hubnav .modebtn{background:var(--cyan); border-color:var(--cyan); color:#06182F; font-weight:700}
+.hubnav .modebtn:hover{filter:brightness(1.07)}
+.hubnav .modebtn.on{background:var(--panel-2); color:var(--coral); border-color:rgba(255,123,107,.5)}
+
+/* ---------- ธีมสว่าง ---------- */
+:root[data-theme="light"]{
+  --bg1:#eef2f7; --bg2:#e7edf5;
+  --panel:#ffffff; --panel-2:#f5f8fc; --panel-hi:#eef3f9; --line:#d5dde8; --line-soft:#e0e6ee;
+  --ink:#15202e; --ink-soft:#56657a; --ink-faint:#8a97a8;
+  --track:#e3e9f1;
+  --cyan:#1f7fd1; --teal:#0e9f78; --amber:#b7791f; --coral:#d9483b; --violet:#6d5ce8;
+}
+:root[data-theme="light"] body{background-image:linear-gradient(155deg,#f3f6fa 0%,#eaf0f7 55%,#e4ebf4 100%)}
+:root[data-theme="light"] .tone-M{--tone:#1f7fd1; --tone-soft:rgba(31,127,209,.09)}
+:root[data-theme="light"] .tone-Q{--tone:#0e9f78; --tone-soft:rgba(14,159,120,.09)}
+:root[data-theme="light"] .tone-H{--tone:#d97706; --tone-soft:rgba(217,119,6,.09)}
+:root[data-theme="light"] .tone-Y{--tone:#6d5ce8; --tone-soft:rgba(109,92,232,.09)}
+:root[data-theme="light"] .rowbtn{background:linear-gradient(180deg,#ffffff 0%,#eef3f9 100%); color:var(--ink);
+  box-shadow:inset 0 1px 0 #fff,0 1px 0 #d5dde8,0 2px 5px rgba(20,33,44,.08)}
+:root[data-theme="light"] .rowbtn:hover,:root[data-theme="light"] .rowbtn.on{color:var(--cyan); background:linear-gradient(180deg,#f4f9ff 0%,#e3effb 100%)}
+:root[data-theme="light"] .blist.zebra > .brow:nth-child(odd){background:rgba(15,23,42,.035)}
+:root[data-theme="light"] .blist.zebra > .brow:nth-child(even){background:transparent}
+:root[data-theme="light"] .seg button[aria-pressed="true"],:root[data-theme="light"] .lkrow button.go,
+:root[data-theme="light"] .lkrow button.go:hover,:root[data-theme="light"] .hubnav .modebtn{color:#fff}
+:root[data-theme="light"] .hubnav .modebtn.on{color:var(--coral)}
+:root[data-theme="light"] .lockcard{box-shadow:0 18px 44px rgba(20,33,44,.18)}
 
 /* ---------- หัวเรื่อง ---------- */
 .top{display:flex; align-items:flex-start; gap:14px; flex-wrap:wrap; margin-bottom:14px}
@@ -282,6 +318,9 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
   opacity:.72; margin-left:6px}
 
 /* ---------- สลับโหมดแก้ไข / ดูอย่างเดียว ---------- */
+.modebadge{display:inline-block; font-size:11.5px; font-weight:600; padding:5px 12px; margin:5px 8px 0 0; border-radius:999px;
+  border:1px solid var(--line); background:var(--panel-2); color:var(--ink-soft)}
+.modebadge.on{color:var(--teal); border-color:rgba(47,224,176,.4); background:rgba(47,224,176,.1)}
 .modebtn{font:inherit; font-size:11.5px; font-weight:600; padding:5px 12px; margin-top:5px;
   border-radius:99px; cursor:pointer; border:1px solid var(--line);
   background:var(--panel-2); color:var(--ink-soft); white-space:nowrap}
@@ -532,7 +571,7 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
     var b = document.createElement("div");
     b.className = "lock"; b.hidden = true;
     b.innerHTML = '<div class="lockcard" role="dialog" aria-modal="true" aria-labelledby="lkH">'
-      + '<h3 id="lkH">เข้าสู่โหมดแก้ไข</h3>'
+      + '<h3 id="lkH">🔒 Developer Mode</h3>'
       + '<p class="lksub">กรอกรหัสผู้ดูแลเพื่อแก้ไขสถานะงาน</p>'
       + '<form id="lkForm">'
       +   '<div class="fld"><label for="lkId">ID</label>'
@@ -843,7 +882,7 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
 
     if(mode === "readonly" || !editMode){
       cls = "off";
-      txt = SYNC_URL ? "ดูอย่างเดียว · ซิงค์ทุกเครื่อง" : "ดูอย่างเดียว";
+      txt = SYNC_URL ? "Visitor Mode · ซิงค์ทุกเครื่อง" : "Visitor Mode";
     } else if(SYNC_URL){
       if(syncState === "push" || syncState === "pull"){ cls = "busy"; txt = "กำลังซิงค์…"; }
       else if(syncState === "err"){
@@ -855,7 +894,7 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
     } else {
       var map = {
         pending:["busy","กำลังบันทึก…"], saving:["busy","กำลังบันทึก…"],
-        saved:["","บันทึกแล้ว"], error:["off","บันทึกไม่สำเร็จ"], readonly:["off","ดูอย่างเดียว"]
+        saved:["","บันทึกแล้ว"], error:["off","บันทึกไม่สำเร็จ"], readonly:["off","Visitor Mode"]
       };
       var m = map[saving] || ["", mode === "live" ? "บันทึกอัตโนมัติ · ซิงค์ทุกเครื่อง"
                                                   : "บันทึกในเครื่องนี้"];
@@ -1342,23 +1381,26 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
     var root = document.getElementById("root");
     var head = '<nav class="hubnav"><a href="index.html">← หน้าหลัก</a>'
       + '<a href="Dashboard.html">⚙️ Overhaul Motor Dashboard</a>'
-      + '<a href="FiberOptic_Report.html">🔬 Fiber Optic Dashboard</a></nav>'
+      + '<a href="FiberOptic_Report.html">🔬 Fiber Optic Dashboard</a>'
+      + '<span class="navsp"></span>'
+      + '<button class="themebtn" type="button" data-theme-toggle="1">◐ สลับธีม</button>'
+      + '<span class="modebadge' + (editMode ? " on" : "") + '">' + (editMode ? "✔ Developer Mode" : "👁 Visitor Mode") + '</span>'
+      + '<button class="modebtn' + (editMode ? " on" : "") + '" data-mode="1"'
+      + (mode === "readonly" ? ' disabled' : '')
+      + ' aria-pressed="' + (editMode ? "true" : "false") + '"'
+      + ' title="' + (editMode ? "กดเพื่อออกจาก Developer Mode" : "เฉพาะผู้มีรหัส — กดเพื่อใส่รหัสเข้า Developer Mode") + '">'
+      + (editMode ? "🔓 Exit Developer Mode" : "🔒 Developer Mode") + '</button></nav>'
       + '<div class="top"><div class="brand">'
       + '<h1>แผนติดตามงาน ISO · Electrical ITH-CV</h1>'
       + '<p>ITH Hongsa · ติดตามความคืบหน้าตามรอบงาน</p></div>'
       + '<div class="right"><div id="saveState" class="saving"></div><div>'
       + esc(new Date().toLocaleDateString("th-TH",{day:"numeric",month:"long",year:"numeric"}))
-      + '</div><button class="modebtn' + (editMode ? " on" : "") + '" data-mode="1"'
-      + (mode === "readonly" ? ' disabled' : '')
-      + ' aria-pressed="' + (editMode ? "true" : "false") + '"'
-      + ' title="' + (editMode ? "กดเพื่อออกจากโหมดแก้ไข" : "กดเพื่อใส่รหัสเข้าโหมดแก้ไข") + '">'
-      + (editMode ? "✎ โหมดแก้ไข · Edit" : "🔒 ดูอย่างเดียว · View only")
-      + '</button></div></div>'
+      + '</div></div></div>'
       + (mode === "readonly"
           ? '<div class="ro">มุมมองอ่านอย่างเดียว — บัญชีนี้ไม่มีสิทธิ์แก้ไขสถานะ</div>'
           : !editMode
-          ? '<div class="ro view">โหมดดูอย่างเดียว (View only) — แก้ไขสถานะไม่ได้ '
-            + '· กดปุ่ม “ดูอย่างเดียว” มุมขวาบน แล้วใส่รหัสผู้ดูแล เพื่อเข้าโหมดแก้ไข</div>'
+          ? '<div class="ro view">Visitor Mode — ดูได้อย่างเดียว แก้ไขสถานะไม่ได้ '
+            + '· ผู้มีรหัสกดปุ่ม “Developer Mode” มุมขวาบน เพื่อแก้ไข</div>'
           : "");
 
     root.innerHTML = head + tabsHTML()
@@ -1367,6 +1409,15 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
       + '<footer>ข้อมูลแผนงานจากไฟล์ “แผนติดตามงาน ISO EE” · แก้ไขสถานะแล้วบันทึกอัตโนมัติ</footer>';
     paintSave();
   }
+
+  /* ---------- สลับธีม สว่าง / มืด (จำค่าร่วมกับแดชบอร์ดอื่น) ---------- */
+  document.addEventListener("click", function(e){
+    if(!e.target.closest("[data-theme-toggle]")) return;
+    var light = document.documentElement.getAttribute("data-theme") !== "light";
+    if(light) document.documentElement.setAttribute("data-theme","light");
+    else document.documentElement.setAttribute("data-theme","dark");
+    try { localStorage.setItem("ith_theme", light ? "light" : "dark"); } catch(err){}
+  });
 
   /* ---------- รับการกดและการพิมพ์ ---------- */
   document.addEventListener("click", function(e){
@@ -1482,6 +1533,12 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
   /* ---------- เริ่มทำงาน ---------- */
   if(!lsAvailable()) mode = "readonly";
   render();
+  // ลิงก์จากหน้าหลัก: ?mode=view = Visitor Mode, ?mode=edit = ขอรหัส Developer Mode
+  try{
+    var qMode = new URLSearchParams(location.search).get("mode");
+    if(qMode === "view" && editMode) setEditMode(false);
+    if(qMode === "edit" && !editMode && mode !== "readonly") showLock();
+  }catch(e){}
 
   if(SYNC_URL){
     mode = "local";                 // ยังใช้ localStorage เป็นแคชสำรองตอนเน็ตหลุด

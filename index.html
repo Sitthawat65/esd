@@ -47,7 +47,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1
 .btn:hover{border-color:var(--accent);color:var(--accent)}
 .btn.primary{flex:1;background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.primary:hover{filter:brightness(1.06);color:#fff}
-.btn.edit{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 40%,transparent)}
+.btn.edit{flex:1;color:var(--amber);border-color:color-mix(in srgb,var(--amber) 40%,transparent)}
 .btn.edit:hover{border-color:var(--amber);color:var(--amber)}
 .note{background:var(--panel);border:1px dashed var(--line-strong);border-radius:14px;padding:14px 18px;font-size:12.5px;color:var(--ink-soft);line-height:1.7}
 .note b{color:var(--ink)}
@@ -79,8 +79,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:28px;
       <div class="desc">ติดตามสถานะและชั่วโมงเดินเครื่องมอเตอร์ 89 ตัว พร้อมตัวกรองยี่ห้อ/พื้นที่ และรายละเอียดราย SMU</div>
       <div class="meta"><span class="tag">89 Motors</span><span class="tag">SMU Hours</span></div>
       <div class="btnrow">
-        <a class="btn primary" href="Dashboard.html">👁 เข้าดู</a>
-        <a class="btn edit" href="Dashboard.html?mode=edit">🔒 แก้ไข (ผู้ดูแล)</a>
+        <a class="btn primary" href="Dashboard.html?mode=view">👁 Visitor Mode</a>
+        <a class="btn edit" href="Dashboard.html?mode=edit">🔒 Developer Mode</a>
       </div>
     </div>
 
@@ -90,8 +90,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:28px;
       <div class="desc">ผลวัด OTDR สาย Fiber Line Conveyor (Multi-Mode) 2 รอบ ปี 2025 พร้อมประเมิน Pass/Fail อัตโนมัติตาม TIA-568</div>
       <div class="meta"><span class="tag">2 รอบทดสอบ</span><span class="tag">66 Cores</span></div>
       <div class="btnrow">
-        <a class="btn primary" href="FiberOptic_Report.html">👁 เข้าดู</a>
-        <a class="btn edit" href="FiberOptic_Report.html?mode=edit">🔒 แก้ไข (ผู้ดูแล)</a>
+        <a class="btn primary" href="FiberOptic_Report.html?mode=view">👁 Visitor Mode</a>
+        <a class="btn edit" href="FiberOptic_Report.html?mode=edit">🔒 Developer Mode</a>
       </div>
     </div>
 
@@ -101,13 +101,14 @@ footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:28px;
       <div class="desc">แผนติดตามงาน ISO · Electrical ITH-CV — ความคืบหน้างานตามรอบ รายเดือน / ไตรมาส / ครึ่งปี / รายปี ซิงค์สถานะทุกเครื่อง</div>
       <div class="meta"><span class="tag">ISO · Electrical</span><span class="tag">M · Q · H · Y</span></div>
       <div class="btnrow">
-        <a class="btn primary" href="iso-ee.html">👁 เข้าดู</a>
+        <a class="btn primary" href="iso-ee.html?mode=view">👁 Visitor Mode</a>
+        <a class="btn edit" href="iso-ee.html?mode=edit">🔒 Developer Mode</a>
       </div>
     </div>
   </div>
 
   <div class="note">
-    <b>หมายเหตุ:</b> เว็บนี้เป็นหน้าแสดงผลสาธารณะ (static) — ทุกคนเข้า “ดู” ได้ ปุ่ม “แก้ไข” ใช้ปลดล็อกช่องเลือกใช้งาน (dropdown) ในหน้า Fiber สำหรับผู้ดูแล โดยการเปลี่ยนแปลงจะบันทึกในเบราว์เซอร์ของผู้ดูแลเอง หากต้องการเผยแพร่ให้ทุกคนเห็น ต้องอัปเดตไฟล์ขึ้น GitHub อีกครั้ง
+    <b>หมายเหตุ:</b> <b>👁 Visitor Mode</b> — ทุกคนเข้าดูข้อมูลได้ (แก้ไขไม่ได้) · <b>🔒 Developer Mode</b> — สำหรับผู้มีรหัสเท่านั้น ใช้แก้ไข/บันทึกข้อมูลในแต่ละแดชบอร์ด ทุกหน้ามีปุ่มสลับโหมดและสลับธีมอยู่มุมขวาบน
   </div>
 
   <footer>ITH-CV · Overhaul Motor · Fiber Optic · ISO EE Plan Tracker</footer>

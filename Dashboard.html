@@ -2608,7 +2608,9 @@ document.getElementById("mCancel").addEventListener("click",cl);
 ovl.addEventListener("click",function(ev){if(ev.target===ovl)cl();});
 document.getElementById("mForm").addEventListener("submit",function(ev){ev.preventDefault();var id=document.getElementById("mId").value.trim().toUpperCase();var pw=document.getElementById("mPw").value.trim();if(sha256(id+":"+pw)===AUTH_HASH){sessionStorage.setItem("fo_auth","1");editMode=true;cl();apply();}else document.getElementById("mErr").textContent="ID หรือรหัสผ่านไม่ถูกต้อง";});
 apply();
-if(new URLSearchParams(location.search).get("mode")==="edit" && !editMode) op();
+var qm=new URLSearchParams(location.search).get("mode");
+if(qm==="view" && editMode){sessionStorage.removeItem("fo_auth");editMode=false;apply();}
+if(qm==="edit" && !editMode) op();
 })();
 </script>
 </body>
