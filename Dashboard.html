@@ -233,6 +233,9 @@
   .oh-print{align-self:stretch;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(180deg,#1e3a5f,#15294a);color:#e0f2fe;border:1px solid rgba(34,211,238,.45);border-radius:10px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
   .oh-print:hover{border-color:var(--cyan);filter:brightness(1.12)}
   .oh-none{font-size:11.5px;color:var(--muted);font-style:italic;background:var(--bg2);border:1px dashed var(--line2);border-radius:10px;padding:10px 12px}
+  .mhead .h-name .ohico{display:inline-flex;align-items:center;gap:3px;vertical-align:2px;margin-left:8px;height:19px;padding:0 7px 0 5px;border-radius:999px;background:rgba(34,211,238,.13);border:1px solid rgba(34,211,238,.5);color:#67e8f9;font-style:normal;cursor:help}
+  .mhead .h-name .ohico svg{width:11px;height:11px;fill:currentColor}
+  .mhead .h-name .ohico em{font-style:normal;font-size:10.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
   .ohbadge{display:inline-flex!important;align-items:center;gap:4px;margin-top:4px!important;font-size:10px!important;font-weight:700;color:#7dd3fc!important;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);border-radius:999px;padding:1px 8px}
   @media(max-width:720px){.oh-meta{grid-template-columns:1fr 1fr}.oh-parts ul{grid-template-columns:1fr}.oh-row1{flex-direction:column;gap:6px}.oh-amt{text-align:left}.oh-stat{min-width:0}}
   /* history / comments per motor */
@@ -2326,7 +2329,7 @@ function motorCard(d){
   return `<div class="motor ${d.tier==='over'?'over':''} ${open?'open':''} ${d.smuPaused?'smupaused':''}" data-id="${d._id}">
     <div class="mhead">
       <div class="sdot ${(d.status==='Running'||d.status==='PRE OH')?'sdot-pulse':''}" style="background:${SC[d.status]||'#94a3b8'};--sc:${SC[d.status]||'#94a3b8'}"></div>
-      <div class="h-name"><b>${esc(d.name)}</b><span class="meta"><span class="loc">${esc(inst)}</span>${d.serial?` <span class="ser">· S/N ${esc(d.serial)}</span>`:''}${d.smuPaused?' <span class="smu-hold">⏸ หยุดนับ SMU</span>':''}</span>${(n=>n?`<span class="ohbadge">🛠 ประวัติซ่อม ${n} ครั้ง</span>`:'')(ohFor(d).length)}</div>
+      <div class="h-name"><b>${esc(d.name)}</b>${(n=>n?`<i class="ohico" title="มีประวัติการซ่อม / Overhaul ${n} รายการ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg><em>${n}</em></i>`:'')(ohFor(d).length)}<span class="meta"><span class="loc">${esc(inst)}</span>${d.serial?` <span class="ser">· S/N ${esc(d.serial)}</span>`:''}${d.smuPaused?' <span class="smu-hold">⏸ หยุดนับ SMU</span>':''}</span></div>
       <div class="h-brand">${brandImg(d.brand)}<br>${fmtP(d.power)} kW · ${fmt(d.voltage)} V</div>
       <div><span class="bg ${SB[d.status]||'b-stb'}">${esc(d.status||'')}</span></div>
       <div class="lifewrap"><div class="lifebar"><i style="width:${lw}%;background:${lc}"></i></div>
