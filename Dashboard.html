@@ -2276,7 +2276,7 @@ const OH_MASK = '******** บาท';
 function ohDate(s){if(!s)return '';const p=s.split('-');return +p[2]+'/'+(+p[1])+'/'+p[0];}
 function ohHTML(d){
   const a=ohFor(d), admin=ohIsAdmin();
-  const pbtn=`<button type="button" class="oh-print" title="พิมพ์ออกเครื่องพิมพ์ หรือบันทึกเป็น PDF" onclick="ohPrint('${d._id}')">🖨 พิมพ์ / PDF</button>`;
+  const pbtn=`<button type="button" class="oh-print" title="รายงานพื้นขาว (ตาราง) — พิมพ์ออกเครื่องพิมพ์ หรือบันทึกเป็น PDF" onclick="ohPrint('${d._id}')">🖨 รายงาน / PDF</button><button type="button" class="oh-print" title="พิมพ์การ์ดมอเตอร์แบบเดียวกับที่เห็นบนแดชบอร์ด" onclick="ohPrintCard('${d._id}')">🖼 แบบแดชบอร์ด</button>`;
   const head=(stats)=>`<div class="oh-top"><div class="oh-title"><span class="ico">🛠</span><div>ประวัติการซ่อม / Overhaul History<small>อ้างอิง S/N · ที่มา: HISTORY MOTOR ITH-CV</small></div></div><div class="oh-stats">${stats}${pbtn}</div></div>`;
   if(!a.length) return `<div class="ohsec">${head('')}<div class="oh-none">ยังไม่มีประวัติการซ่อม / Overhaul ของ S/N นี้ในฐานข้อมูล</div></div>`;
   const dated=a.filter(h=>h.date);
@@ -2361,13 +2361,51 @@ ${a.length?`<table><thead><tr><th style="width:26px">#</th><th>วันที�
  :'<div class="empty">ยังไม่มีประวัติการซ่อม / Overhaul ของ S/N นี้ในฐานข้อมูล</div>'}
 <div class="sig"><div>ผู้จัดทำ</div><div>ผู้ตรวจสอบ</div></div>
 </body></html>`;
+  ohFramePrint(doc);
+}
+function ohFramePrint(doc){
   let fr=document.getElementById('ohPrintFrame'); if(fr) fr.remove();
   fr=document.createElement('iframe'); fr.id='ohPrintFrame';
   fr.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
   document.body.appendChild(fr);
   const w=fr.contentWindow; w.document.open(); w.document.write(doc); w.document.close();
   const go=()=>{try{w.focus();w.print();}catch(e){alert('สั่งพิมพ์ไม่สำเร็จ: '+e.message);}};
-  (w.document.fonts&&w.document.fonts.ready?Promise.race([w.document.fonts.ready,new Promise(r=>setTimeout(r,1500))]):Promise.resolve()).then(()=>setTimeout(go,150));
+  (w.document.fonts&&w.document.fonts.ready?Promise.race([w.document.fonts.ready,new Promise(r=>setTimeout(r,1500))]):Promise.resolve()).then(()=>setTimeout(go,250));
+}
+// print the motor card exactly as it looks on the dashboard (dark theme, expanded)
+function ohPrintCard(id){
+  const d=DATA.find(x=>x._id===id); if(!d) return;
+  const had=openSet.has(id); openSet.add(id); let card=motorCard(d); if(!had) openSet.delete(id);
+  const css=[...document.querySelectorAll('style')].map(s=>s.textContent).join(String.fromCharCode(10));
+  const logo=(document.querySelector('.logo img')||{}).src||'';
+  const medit=document.documentElement.getAttribute('data-medit')||'0';
+  const now=new Date().toLocaleString('th-TH',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const doc=`<!doctype html><html lang="th" data-medit="${medit}"><head><meta charset="utf-8"><title>Motor Card - ${esc(d.name)} - SN ${esc(d.serial||'')}</title>
+<style>${css}
+ @page{size:A4 landscape;margin:0}
+ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#0a0e17!important}
+ body{padding:7mm 8mm}
+ body::before{display:none}
+ .pc-wrap{width:1300px;zoom:.815}
+ .pc-top{display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:10px 16px;border:1px solid var(--line2);border-radius:14px;background:linear-gradient(120deg,var(--panel2),var(--panel))}
+ .pc-top img{height:40px;border-radius:8px;background:#fff;padding:3px}
+ .pc-top b{font-size:17px}.pc-top span{display:block;font-size:11.5px;color:var(--muted)}
+ .pc-top .pc-dt{margin-left:auto;text-align:right;font-size:11.5px;color:var(--muted)}
+ .motor{box-shadow:none!important}
+ .mhead{grid-template-columns:26px 1.7fr 130px 110px 1fr 96px 104px 22px!important}
+ .mhead .h-brand,.mhead .h-remain,.mhead .h-date{display:block!important}
+ .dgrid{grid-template-columns:repeat(4,1fr)!important}
+ .oh-meta{grid-template-columns:repeat(3,minmax(0,auto))!important}
+ .oh-parts ul{grid-template-columns:repeat(auto-fill,minmax(230px,280px))!important}
+ .oh-row1{flex-direction:row!important}.oh-amt{text-align:right!important}
+ .mbody{animation:none!important}
+ .oh-print,.hist-input,.hist-act,.smu-act,.chev{display:none!important}
+ .histsec:has(.hist-empty){display:none}
+ .oh-it,.dcell,.lifecyc{break-inside:avoid}
+</style></head><body><div class="pc-wrap">
+<div class="pc-top">${logo?`<img src="${logo}">`:''}<div><b>Motor Overhaul Card · ${esc(d.name)}</b><span>ITH Hongsa · Overhaul Monitoring Dashboard</span></div><div class="pc-dt">พิมพ์เมื่อ ${now}<br>S/N ${esc(d.serial||'–')}</div></div>
+${card}</div></body></html>`;
+  ohFramePrint(doc);
 }
 function motorCard(d){
   const open=openSet.has(d._id);const lc=lifeColor(d.lifeUsed);const lw=d.lifeUsed==null?0:Math.min(100,Math.max(2,d.lifeUsed));const hk=safeK(d);
