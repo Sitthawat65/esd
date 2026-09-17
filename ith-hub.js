@@ -133,6 +133,20 @@
     } finally { fitting = false; }
   }
 
+  // machines still in development: grey + wrench; machines with live data: tinted
+  var DEV_MACHINES = ['BWE1', 'CR2'];
+  var LIVE_PAGES = { 'spreader.html': 1, 'tripper.html': 1, 'BWE2.html': 1, 'CR1.html': 1 };
+  function markMachines() {
+    var links = document.querySelectorAll('.topnav .navlinks a');
+    for (var i = 0; i < links.length; i++) {
+      var a = links[i], g = a.getAttribute('data-grp'), href = (a.getAttribute('href') || '').split('?')[0];
+      var dev = g && DEV_MACHINES.indexOf(g) > -1;
+      a.classList.toggle('ith-dev', !!dev);
+      a.classList.toggle('ith-live', !dev && !!LIVE_PAGES[href]);
+      if (dev) a.title = g + ' · In development — อยู่ในขั้นตอนการพัฒนา';
+    }
+  }
+
   function init() {
     // login dialog (overlay — never affects layout)
     document.body.insertAdjacentHTML('beforeend',
@@ -174,6 +188,7 @@
     for (var i = 0; i < imgs.length; i++) {
       if (imgs[i].complete) fit(); else imgs[i].addEventListener('load', fit);
     }
+    markMachines();
     window.addEventListener('resize', fit);
     window.addEventListener('load', fit);
     // weather widget / fonts load later and push the drawing down -> fit again
