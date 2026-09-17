@@ -362,6 +362,7 @@
         <select id="typeFilter" class="mfsel"><option value="">ทุกชนิด (All types)</option></select>
         <div class="bdrop" id="brandDrop"><button type="button" class="bdrop-btn" id="brandBtn"><span id="brandBtnLabel">ทุกยี่ห้อ</span><span class="caret">▾</span></button><div class="bdrop-menu" id="brandMenu"></div></div>
         <select id="statusFilter" class="mfsel"><option value="">ทุกสถานะ (All status)</option></select>
+        <select id="ohFilter" class="mfsel" title="กรองตามประวัติ Overhaul"><option value="">OH History (All)</option></select>
         <div class="search"><input type="text" id="q" placeholder="ค้นหา ชื่อ / serial / ยี่ห้อ / จุดติดตั้ง..."></div>
         <select id="schedFilter" style="background:var(--bg2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;cursor:pointer"><option value="">ทุกกำหนดการ (All schedules)</option></select>
       </div>
@@ -2088,7 +2089,7 @@ function smuActHTML(d){
 }
 
 const PAGE={ALL:"ALL SYSTEMS",SPD:"SPREADER MOTOR",BWE1:"BUCKET WHEEL EXCAVATOR 01",BWE2:"BUCKET WHEEL EXCAVATOR 02",BW1:"BELT WAGON EXCAVATOR 01",BW2:"BELT WAGON EXCAVATOR 02",CR1:"CRUSHER 01",CR2:"CRUSHER 02",CR3:"CRUSHER 03",BW2200:"CONVEYOR LINE BW 2200",BW1800:"CONVEYOR LINE BW 1800"};
-let cur="ALL", q="", schedFilter="", typeFilter="", brandFilter="", statusFilter="", openSet=new Set();
+let cur="ALL", q="", schedFilter="", typeFilter="", brandFilter="", statusFilter="", ohFilter="", openSet=new Set();
 function subId(d){
   if(d.system==="CR"){if(d.location==="CR#1")return "CR1";if(d.location==="CR#2")return "CR2";if(d.location==="CR#3")return "CR3";return "CR";}
   if(d.system==="BWE"){if(d.location==="BWE 01")return "BWE1";if(d.location==="BWE 02")return "BWE2";return "BWE";}
@@ -2107,7 +2108,7 @@ function renderTabs(){
       <div class="trow"><div class="tcount">${rs.length}</div><div class="tunit">Unit</div>
         <div class="tover ${ov?'':'ok'}"><i></i>${ov?ov+" เกินกำหนด":"ปกติ"}</div></div>
     </div>`;}).join("");
-  document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{cur=t.dataset.id;openSet.clear();typeFilter="";brandFilter="";statusFilter="";schedFilter="";q="";document.getElementById("q").value="";document.getElementById("schedFilter").value="";buildMotorFilters();renderAll();}));
+  document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{cur=t.dataset.id;openSet.clear();typeFilter="";brandFilter="";statusFilter="";ohFilter="";schedFilter="";q="";document.getElementById("q").value="";document.getElementById("schedFilter").value="";buildMotorFilters();renderAll();}));
 }
 function renderKPIs(){
   const r=rowsOf(cur);
@@ -2362,7 +2363,8 @@ function renderMotors(){
   if(typeFilter) r=r.filter(d=>typeOf(d)===typeFilter);
   if(brandFilter) r=r.filter(d=>(d.brand||'')===brandFilter);
   if(statusFilter) r=r.filter(d=>(d.status||'')===statusFilter);
-  if(q){const s=q.toLowerCase();r=r.filter(d=>[d.name,d.serial,d.brand,d.location,d.system,d.status].join(" ").toLowerCase().includes(s));}
+  if(ohFilter) r=r.filter(d=>(ohFor(d).length>0)===(ohFilter==="has"));
+  if(q){const s=q.toLowerCase();r=r.filter(d=>[d.name,d.serial,d.brand,d.location,d.system,d.status,ohFor(d).length?"OH History · History OH · overhaul":""].join(" ").toLowerCase().includes(s));}
   r.sort((a,b)=>{const av=a.remain_oh2==null?1e9:a.remain_oh2,bv=b.remain_oh2==null?1e9:b.remain_oh2;return av-bv;});
   document.getElementById("mlist").innerHTML = r.length?r.map(motorCard).join(""):'<div class="empty">ไม่พบมอเตอร์ตามเงื่อนไข</div>';
   document.getElementById("mlCount").textContent=`${r.length} units`;
@@ -2395,6 +2397,10 @@ function buildMotorFilters(){
   var ss=document.getElementById("statusFilter");
   ss.innerHTML='<option value="">ทุกสถานะ (All status)</option>'+sts.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join("");
   ss.value=statusFilter;
+  var ohN=r.filter(d=>ohFor(d).length>0).length;
+  var of=document.getElementById("ohFilter");
+  of.innerHTML='<option value="">OH History (All)</option><option value="has">🔧 มี OH History ('+ohN+')</option><option value="none">⚠ ยังไม่มี OH History ('+(r.length-ohN)+')</option>';
+  of.value=ohFilter;
   var brands=[...new Set(r.map(d=>d.brand).filter(Boolean))].sort();
   var bm=document.getElementById("brandMenu");
   bm.innerHTML='<div class="bdrop-item" data-b="">ทุกยี่ห้อ (All)</div>'+brands.map(b=>{var c=r.filter(d=>d.brand===b).length;return `<div class="bdrop-item" data-b="${esc(b)}">${brandImg(b)}<span class="cnt">${c}</span></div>`;}).join("");
@@ -2410,6 +2416,7 @@ function renderAll(){recalcSMU();renderTabs();renderKPIs();renderDonut();renderU
 document.getElementById("q").addEventListener("input",e=>{q=e.target.value;renderMotors();});
 document.getElementById("typeFilter").addEventListener("change",e=>{typeFilter=e.target.value;renderMotors();});
 document.getElementById("statusFilter").addEventListener("change",e=>{statusFilter=e.target.value;renderMotors();});
+document.getElementById("ohFilter").addEventListener("change",e=>{ohFilter=e.target.value;renderMotors();});
 document.getElementById("brandBtn").addEventListener("click",e=>{e.stopPropagation();document.getElementById("brandMenu").classList.toggle("open");});
 document.getElementById("brandMenu").addEventListener("click",e=>{var it=e.target.closest(".bdrop-item");if(!it)return;brandFilter=it.dataset.b;updateBrandBtn();document.getElementById("brandMenu").classList.remove("open");renderMotors();});
 document.addEventListener("click",function(){var m=document.getElementById("brandMenu");if(m)m.classList.remove("open");});
@@ -2417,7 +2424,7 @@ function yearOf(s){if(!s)return null;const n=String(s).match(/\d+/g);if(!n)retur
 /* schedule year options are built per-page inside buildMotorFilters */
 document.getElementById("schedFilter").addEventListener("change",e=>{schedFilter=e.target.value;renderMotors();});
 document.getElementById("genTime").textContent="ประมาณการสด "+new Date().toLocaleString("th-TH",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
-document.getElementById("kpis").addEventListener("click",e=>{const card=e.target.closest(".kpi.clickable");if(!card)return;const act=card.dataset.act;typeFilter="";brandFilter="";statusFilter="";schedFilter="";q="";document.getElementById("q").value="";document.getElementById("typeFilter").value="";document.getElementById("statusFilter").value="";if(act==="running"){statusFilter="Running";document.getElementById("statusFilter").value="Running";}else if(act==="over"){schedFilter="over";}else if(act==="soon"){schedFilter="soon";}document.getElementById("schedFilter").value=schedFilter;updateBrandBtn();renderMotors();document.getElementById("mlTitle").scrollIntoView({behavior:"smooth",block:"start"});});
+document.getElementById("kpis").addEventListener("click",e=>{const card=e.target.closest(".kpi.clickable");if(!card)return;const act=card.dataset.act;typeFilter="";brandFilter="";statusFilter="";ohFilter="";document.getElementById("ohFilter").value="";schedFilter="";q="";document.getElementById("q").value="";document.getElementById("typeFilter").value="";document.getElementById("statusFilter").value="";if(act==="running"){statusFilter="Running";document.getElementById("statusFilter").value="Running";}else if(act==="over"){schedFilter="over";}else if(act==="soon"){schedFilter="soon";}document.getElementById("schedFilter").value=schedFilter;updateBrandBtn();renderMotors();document.getElementById("mlTitle").scrollIntoView({behavior:"smooth",block:"start"});});
 buildMotorFilters();renderAll();
 </script>
 <div class="movl" id="movl">
