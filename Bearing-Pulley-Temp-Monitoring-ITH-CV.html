@@ -53,6 +53,19 @@
   #grpAlert .srv{color:#bcd0e8;font-weight:600}
   .tab .devbdg,.refresh .devbdg{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#334a63;color:#bcd0e8;font-size:10px;font-weight:700;letter-spacing:.3px;vertical-align:1px}
   .tab.dev,.refresh.dev{border-color:#3a556f;color:#93a6ba}
+  .tab.nodata{border-style:dashed;color:#6f8297}
+  .tab.nodata.active{background:#334a63;border-color:#4a6583;border-style:solid;color:#e7eef6}
+  td.indev{text-align:center!important;vertical-align:middle}
+  .indev-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;height:100%;padding:24px;
+    background:repeating-linear-gradient(135deg,rgba(148,163,184,.05) 0 14px,transparent 14px 28px)}
+  .indev-box .ic{font-size:44px;line-height:1;opacity:.9}
+  .indev-box .en{font-size:26px;font-weight:800;letter-spacing:.06em;color:#e7eef6;text-transform:uppercase}
+  .indev-box .th{font-size:17px;font-weight:600;color:#93a6ba}
+  .indev-box .grp{margin-top:4px;font-size:12px;font-weight:700;letter-spacing:.12em;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(251,191,36,.1);border-radius:999px;padding:3px 12px}
+  :root[data-theme="light"] .indev-box .en{color:#16212e}
+  :root[data-theme="light"] .indev-box .th{color:#5a6a7e}
+  :root[data-theme="light"] .indev-box{background:repeating-linear-gradient(135deg,rgba(15,23,42,.035) 0 14px,transparent 14px 28px)}
+  :root[data-theme="light"] .tab.nodata.active{background:#e2e8f0;border-color:#94a3b8;color:#16212e}
   .wrap{max-width:820px;margin:0 auto;overflow-x:auto}
   table.temps{width:100%;border-collapse:separate;border-spacing:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
   table.temps th,table.temps td{padding:15px 20px;text-align:left;border-bottom:1px solid var(--line)}
@@ -249,6 +262,14 @@ let DATA = null, activeGroup = null;
 // กลุ่มที่กำลังพัฒนา/ยังไม่ติดตั้ง — พักการแจ้งเตือน + ขึ้นป้าย Development
 // ลบชื่อออกเมื่อติดตั้งเสร็จ
 const DEV_GROUPS = ['BWE1','CR2'];
+// ลำดับแท็บในตาราง — เครื่องที่ยังไม่มีข้อมูลจะแสดงป้าย In development
+const TAB_ORDER = ['SPD','BWE1','BWE2','BW1','BW2','CR1','CR2','CR3','CR4'];
+function hasData(g){
+  if(DEV_GROUPS.indexOf(g) > -1) return false;
+  const items = (DATA.groups||{})[g] || [];
+  return items.some(it=>it.value!=null && !isNaN(Number(it.value)));
+}
+let lastRowsH = 0;
 function groupIssues(g){
   const hot = [], fault = [];
   if(DEV_GROUPS.indexOf(g) > -1) return {hot, fault, server:false, newestSeen:0, bad:0};
@@ -283,24 +304,23 @@ function fmtTime(iso){
 
 function render(){
   if(!DATA) return;
-  const groups = Object.keys(DATA.groups||{});
-  const shownGroups = groups.filter(g=>DEV_GROUPS.indexOf(g)===-1);
-  if(!activeGroup || !shownGroups.includes(activeGroup)) activeGroup = shownGroups[0] || groups[0];
+  const extra = Object.keys(DATA.groups||{}).filter(g=>TAB_ORDER.indexOf(g)===-1);
+  const groups = TAB_ORDER.concat(extra);
+  if(!activeGroup || groups.indexOf(activeGroup)===-1) activeGroup = groups.find(hasData) || groups[0];
 
-  // tabs
+  // tabs — fixed order, machines without data are dashed and open the "In development" panel
   const tabs = document.getElementById('tabs');
   tabs.innerHTML = '';
-  if(shownGroups.length > 1){
-    groups.forEach(g=>{
-      if(DEV_GROUPS.indexOf(g) > -1) return;   // กลุ่มกำลังพัฒนา — ไม่แสดงแท็บในตาราง
-      const iss = groupIssues(g);
-      const b = document.createElement('div');
-      b.className = 'tab' + (g===activeGroup?' active':'') + (iss.bad?' blink':'');
-      b.innerHTML = g + (iss.bad ? '<span class="bdg">'+iss.bad+'</span>' : '');
-      b.onclick = ()=>{ activeGroup=g; render(); };
-      tabs.appendChild(b);
-    });
-  }
+  groups.forEach(g=>{
+    const live = hasData(g);
+    const iss = live ? groupIssues(g) : {bad:0};
+    const b = document.createElement('div');
+    b.className = 'tab' + (g===activeGroup?' active':'') + (live?'':' nodata') + (iss.bad?' blink':'');
+    b.title = live ? g : g + ' · In development — อยู่ในขั้นตอนการพัฒนา';
+    b.innerHTML = g + (iss.bad ? '<span class="bdg">'+iss.bad+'</span>' : '');
+    b.onclick = ()=>{ activeGroup=g; render(); };
+    tabs.appendChild(b);
+  });
   document.querySelectorAll('.topnav a[data-grp]').forEach(a=>{
     const g = a.getAttribute('data-grp');
     const dev = DEV_GROUPS.indexOf(g) > -1;
@@ -316,6 +336,16 @@ function render(){
     }
   });
   const ga = document.getElementById('grpAlert');
+  const rowsEl = document.getElementById('rows');
+  if(!hasData(activeGroup)){
+    ga.innerHTML = '';
+    const hh = Math.max(lastRowsH, 360);
+    rowsEl.innerHTML = '<tr><td class="indev" colspan="3" style="height:'+hh+'px;padding:0">'
+      + '<div class="indev-box"><div class="ic">🛠️</div><div class="en">In development</div>'
+      + '<div class="th">อยู่ในขั้นตอนการพัฒนา</div><div class="grp">'+activeGroup+'</div></div></td></tr>';
+    document.getElementById('updated').textContent = fmtTime(DATA.updated);
+    return;
+  }
   const cur = groupIssues(activeGroup);
   if(cur.bad){
     let h = '<div class="box"><b>⚠ พบปัญหาในกลุ่ม '+activeGroup+':</b> ';
@@ -376,6 +406,7 @@ function render(){
       cell(b.L, b.Ls, 'L', base)+cell(b.R, b.Rs, 'R', base)+
     '</tr>';
   }).join('');
+  lastRowsH = rows.offsetHeight || lastRowsH;
 
   document.getElementById('updated').textContent = fmtTime(DATA.updated);
 }
