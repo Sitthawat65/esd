@@ -119,7 +119,7 @@ body > footer{margin-top:8px!important;line-height:1.5!important}
 /* in development: faded grey, dashed, wrench icon */
 .topnav a.ith-dev,.tab.nodata,.tab:has(.devbdg){background:rgba(148,163,184,.05)!important;border:1px dashed rgba(148,163,184,.3)!important;color:#6b7a8a!important;box-shadow:none!important}
 .topnav a.ith-dev:hover,.tab.nodata:hover,.tab:has(.devbdg):hover{color:#94a3b8!important;border-color:rgba(148,163,184,.5)!important}
-.topnav a.ith-dev::after,.tab.nodata::after,.tab:has(.devbdg)::after{content:"🔧";font-size:11px;margin-left:5px;opacity:.75;filter:grayscale(1)}
+.topnav a.ith-dev::after,.tab.nodata::after,.tab:has(.devbdg)::after{content:"⚙️🔧";font-size:11px;letter-spacing:1px;margin-left:5px;opacity:.75;filter:grayscale(1)}
 .topnav a.ith-dev.active,.tab.nodata.active{background:#334155!important;border-style:solid!important;border-color:#475569!important;color:#e2e8f0!important}
 :root[data-theme="light"] .topnav a.ith-live:not(.active),:root[data-theme="light"] .tab:not(.nodata):not(.active):not(.blink):not(:has(.devbdg)){background:rgba(13,148,136,.07)!important;border-color:rgba(13,148,136,.4)!important;color:#0f5e57!important}
 :root[data-theme="light"] .topnav a.ith-dev,:root[data-theme="light"] .tab.nodata,:root[data-theme="light"] .tab:has(.devbdg){background:#f3f5f8!important;border-color:#cbd5e1!important;color:#94a3b8!important}
@@ -128,3 +128,7 @@ body > footer{margin-top:8px!important;line-height:1.5!important}
 /* same Developer Mode colours as ISO EE */
 :root:not([data-theme="light"]) .ithnav > .mbadge.on{color:#2fe0b0;border-color:rgba(47,224,176,.4);background:rgba(47,224,176,.1)}
 :root:not([data-theme="light"]) .ithnav > .mEditBtn.out{color:#ff7b6b;border-color:rgba(255,123,107,.5)}
+/* dev tabs carry two icons: keep the whole machine row on one line */
+.tabs{gap:6px!important}
+.tab.nodata,.tab:has(.devbdg){padding-left:11px!important;padding-right:10px!important}
+.tab.nodata::after,.tab:has(.devbdg)::after{font-size:10px!important;letter-spacing:0!important;margin-left:4px!important}
