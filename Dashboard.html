@@ -18,7 +18,7 @@
   html,body{background:radial-gradient(1200px 700px at 80% -10%,#13203a 0%,var(--bg) 55%);color:var(--txt);
     font-family:"Segoe UI","Tahoma",system-ui,-apple-system,"Sarabun",sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
   body::before{content:"";position:fixed;inset:0;background:var(--site-photo) center/cover;opacity:.055;z-index:-1;pointer-events:none}
-  .wrap{max-width:1480px;margin:0 auto;padding:22px 26px 70px}
+  .wrap{max-width:1400px;margin:0 auto;padding:20px 24px 70px}
   /* top */
   .top{display:flex;align-items:stretch;gap:18px;flex-wrap:wrap;padding:18px 22px;border:1px solid var(--line);
     border-radius:18px;background:linear-gradient(120deg,var(--panel2),var(--panel));box-shadow:var(--shadow);position:relative;overflow:hidden}
@@ -353,12 +353,25 @@
   .mlogin .macts{display:flex;gap:10px;margin-top:14px}
   .mlogin button{flex:1;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;padding:10px;border-radius:9px;border:1px solid var(--line2);background:var(--bg2);color:var(--txt)}
   .mlogin button.pri{background:var(--cyan);border-color:var(--cyan);color:#06121f}
+
+/* ===== shared frame: same width, top offset and navbar on every ITH dashboard ===== */
+html{scrollbar-gutter:stable}
+.ithnav{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;
+  min-height:36px!important;margin:0 0 18px!important;padding:0!important;border:0!important;border-radius:0!important;
+  background:none!important;box-shadow:none!important;font-family:"Segoe UI",Tahoma,"Sarabun",system-ui,sans-serif!important}
+.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{box-sizing:border-box!important;height:36px!important;
+  display:inline-flex!important;align-items:center!important;gap:6px!important;margin:0!important;padding:0 14px!important;
+  font-family:inherit!important;font-size:13px!important;font-weight:600!important;line-height:1!important;
+  border-radius:999px!important;white-space:nowrap!important;text-decoration:none!important}
+.ithnav > .livechip{box-sizing:border-box!important;height:30px!important;margin:0!important;font-family:inherit!important}
+@media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{height:32px!important;padding:0 11px!important;font-size:12px!important}}
+@media (max-width:640px){.wrap{padding:14px 12px 48px!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="navbar" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+  <div class="navbar ithnav" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px">
     <a href="index.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">← หน้าหลัก</a>
     <a href="FiberOptic_Report.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">🔬 Fiber Optic Dashboard</a>
     <a href="iso-ee.html" style="font:inherit;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);transition:.15s" onmouseover="this.style.color='var(--txt)';this.style.borderColor='var(--cyan)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--line2)'">📋 ISO EE Plan Tracker</a>

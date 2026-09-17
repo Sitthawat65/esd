@@ -46,8 +46,9 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;padding:28px 18px 60px}
-.wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;padding:0}
+.wrap{max-width:1400px;margin:0 auto;padding:20px 24px 70px;display:flex;flex-direction:column;gap:20px}
+.wrap > .ithnav{margin-bottom:-2px!important}
 
 .masthead{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 26px;position:relative;overflow:hidden}
 .masthead::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--brand)}
@@ -184,12 +185,25 @@ footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:6px;l
 .pdelta b{font-family:var(--mono)}
 @media (max-width:720px){ .grid2{grid-template-columns:1fr} h2.title{font-size:19px} body{padding:16px 10px 50px} }
 @media print{ .toolbar,.theme-btn,.pswitch,.modebar,.overlay{display:none} body{background:#fff;padding:0} .kpi,.card,.masthead,.tablecard,.periodbar{box-shadow:none} }
+
+/* ===== shared frame: same width, top offset and navbar on every ITH dashboard ===== */
+html{scrollbar-gutter:stable}
+.ithnav{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;
+  min-height:36px!important;margin:0 0 18px!important;padding:0!important;border:0!important;border-radius:0!important;
+  background:none!important;box-shadow:none!important;font-family:"Segoe UI",Tahoma,"Sarabun",system-ui,sans-serif!important}
+.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{box-sizing:border-box!important;height:36px!important;
+  display:inline-flex!important;align-items:center!important;gap:6px!important;margin:0!important;padding:0 14px!important;
+  font-family:inherit!important;font-size:13px!important;font-weight:600!important;line-height:1!important;
+  border-radius:999px!important;white-space:nowrap!important;text-decoration:none!important}
+.ithnav > .livechip{box-sizing:border-box!important;height:30px!important;margin:0!important;font-family:inherit!important}
+@media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{height:32px!important;padding:0 11px!important;font-size:12px!important}}
+@media (max-width:640px){.wrap{padding:14px 12px 48px!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="modebar">
+  <div class="modebar ithnav">
     <a class="homebtn" href="index.html">← หน้าหลัก</a>
     <a class="homebtn" href="Dashboard.html">⚙️ Overhaul Motor Dashboard</a>
     <a class="homebtn" href="iso-ee.html">📋 ISO EE Plan Tracker</a>

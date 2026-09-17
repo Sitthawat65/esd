@@ -32,8 +32,8 @@ body{
   font-size:15px; line-height:1.6; -webkit-text-size-adjust:100%;
 }
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
-.wrap{max-width:1320px; margin:0 auto; padding:18px 16px 60px}
-@media (max-width:640px){ .wrap{padding:12px 11px 48px} }
+.wrap{max-width:1400px;margin:0 auto;padding:20px 24px 70px}
+@media (max-width:640px){.wrap{padding:14px 12px 48px!important}}
 
 /* ---------- แถบลิงก์ไปแดชบอร์ดอื่น ---------- */
 .hubnav{display:flex; gap:10px; flex-wrap:wrap; margin:0 0 16px}
@@ -408,6 +408,18 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
 .lkrow button.go{background:var(--cyan); border-color:var(--cyan); color:#06182F; font-weight:600}
 .lkrow button.go:hover{filter:brightness(1.08); color:#06182F}
 .lknote{margin:13px 0 0; font-size:11px; color:var(--ink-faint); line-height:1.55}
+
+/* ===== shared frame: same width, top offset and navbar on every ITH dashboard ===== */
+html{scrollbar-gutter:stable}
+.ithnav{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;
+  min-height:36px!important;margin:0 0 18px!important;padding:0!important;border:0!important;border-radius:0!important;
+  background:none!important;box-shadow:none!important;font-family:"Segoe UI",Tahoma,"Sarabun",system-ui,sans-serif!important}
+.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{box-sizing:border-box!important;height:36px!important;
+  display:inline-flex!important;align-items:center!important;gap:6px!important;margin:0!important;padding:0 14px!important;
+  font-family:inherit!important;font-size:13px!important;font-weight:600!important;line-height:1!important;
+  border-radius:999px!important;white-space:nowrap!important;text-decoration:none!important}
+.ithnav > .livechip{box-sizing:border-box!important;height:30px!important;margin:0!important;font-family:inherit!important}
+@media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge,.ithnav > .modebadge{height:32px!important;padding:0 11px!important;font-size:12px!important}}
 </style>
 
 <div class="wrap" id="root"></div>
@@ -1379,7 +1391,7 @@ button.brow{font:inherit; color:inherit; border:none; background:transparent;
   function render(){
     var items = currentItems();
     var root = document.getElementById("root");
-    var head = '<nav class="hubnav"><a href="index.html">← หน้าหลัก</a>'
+    var head = '<nav class="hubnav ithnav"><a href="index.html">← หน้าหลัก</a>'
       + '<a href="Dashboard.html">⚙️ Overhaul Motor Dashboard</a>'
       + '<a href="FiberOptic_Report.html">🔬 Fiber Optic Dashboard</a>'
       + '<span class="navsp"></span>'
