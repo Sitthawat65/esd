@@ -11,7 +11,7 @@
   var AUTH_HASH = '5d5cde11a3ee1966f86d8abbabd795a8f77d7129e21f7c329f337db471ff244c';
 
   // ---- scale whole page (layout designed for 1920px; same on every hub dashboard) ----
-  (function(){var d=document.documentElement;function z(){var w=window.innerWidth,v=w<900?1:Math.max(.6,Math.min(1,w/1920));d.style.zoom=v;}z();window.addEventListener('resize',z);})();
+  (function(){var d=document.documentElement;function z(){var w=window.innerWidth,v=w<900?1:Math.max(.6,Math.min(2,w/1920));d.style.zoom=v;d.setAttribute('data-basez',v);d.style.setProperty('--ithz',v);}z();window.addEventListener('resize',z);})();
 
   // ---- theme before first paint ----
   try {
@@ -71,23 +71,48 @@
     applyMode();
   }
 
-  // ---- fit machine drawing to one screen (works with the page scale above) ----
+  // ---- everything on one screen ----
+  // machine pages: shrink the drawing so nav + header + drawing + footer fit the viewport height
+  // chart / table pages: scale the whole page down until it fits
+  var fitting = false;
   function fit() {
-    var stages = document.querySelectorAll('.stage');
-    for (var i = 0; i < stages.length; i++) {
-      var st = stages[i], img = st.querySelector('img');
-      if (!img || !img.naturalWidth || !st.offsetWidth) continue;
-      if (!st.dataset.baseMax) {
-        st.style.maxWidth = '';
-        st.dataset.baseMax = parseFloat(getComputedStyle(st).maxWidth) || 1100;
+    if (fitting) return; fitting = true;
+    try {
+      var stages = document.querySelectorAll('.stage'), hasStage = false;
+      for (var i = 0; i < stages.length; i++) {
+        var st = stages[i], img = st.querySelector('img');
+        if (!img) continue;
+        hasStage = true;
+        if (!img.naturalWidth || !st.offsetWidth) continue;
+        if (!st.dataset.baseMax) {
+          st.style.maxWidth = '';
+          st.dataset.baseMax = parseFloat(getComputedStyle(st).maxWidth) || 1100;
+        }
+        var r = st.getBoundingClientRect();
+        var z = r.width / st.offsetWidth || 1;                 // visual px per CSS px
+        var below = 0, ft = document.querySelector('body > footer');
+        if (ft && ft.offsetHeight) below = (ft.offsetHeight + parseFloat(getComputedStyle(ft).marginTop || 0)) * z;
+        var avail = window.innerHeight - (r.top + window.scrollY) - below - 14 * z;
+        var w = (avail * img.naturalWidth / img.naturalHeight) / z;
+        w = Math.max(220, Math.min(+st.dataset.baseMax, w));
+        if (Math.abs(st.offsetWidth - w) > 2) st.style.maxWidth = Math.round(w) + 'px';
       }
-      var r = st.getBoundingClientRect();
-      var z = r.width / st.offsetWidth || 1;                  // visual px per CSS px
-      var avail = window.innerHeight - (r.top + window.scrollY) - 16;
-      var w = (avail * img.naturalWidth / img.naturalHeight) / z;
-      w = Math.max(480, Math.min(+st.dataset.baseMax, w));
-      if (Math.abs(st.offsetWidth - w) > 2) st.style.maxWidth = Math.round(w) + 'px';
-    }
+      if (!hasStage) {
+        var d = document.documentElement, base = +d.getAttribute('data-basez') || 1;
+        d.style.zoom = base;
+        var b = document.body.getBoundingClientRect();
+        var need = b.bottom + window.scrollY + 2;
+        var sw = d.scrollWidth;
+        var k = Math.min(1, window.innerHeight / need, window.innerWidth / sw);
+        // wide tables (phones): shrink until the whole table is inside its box
+        var tbs = document.querySelectorAll('table');
+        for (var t = 0; t < tbs.length; t++) {
+          var par = tbs[t].parentElement, have = par ? par.clientWidth : 0, want = tbs[t].scrollWidth;
+          if (have && want > have + 1) k = Math.min(k, have / want);
+        }
+        if (k < 0.995) d.style.zoom = Math.max(0.4, base * k);
+      }
+    } finally { fitting = false; }
   }
 
   function init() {
@@ -136,7 +161,8 @@
     // weather widget / fonts load later and push the drawing down -> fit again
     if (window.ResizeObserver) {
       var ro = new ResizeObserver(function () { fit(); });
-      ['.ithnav', '.topnav', 'body > header'].forEach(function (q) { var el = document.querySelector(q); if (el) ro.observe(el); });
+      ['.ithnav', '.topnav', 'body > header', 'body > footer', '#chartwrap', 'table.temps', '#wx'].forEach(function (q) { var el = document.querySelector(q); if (el) ro.observe(el); });
+      setTimeout(fit, 1500); setTimeout(fit, 4000);
     }
     fit();
   }

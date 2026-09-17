@@ -1,10 +1,10 @@
 /* ITH hub — shared frame for the Bearing Temp pages (same geometry as Overhaul / Fiber / ISO) */
 html{scrollbar-gutter:stable}
-body{padding:20px 24px 40px!important}
-@media (max-width:640px){body{padding:14px 12px 36px!important}}
+body{padding:20px 24px 12px!important;min-height:calc(100vh / var(--ithz,1))!important;box-sizing:border-box}
+@media (max-width:640px){body{padding:12px 10px 10px!important}}
 
 /* ---- top bar: identical on every dashboard ---- */
-.ithnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:36px;max-width:1352px;margin:0 auto 18px;padding:0;
+.ithnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:36px;max-width:1352px;margin:0 auto 8px;padding:0;
   font-family:"Segoe UI",Tahoma,"Sarabun",system-ui,sans-serif}
 .ithnav .navsp{flex:1 1 auto}
 .ithnav > a,.ithnav > button,.ithnav > .mbadge{box-sizing:border-box;height:36px;display:inline-flex;align-items:center;gap:6px;margin:0;
@@ -19,8 +19,30 @@ body{padding:20px 24px 40px!important}
 .ithnav > .mEditBtn.out{background:#16212e;color:#f472b6;border-color:rgba(244,114,182,.5)}
 @media (max-width:640px){.ithnav > a,.ithnav > button,.ithnav > .mbadge{height:32px;padding:0 11px;font-size:12px}}
 
-/* existing machine menu sits under the top bar with the same width */
-.topnav{max-width:1352px!important}
+/* existing machine menu sits right under the top bar — tight vertical rhythm so the page fits one screen */
+.topnav{max-width:1352px!important;margin:0 auto 8px!important;padding:0 4px!important}
+body > header{margin:0 auto 8px!important}
+body > footer{margin-top:8px!important;line-height:1.5!important}
+.stage{margin-bottom:0!important}
+
+/* phones / tablets: menus become one swipeable row each (no wrapping = no extra height) */
+@media (max-width:900px){
+  .ithnav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:6px}
+  .ithnav::-webkit-scrollbar,.topnav .navlinks::-webkit-scrollbar{display:none}
+  .ithnav .navsp{flex:0 0 4px}
+  .topnav{display:flex!important;flex-direction:column;gap:6px!important;min-width:0;width:100%}
+  .topnav .navlinks{min-width:0;max-width:100%}
+  .ithnav{min-width:0;max-width:100%}
+  .topnav .navlinks{flex-wrap:nowrap!important;overflow-x:auto;justify-content:flex-start!important;scrollbar-width:none;gap:6px!important;padding-bottom:2px}
+  .topnav a{padding:6px 11px!important;font-size:12px!important;flex:none}
+  .wx{align-self:center;padding:4px 10px!important;margin-top:0!important}
+  body > header{gap:6px!important}
+  .titles h1{font-size:15px!important}.titles p{font-size:11.5px!important}
+  .nav{gap:6px!important}.cd,.lnk,.refresh{padding:5px 10px!important;font-size:12px!important}
+  .status{font-size:11px!important}
+  body > footer{font-size:10.5px!important}
+}
+@media (max-width:520px){ .wx{display:none!important} body > footer div+div{display:none} }
 
 /* ---- Developer Mode login ---- */
 .ithlogin{position:fixed;inset:0;z-index:2000;background:rgba(4,8,14,.62);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px}
