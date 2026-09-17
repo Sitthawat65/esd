@@ -36,7 +36,7 @@ body{padding:20px 24px 40px!important}
 .ithlogin button{flex:1;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;padding:10px;border-radius:9px;border:1px solid #31465c;background:#0f1720;color:#e7eef6}
 .ithlogin button.pri{background:#22d3ee;border-color:#22d3ee;color:#06121f}
 
-@media print{.ithnav,.ithlogin{display:none!important}}
+@media print{.ithnav,.ithlogin{display:none!important}html{zoom:1!important}}
 
 /* ================= light theme ================= */
 :root[data-theme="light"]{--bg:#eef2f7;--panel:#ffffff;--muted:#5a6a7e;--line:#d5dde8;--shadow:0 1px 2px rgba(20,33,44,.06),0 8px 24px rgba(20,33,44,.08);color-scheme:light}

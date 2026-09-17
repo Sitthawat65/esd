@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ITH Hongsa · Dashboards</title>
 <script>try{var t=localStorage.getItem('ith_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script>/* scale page like 75% zoom on 125% displays: layout designed for 1920px */(function(){var d=document.documentElement;function z(){var w=window.innerWidth,v=w<900?1:Math.max(.6,Math.min(1,w/1920));d.style.zoom=v;}z();window.addEventListener('resize',z);})();</script>
 <style>
 :root{
   --bg:#eef1f4; --panel:#ffffff; --panel-2:#f7f9fb; --ink:#16212c; --ink-soft:#54636f;
@@ -55,6 +56,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1
 footer{text-align:center;color:var(--ink-soft);font-size:11.5px;margin-top:28px;line-height:1.8}
 .theme-btn{position:fixed;top:14px;right:14px;font:inherit;font-size:12px;font-weight:650;background:var(--panel);border:1px solid var(--line-strong);color:var(--ink-soft);padding:7px 13px;border-radius:999px;cursor:pointer;box-shadow:var(--shadow)}
 @media (max-width:640px){.cards{grid-template-columns:1fr} .hero h2{font-size:22px} body{padding:26px 12px}}
+@media print{html{zoom:1!important}}
 </style>
 </head>
 <body>

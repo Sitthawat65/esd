@@ -10,6 +10,9 @@
   var LIVE_BASE = 'https://sitthawat65.github.io/ith-hongsa-overhaul-dashboard/';
   var AUTH_HASH = '5d5cde11a3ee1966f86d8abbabd795a8f77d7129e21f7c329f337db471ff244c';
 
+  // ---- scale whole page (layout designed for 1920px; same on every hub dashboard) ----
+  (function(){var d=document.documentElement;function z(){var w=window.innerWidth,v=w<900?1:Math.max(.6,Math.min(1,w/1920));d.style.zoom=v;}z();window.addEventListener('resize',z);})();
+
   // ---- theme before first paint ----
   try {
     var t = localStorage.getItem('ith_theme');
@@ -68,22 +71,22 @@
     applyMode();
   }
 
-  // ---- fit machine drawing (and its header/footer) to one screen ----
+  // ---- fit machine drawing to one screen (works with the page scale above) ----
   function fit() {
     var stages = document.querySelectorAll('.stage');
     for (var i = 0; i < stages.length; i++) {
       var st = stages[i], img = st.querySelector('img');
-      if (!img || !img.naturalWidth) continue;
+      if (!img || !img.naturalWidth || !st.offsetWidth) continue;
       if (!st.dataset.baseMax) {
         st.style.maxWidth = '';
         st.dataset.baseMax = parseFloat(getComputedStyle(st).maxWidth) || 1100;
       }
-      var base = +st.dataset.baseMax;
-      var top = st.getBoundingClientRect().top + window.scrollY;
-      var avail = window.innerHeight - top - 20;
-      var w = Math.min(base, avail * img.naturalWidth / img.naturalHeight);
-      w = Math.max(w, 480);
-      st.style.maxWidth = Math.round(w) + 'px';
+      var r = st.getBoundingClientRect();
+      var z = r.width / st.offsetWidth || 1;                  // visual px per CSS px
+      var avail = window.innerHeight - (r.top + window.scrollY) - 16;
+      var w = (avail * img.naturalWidth / img.naturalHeight) / z;
+      w = Math.max(480, Math.min(+st.dataset.baseMax, w));
+      if (Math.abs(st.offsetWidth - w) > 2) st.style.maxWidth = Math.round(w) + 'px';
     }
   }
 
@@ -129,6 +132,12 @@
       if (imgs[i].complete) fit(); else imgs[i].addEventListener('load', fit);
     }
     window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+    // weather widget / fonts load later and push the drawing down -> fit again
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () { fit(); });
+      ['.ithnav', '.topnav', 'body > header'].forEach(function (q) { var el = document.querySelector(q); if (el) ro.observe(el); });
+    }
     fit();
   }
 

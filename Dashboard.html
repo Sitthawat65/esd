@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ITH Hongsa · Overhaul Monitoring Dashboard</title>
 <script>try{if(localStorage.getItem('ith_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<script>/* scale page like 75% zoom on 125% displays: layout designed for 1920px */(function(){var d=document.documentElement;function z(){var w=window.innerWidth,v=w<900?1:Math.max(.6,Math.min(1,w/1920));d.style.zoom=v;}z();window.addEventListener('resize',z);})();</script>
 <style>
   :root{
     --bg:#0a0e17; --bg2:#0e1320; --panel:#121829; --panel2:#161d30;
@@ -369,6 +370,7 @@ html{scrollbar-gutter:stable}
 
 .ithnav > a.on{color:#fff!important;background:rgba(34,211,238,.16)!important;border-color:rgba(34,211,238,.65)!important}
 :root[data-theme="light"] .ithnav > a.on{color:#0e7490!important;background:rgba(14,116,144,.09)!important;border-color:rgba(14,116,144,.5)!important}
+@media print{html{zoom:1!important}}
 </style>
 </head>
 <body>
