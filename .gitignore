@@ -30,3 +30,6 @@ updater/.prisoft_guard.lock
 updater/prisoft_guard.log
 updater/prisoft_guard.old.log
 updater/prisoft_backend.log
+
+# Flight dashboard local file:// fallback (written by update_flights.py)
+flights_data.js

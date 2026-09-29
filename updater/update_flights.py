@@ -22,6 +22,7 @@ except Exception:
 
 REPO_DIR     = pathlib.Path(__file__).resolve().parent.parent
 FLIGHTS_JSON = REPO_DIR / "flights.json"
+FLIGHTS_JS   = REPO_DIR / "flights_data.js"   # local-only fallback for file:// viewing
 TZ = datetime.timezone(datetime.timedelta(hours=7))
 CREATE_NO_WINDOW = 0x08000000 if os.name == "nt" else 0
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -493,17 +494,46 @@ def main():
     }
     FLIGHTS_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f">> wrote {FLIGHTS_JSON.name} @ {data['updated']}")
+    # สำเนาแบบ <script> ให้เปิด flights.html จากไดรฟ์ (file://) ได้ — Chrome ห้าม fetch ไฟล์ local
+    FLIGHTS_JS.write_text("window.FLIGHTS_DATA = " + json.dumps(data, ensure_ascii=False) + ";\n", encoding="utf-8")
 
     if args.no_push:
         return
+    publish(data["updated"])
+
+
+def publish(stamp):
+    """วาง flights.json ลงบน origin/main ตรงๆ ไม่ว่าโฟลเดอร์นี้จะ checkout branch ไหนอยู่
+    เดิม commit บน branch ปัจจุบันแล้ว push 'main' (local) — พอโฟลเดอร์ถูกสลับไป branch อื่น
+    local main ค้างเก่า push ไม่ไปไหน หน้าเว็บจริงเลยแช่อยู่ที่ 4 ก.ย. 2569 เกือบเดือน"""
+    def _git(*args, env=None):
+        return subprocess.run(["git", "-C", str(REPO_DIR), *args], env=env,
+                              creationflags=CREATE_NO_WINDOW, capture_output=True,
+                              text=True, encoding="utf-8", errors="replace")
+    index = REPO_DIR / ".git" / "flights_publish.index"
+    env = {**os.environ, "GIT_INDEX_FILE": str(index)}
     try:
-        subprocess.run(["git", "-C", str(REPO_DIR), "add", "flights.json"], check=True, creationflags=CREATE_NO_WINDOW)
-        subprocess.run(["git", "-C", str(REPO_DIR), "commit", "-m",
-                        f"Update flight prices {data['updated']}"], check=True, creationflags=CREATE_NO_WINDOW)
-        subprocess.run(["git", "-C", str(REPO_DIR), "push", "origin", "main"], check=True, creationflags=CREATE_NO_WINDOW)
-        print(">> pushed to GitHub Pages.")
-    except subprocess.CalledProcessError as e:
-        print(f"(git) {e}")
+        blob = _git("hash-object", "-w", str(FLIGHTS_JSON)).stdout.strip()
+        for _ in range(3):   # remote ขยับทุก 5 นาทีจาก updater อุณหภูมิ -> ชนได้ ลองใหม่
+            if _git("fetch", "-q", "origin", "main").returncode != 0:
+                continue
+            base = _git("rev-parse", "origin/main").stdout.strip()
+            _git("read-tree", base, env=env)
+            _git("update-index", "--add", "--cacheinfo", f"100644,{blob},flights.json", env=env)
+            tree = _git("write-tree", env=env).stdout.strip()
+            if tree == _git("rev-parse", base + "^{tree}").stdout.strip():
+                print(">> flights.json unchanged on GitHub.")
+                return
+            commit = _git("commit-tree", tree, "-p", base, "-m",
+                          f"Update flight prices {stamp}").stdout.strip()
+            r = _git("push", "origin", f"{commit}:refs/heads/main")
+            if r.returncode == 0:
+                print(">> pushed to GitHub Pages.")
+                return
+            print(f"(git) push rejected, retrying: {r.stderr.strip()[:200]}")
+        print("(git) gave up publishing flights.json")
+    finally:
+        index.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
