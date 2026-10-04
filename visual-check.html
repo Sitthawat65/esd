@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual Check — ITH-CV</title>
+<style>
+  :root{--bg:#0f1720;--panel:#16212e;--muted:#8aa0b6;--line:#243244;--ok:#2ecc71;--bad:#e02424;--warn:#f5a623;--blue:#1f6feb}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#0f1720,#0b1017);color:#e7eef6;min-height:100vh;padding:16px 14px 40px}
+  main{max-width:560px;margin:0 auto}
+  h1{margin:0;font-size:20px} .sub{color:var(--muted);font-size:13px;margin:2px 0 14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+  .point{font-size:22px;font-weight:700} .area{color:var(--muted);font-size:13px}
+  .timer{float:right;padding:6px 12px;border-radius:999px;background:rgba(31,111,235,.14);border:1px solid rgba(31,111,235,.4);color:#9cc2ff;font-weight:700;font-variant-numeric:tabular-nums}
+  .timer.soon{background:rgba(245,166,35,.14);border-color:rgba(245,166,35,.5);color:#ffd591}
+  label.f{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0f1720;color:#e7eef6;font:inherit;font-size:16px}
+  textarea{min-height:76px;resize:vertical}
+  .q{font-size:15px;margin-bottom:10px}
+  .q b{color:var(--muted);margin-right:6px}
+  .ch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .ch input{position:absolute;opacity:0}
+  .ch span{display:block;text-align:center;padding:13px 8px;border-radius:10px;border:1px solid var(--line);background:#0f1720;font-weight:700;cursor:pointer}
+  .ch input:checked+span.y{background:rgba(46,204,113,.18);border-color:var(--ok);color:#8ff0b6}
+  .ch input:checked+span.n{background:rgba(224,36,36,.18);border-color:var(--bad);color:#ffb0b0}
+  .ch input:focus-visible+span{outline:2px solid var(--blue)}
+  button{width:100%;padding:15px;border:0;border-radius:12px;background:var(--blue);color:#fff;font:inherit;font-size:17px;font-weight:700;cursor:pointer}
+  button:disabled{opacity:.5;cursor:default}
+  .msg{padding:12px;border-radius:10px;margin-bottom:12px;font-size:14px;display:none}
+  .msg.err{display:block;background:rgba(224,36,36,.15);border:1px solid var(--bad);color:#ffb0b0}
+  .msg.demo{display:block;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.5);color:#ffd591}
+  .done{text-align:center;padding:30px 14px}
+  .done .ic{font-size:54px;color:var(--ok)}
+  a{color:#9cc2ff}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script src="visual-check-config.js"></script>
+<script>
+(function(){
+  var C = window.VC_CONFIG, app = document.getElementById('app');
+  var pid = new URLSearchParams(location.search).get('p');
+  var P = C.POINTS[pid];
+  var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+
+  if (!P) {
+    app.innerHTML = '<h1>Visual Check</h1><div class="card done"><div class="ic" style="color:var(--warn)">⚠</div>' +
+      '<p>ไม่พบจุดตรวจ<br>กรุณาแตะมือถือที่ NFC tag ของเครื่องจักรอีกครั้ง</p></div>';
+    return;
+  }
+
+  var items = P.items || C.DEFAULT_ITEMS;
+  var openedAt = new Date();
+  var deadline = openedAt.getTime() + C.SESSION_MIN * 60000;
+
+  app.innerHTML =
+    '<h1>Visual Check</h1><p class="sub">ITH-CV · ตรวจสภาพเครื่องจักรหน้างาน</p>' +
+    (C.API_URL ? '' : '<div class="msg demo">โหมดทดสอบ: ยังไม่ได้เชื่อมฐานข้อมูล ข้อมูลจะเก็บเฉพาะในเครื่องนี้</div>') +
+    '<div class="card"><span class="timer" id="timer"></span><div class="point">' + esc(P.name) + '</div><div class="area">' + esc(P.area) + ' · ' + esc(pid) + '</div></div>' +
+    '<form id="f">' +
+    '<div class="card"><label class="f" for="name">ผู้ตรวจ</label><select id="name" required><option value="">— เลือกชื่อ —</option></select></div>' +
+    items.map(function(t, i){
+      return '<div class="card"><div class="q"><b>' + (i + 1) + '.</b>' + esc(t) + '</div><div class="ch">' +
+        '<label><input type="radio" name="q' + i + '" value="1" required><span class="y">ปกติ</span></label>' +
+        '<label><input type="radio" name="q' + i + '" value="0"><span class="n">ไม่ปกติ</span></label></div></div>';
+    }).join('') +
+    '<div class="card"><label class="f" for="note">หมายเหตุ <span id="noteReq"></span></label><textarea id="note" placeholder="ระบุสิ่งที่พบ"></textarea></div>' +
+    '<div class="msg" id="err"></div>' +
+    '<button id="save" type="submit">บันทึก</button></form>';
+
+  var f = document.getElementById('f'), sel = document.getElementById('name'), err = document.getElementById('err'),
+      btn = document.getElementById('save'), note = document.getElementById('note'), timer = document.getElementById('timer');
+
+  function fillNames(list){
+    var last = localStorage.getItem('vc_name') || '';
+    sel.innerHTML = '<option value="">— เลือกชื่อ —</option>' + list.map(function(n){
+      return '<option' + (n === last ? ' selected' : '') + '>' + esc(n) + '</option>';
+    }).join('');
+  }
+  fillNames(C.NAMES);
+  if (C.API_URL) {
+    fetch(C.API_URL + '?action=names').then(function(r){ return r.json(); })
+      .then(function(d){ if (d.ok && d.names.length) fillNames(d.names); }).catch(function(){});
+  }
+
+  function abnormal(){ return items.some(function(_, i){ return f['q' + i].value === '0'; }); }
+  f.addEventListener('change', function(){
+    document.getElementById('noteReq').textContent = abnormal() ? '(จำเป็น เพราะมีข้อที่ไม่ปกติ)' : '';
+  });
+
+  var tick = setInterval(function(){
+    var left = deadline - Date.now();
+    if (left <= 0) {
+      clearInterval(tick);
+      app.innerHTML = '<h1>Visual Check</h1><div class="card done"><div class="ic" style="color:var(--warn)">⏱</div>' +
+        '<p>หมดเวลากรอก (' + C.SESSION_MIN + ' นาที)<br>กรุณาแตะ NFC tag ที่เครื่องจักรอีกครั้ง</p></div>';
+      return;
+    }
+    var s = Math.floor(left / 1000);
+    timer.textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2);
+    timer.classList.toggle('soon', s < 120);
+  }, 500);
+
+  function fail(m){ err.className = 'msg err'; err.textContent = m; btn.disabled = false; btn.textContent = 'บันทึก'; }
+
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (abnormal() && !note.value.trim()) { fail('มีข้อที่ไม่ปกติ กรุณาระบุรายละเอียดในหมายเหตุ'); note.focus(); return; }
+    var rec = {
+      point: pid, name: sel.value, openedAt: openedAt.toISOString(), note: note.value.trim(),
+      answers: items.map(function(t, i){ return { q: t, ok: f['q' + i].value === '1' }; })
+    };
+    btn.disabled = true; btn.textContent = 'กำลังบันทึก…'; err.className = 'msg';
+    localStorage.setItem('vc_name', rec.name);
+
+    var send = C.API_URL
+      // ไม่ตั้ง Content-Type เพื่อให้เป็น simple request (Apps Script ไม่รองรับ preflight)
+      ? fetch(C.API_URL, { method: 'POST', body: JSON.stringify(rec) }).then(function(r){ return r.json(); })
+          .then(function(d){ if (!d.ok) throw new Error(d.error || 'บันทึกไม่สำเร็จ'); return d.ts; })
+      : new Promise(function(res){
+          var all = JSON.parse(localStorage.getItem('vc_records') || '[]');
+          rec.ts = new Date().toISOString();
+          all.push(rec); localStorage.setItem('vc_records', JSON.stringify(all)); res(rec.ts);
+        });
+
+    send.then(function(ts){
+      clearInterval(tick);
+      app.innerHTML = '<h1>Visual Check</h1><div class="card done"><div class="ic">✓</div>' +
+        '<p><b>บันทึกแล้ว</b><br>' + esc(P.name) + '<br>' + esc(rec.name) + '<br>' +
+        new Date(ts).toLocaleString('th-TH') + '</p><p><a href="visual-check-dashboard.html">ดู Dashboard</a></p></div>';
+    }).catch(function(e){ fail('บันทึกไม่สำเร็จ: ' + e.message + ' — ตรวจสัญญาณเน็ตแล้วกดบันทึกอีกครั้ง'); });
+  });
+})();
+</script>
+</body>
+</html>

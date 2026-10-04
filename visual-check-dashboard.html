@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual Check Dashboard — ITH-CV</title>
+<style>
+  :root{--bg:#0f1720;--panel:#16212e;--muted:#8aa0b6;--line:#243244;--ok:#2ecc71;--bad:#e02424;--warn:#f5a623;--blue:#1f6feb}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#0f1720,#0b1017);color:#e7eef6;min-height:100vh;padding:18px 16px 40px}
+  main{max-width:1100px;margin:0 auto}
+  header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px}
+  h1{margin:0;font-size:20px} header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+  .nav{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .lnk{padding:8px 15px;border-radius:999px;background:var(--panel);color:#cdd9e5;border:1px solid var(--line);font:inherit;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer}
+  .lnk:hover{background:#1c2a3a}
+  .demo{padding:10px 12px;border-radius:10px;margin-bottom:14px;font-size:13px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.5);color:#ffd591}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-left:5px solid #44566b;border-radius:14px;padding:14px}
+  .card.ok{border-left-color:var(--ok)} .card.bad{border-left-color:var(--bad)} .card.late{border-left-color:var(--warn)}
+  .card h2{margin:0;font-size:17px} .card .st{font-weight:700;margin:8px 0 4px;font-size:15px}
+  .ok .st{color:#8ff0b6} .bad .st{color:#ffb0b0} .late .st{color:#ffd591} .none .st{color:var(--muted)}
+  .card small{color:var(--muted);display:block;line-height:1.5}
+  .card a{color:#9cc2ff;font-size:12px}
+  .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+  .bar h2{margin:0;font-size:16px;margin-right:auto}
+  select,input[type=date]{padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#0f1720;color:#e7eef6;font:inherit;font-size:13px;color-scheme:dark}
+  .tbl{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;white-space:nowrap} tr:last-child td{border-bottom:0}
+  td.t{white-space:nowrap;font-variant-numeric:tabular-nums}
+  .tag{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:700;font-size:12px}
+  .tag.ok{background:rgba(46,204,113,.18);color:#8ff0b6} .tag.bad{background:rgba(224,36,36,.2);color:#ffb0b0}
+  .empty{padding:26px;text-align:center;color:var(--muted)}
+  ul{margin:0;padding-left:16px}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div><h1>Visual Check Dashboard</h1><p>ITH-CV · บันทึกการตรวจเครื่องจักรหน้างาน · <span id="upd">กำลังโหลด…</span></p></div>
+    <div class="nav"><button class="lnk" id="reload">⟳ รีเฟรช</button><a class="lnk" href="index.html">← Hub</a></div>
+  </header>
+  <div id="demo"></div>
+  <div class="cards" id="cards"></div>
+  <div class="bar">
+    <h2>ประวัติการตรวจ</h2>
+    <select id="fp"><option value="">ทุกจุด</option></select>
+    <select id="fr"><option value="">ทุกผล</option><option>ปกติ</option><option>ไม่ปกติ</option></select>
+    <input type="date" id="fd" title="แสดงเฉพาะวันที่">
+  </div>
+  <div class="tbl" id="hist"></div>
+</main>
+<script src="visual-check-config.js"></script>
+<script>
+(function(){
+  var C = window.VC_CONFIG, records = [];
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var pname = function(id){ return C.POINTS[id] ? C.POINTS[id].name : id; };
+  var bad = function(r){ return (r.answers || []).some(function(a){ return !a.ok; }); };
+  var fmt = function(ts){ return new Date(ts).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' }); };
+  function ago(ts){
+    var m = Math.round((Date.now() - new Date(ts)) / 60000);
+    if (m < 60) return m + ' นาทีที่แล้ว';
+    if (m < 1440) return Math.floor(m / 60) + ' ชม. ' + (m % 60) + ' นาทีที่แล้ว';
+    return Math.floor(m / 1440) + ' วันที่แล้ว';
+  }
+
+  if (!C.API_URL) $('demo').innerHTML = '<div class="demo">โหมดทดสอบ: ยังไม่ได้เชื่อมฐานข้อมูล แสดงเฉพาะข้อมูลที่บันทึกจากเครื่องนี้ ลิงก์ "เปิดฟอร์ม" ในแต่ละการ์ดมีไว้ทดสอบแทนการแตะ tag</div>';
+  $('fp').innerHTML += Object.keys(C.POINTS).map(function(id){ return '<option value="' + esc(id) + '">' + esc(pname(id)) + '</option>'; }).join('');
+
+  function renderCards(){
+    $('cards').innerHTML = Object.keys(C.POINTS).map(function(id){
+      var last = records.filter(function(r){ return r.point === id; })[0];
+      var cls = 'none', st = 'ยังไม่มีการตรวจ', info = '';
+      if (last) {
+        var late = Date.now() - new Date(last.ts) > C.CHECK_INTERVAL_H * 3600000;
+        cls = bad(last) ? 'bad' : late ? 'late' : 'ok';
+        st = bad(last) ? 'พบสิ่งไม่ปกติ' : late ? 'เลยกำหนดตรวจ' : 'ปกติ';
+        info = '<small>' + esc(last.name) + '</small><small>' + fmt(last.ts) + ' · ' + ago(last.ts) + '</small>';
+      }
+      return '<div class="card ' + cls + '"><h2>' + esc(pname(id)) + '</h2><div class="st">' + st + '</div>' + info +
+        (C.API_URL ? '' : '<a href="visual-check.html?p=' + encodeURIComponent(id) + '">เปิดฟอร์ม (ทดสอบ)</a>') + '</div>';
+    }).join('');
+  }
+
+  function renderHist(){
+    var p = $('fp').value, res = $('fr').value, d = $('fd').value;
+    var rows = records.filter(function(r){
+      if (p && r.point !== p) return false;
+      if (res && (bad(r) ? 'ไม่ปกติ' : 'ปกติ') !== res) return false;
+      if (d) { var t = new Date(r.ts); var loc = new Date(t - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10); if (loc !== d) return false; }
+      return true;
+    }).slice(0, 300);
+    if (!rows.length) { $('hist').innerHTML = '<div class="empty">ไม่มีข้อมูล</div>'; return; }
+    $('hist').innerHTML = '<table><thead><tr><th>เวลาบันทึก</th><th>จุดตรวจ</th><th>ผู้ตรวจ</th><th>ผล</th><th>ข้อที่ไม่ปกติ</th><th>หมายเหตุ</th><th>ใช้เวลา</th></tr></thead><tbody>' +
+      rows.map(function(r){
+        var b = (r.answers || []).filter(function(a){ return !a.ok; });
+        var dur = r.openedAt ? Math.round((new Date(r.ts) - new Date(r.openedAt)) / 1000) : null;
+        return '<tr><td class="t">' + fmt(r.ts) + '</td><td>' + esc(pname(r.point)) + '</td><td>' + esc(r.name) + '</td>' +
+          '<td><span class="tag ' + (b.length ? 'bad">ไม่ปกติ' : 'ok">ปกติ') + '</span></td>' +
+          '<td>' + (b.length ? '<ul>' + b.map(function(a){ return '<li>' + esc(a.q) + '</li>'; }).join('') + '</ul>' : '—') + '</td>' +
+          '<td>' + (r.note ? esc(r.note) : '—') + '</td>' +
+          '<td class="t">' + (dur == null ? '—' : Math.floor(dur / 60) + ':' + ('0' + dur % 60).slice(-2)) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  function load(){
+    var get = C.API_URL
+      ? fetch(C.API_URL + '?action=list').then(function(r){ return r.json(); }).then(function(d){ if (!d.ok) throw new Error(d.error); return d.records; })
+      : Promise.resolve(JSON.parse(localStorage.getItem('vc_records') || '[]'));
+    get.then(function(list){
+      records = list.sort(function(a, b){ return new Date(b.ts) - new Date(a.ts); });
+      $('upd').textContent = 'อัปเดต ' + new Date().toLocaleTimeString('th-TH');
+      renderCards(); renderHist();
+    }).catch(function(e){ $('upd').textContent = 'โหลดข้อมูลไม่สำเร็จ: ' + e.message; });
+  }
+
+  ['fp', 'fr', 'fd'].forEach(function(id){ $(id).addEventListener('change', renderHist); });
+  $('reload').addEventListener('click', load);
+  load(); setInterval(load, 60000);
+})();
+</script>
+</body>
+</html>
