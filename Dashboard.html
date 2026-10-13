@@ -237,6 +237,7 @@
   :root[data-theme="light"] .oh-print{background:linear-gradient(180deg,#fff,#eef6fb);color:#0e7490;border-color:rgba(14,116,144,.4)}
   :root[data-theme="light"] .mhead .h-name .ohico{color:#0e7490;background:rgba(14,116,144,.08);border-color:rgba(14,116,144,.4)}
   :root[data-theme="light"] .mhead .h-name .ohico em{background:#0e7490;color:#fff}
+  :root[data-theme="light"] .mhead .h-name .ohico.ohdone{color:#047857;background:rgba(4,120,87,.08);border-color:rgba(4,120,87,.4)}
   :root[data-theme="light"] .b-run{color:#047857}:root[data-theme="light"] .b-pre{color:#b45309}
   :root[data-theme="light"] .b-fin{color:#1d4ed8}:root[data-theme="light"] .b-stb{color:#475569}
   :root[data-theme="light"] .smu-hold,:root[data-theme="light"] .motor.smupaused .h-name>b{color:#b45309}
@@ -298,6 +299,7 @@
   .oh-print:hover{border-color:var(--cyan);filter:brightness(1.12)}
   .oh-none{font-size:11.5px;color:var(--muted);font-style:italic;background:var(--bg2);border:1px dashed var(--line2);border-radius:10px;padding:10px 12px}
   .mhead .h-name .ohico{display:inline-flex;align-items:center;gap:4px;vertical-align:2px;margin-left:8px;height:19px;padding:0 3px 0 7px;font-size:10px;font-weight:700;letter-spacing:.02em;white-space:nowrap;border-radius:999px;background:rgba(34,211,238,.13);border:1px solid rgba(34,211,238,.5);color:#67e8f9;font-style:normal;cursor:help}
+  .mhead .h-name .ohico.ohdone{padding:0 7px;background:rgba(52,211,153,.14);border-color:rgba(52,211,153,.55);color:#6ee7b7;cursor:default}
   .mhead .h-name .ohico svg{width:11px;height:11px;fill:currentColor}
   .mhead .h-name .ohico em{font-style:normal;font-size:10px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;min-width:15px;height:14px;padding:0 4px;border-radius:999px;display:inline-grid;place-items:center;background:rgba(34,211,238,.28);color:#ecfeff}
   .ohbadge{display:inline-flex!important;align-items:center;gap:4px;margin-top:4px!important;font-size:10px!important;font-weight:700;color:#7dd3fc!important;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);border-radius:999px;padding:1px 8px}
@@ -474,11 +476,14 @@ const DATA = [
         "location":  "SPD",
         "position":  "D2",
         "smu_oh1":  26520,
+        "oh_no":  2,
+        "smu_oh2":  64590,
+        "oh_upd":  "13/10/2026",
         "smu_now":  63091.34,
-        "smu_after_oh1":  36571.34,
+        "smu_after_oh1":  0,
         "plan_oh2":  35000,
-        "remain_oh2":  -1571.34,
-        "next_oh":  "19/4/2026"
+        "remain_oh2":  35000,
+        "next_oh":  "13/8/2032"
     },
     {
         "system":  "SPD",
@@ -492,11 +497,14 @@ const DATA = [
         "location":  "SPD",
         "position":  "D1",
         "smu_oh1":  21818,
+        "oh_no":  2,
+        "smu_oh2":  64590,
+        "oh_upd":  "13/10/2026",
         "smu_now":  63091.34,
-        "smu_after_oh1":  41273.34,
+        "smu_after_oh1":  0,
         "plan_oh2":  35000,
-        "remain_oh2":  -6273.34,
-        "next_oh":  "19/7/2025"
+        "remain_oh2":  35000,
+        "next_oh":  "13/8/2032"
     },
     {
         "system":  "SPD",
@@ -528,11 +536,14 @@ const DATA = [
         "location":  "SPD",
         "position":  "D3",
         "smu_oh1":  22900,
+        "oh_no":  2,
+        "smu_oh2":  64590,
+        "oh_upd":  "13/10/2026",
         "smu_now":  63091.34,
-        "smu_after_oh1":  40191.34,
+        "smu_after_oh1":  0,
         "plan_oh2":  35000,
-        "remain_oh2":  -5191.34,
-        "next_oh":  "19/9/2025"
+        "remain_oh2":  35000,
+        "next_oh":  "13/8/2032"
     },
     {
         "system":  "SPD",
@@ -2113,6 +2124,10 @@ function smuOffHours(d,now){
 }
 function smuIsPaused(d){const s=SMU_PAUSE[smuK(d)];return !!(s&&s.since);}
 
+/* รอบ OH ล่าสุดที่ทำเสร็จแล้ว (oh_no, ค่าเริ่มต้น 1) — smu_after_oh1 / plan_oh2 / remain_oh2 นับจากรอบล่าสุดเสมอ */
+const ohNo   = d => Math.max(1, +d.oh_no||1);
+const ohBase = d => { const v=d["smu_oh"+ohNo(d)]; return v!=null ? v : d.smu_oh1; };
+
 DATA.forEach((d,i)=>{
   d._smu_now0       = d.smu_now;          // ค่าตั้งต้นจาก Excel — เก็บไว้คำนวณใหม่ได้ทุกครั้ง
   d._smu_after_oh10 = d.smu_after_oh1;
@@ -2132,7 +2147,7 @@ function recalcSMU(){
       const add = Math.max(0, SMU_ADD - d.smuOffH);         // หักชั่วโมงช่วงที่สั่งหยุดนับออก
       d.smuAddH = add;
       d.smu_now = d._smu_now0 + add;                        // SMU ปัจจุบัน (ประมาณการสด)
-      if(d.smu_oh1!=null)  d.smu_after_oh1 = d.smu_now - d.smu_oh1;
+      if(ohBase(d)!=null)  d.smu_after_oh1 = ohNo(d)>1 ? Math.max(0, d.smu_now - ohBase(d)) : d.smu_now - ohBase(d);
       if(d.plan_oh2!=null) d.remain_oh2    = d.plan_oh2 - d.smu_after_oh1;
     } else { d.smuAddH = 0; }
     d.lifeUsed=(d.smu_after_oh1!=null&&d.plan_oh2)?(d.smu_after_oh1/d.plan_oh2*100):null;
@@ -2299,7 +2314,7 @@ function renderBrk(){
     <div class="track"><div class="fill" style="width:${x[1]/mx*100}%;background:${colorFn(x[0])}"></div></div><b>${x[1]}</b></div>`).join("");
 }
 function lifecycleHTML(d){
-  const g=Math.max(0,+d.smu_oh1||0), b=Math.max(0,+d.smu_after_oh1||0), plan=Math.max(0,+d.plan_oh2||0);
+  const N=ohNo(d), M=N+1, g=Math.max(0,+ohBase(d)||0), b=Math.max(0,+d.smu_after_oh1||0), plan=Math.max(0,+d.plan_oh2||0);
   const rem=(d.remain_oh2==null)?null:+d.remain_oh2;
   if(!plan) return "";
   const overdue = rem!=null && rem<0;
@@ -2317,14 +2332,14 @@ function lifecycleHTML(d){
     segs += `<div class="lc-seg" style="width:${pc(plan-b)}%;background:#fbbf24"></div>`;
   }
   const remColor = overdue?'#fb7185':'#fbbf24';
-  const remLbl = rem==null?'คงเหลือถึง OH#2 <b>–</b>':(rem>=0?`คงเหลือถึง OH#2 <b>${fmt(rem)}</b>`:`เกินแผน OH#2 <b>${fmt(-rem)}</b>`);
+  const remLbl = rem==null?`คงเหลือถึง OH#${M} <b>–</b>`:(rem>=0?`คงเหลือถึง OH#${M} <b>${fmt(rem)}</b>`:`เกินแผน OH#${M} <b>${fmt(-rem)}</b>`);
   return `<div class="lifecyc">
-    <div class="lc-head"><span>ไทม์ไลน์อายุการใช้งาน (SMU OH#1 → OH#2)</span><b style="color:${uc}">ปัจจุบัน ${fmt(d.smu_now)} ชม. · ใช้ไป ${usedPc}%</b></div>
+    <div class="lc-head"><span>ไทม์ไลน์อายุการใช้งาน (SMU OH#${N} → OH#${M})</span><b style="color:${uc}">ปัจจุบัน ${fmt(d.smu_now)} ชม. · ใช้ไป ${usedPc}%</b></div>
     <div class="lc-bar">${segs}<div class="lc-tgt" style="left:${pc(target)}%"></div><div class="lc-now" style="left:${pc(now)}%"></div></div>
-    <div class="lc-scale"><span>OH#1 · ${fmt(g)} ชม.</span><span>เป้าหมาย OH#2 · ${fmt(target)} ชม.</span></div>
+    <div class="lc-scale"><span>OH#${N} · ${fmt(g)} ชม.</span><span>เป้าหมาย OH#${M} · ${fmt(target)} ชม.</span></div>
     <div class="lc-legend">
-      <span><i style="background:#34d399"></i>SMU OH#1 <b>${fmt(g)}</b></span>
-      <span><i style="background:#60a5fa"></i>เดินสะสมหลัง OH#1 <b>${fmt(b)}</b></span>
+      <span><i style="background:#34d399"></i>SMU OH#${N} <b>${fmt(g)}</b></span>
+      <span><i style="background:#60a5fa"></i>เดินสะสมหลัง OH#${N} <b>${fmt(b)}</b></span>
       <span><i style="background:${remColor}"></i>${remLbl}</span>
     </div></div>`;
 }
@@ -2395,7 +2410,7 @@ function ohPrint(id){
   const money=h=>!h.a?'–':admin?ohBaht(ohAmt(h.a)):OH_MASK;
   const info=[["Motor",d.name],["Serial No.",d.serial||'–'],["Brand",d.brand||'–'],["Power / Voltage",fmtP(d.power)+' kW · '+fmt(d.voltage)+' V'],
     ["System",d.system],["ติดตั้งที่",inst],["Status",d.status||'–'],["SMU ปัจจุบัน",fmt(d.smu_now)+' ชม.'],
-    ["SMU OH#1",fmt(d.smu_oh1)+' ชม.'],["คงเหลือถึง OH#2",fmt(d.remain_oh2)+' ชม.'],["วันที่ OH ครั้งหน้า",d.next_oh||'–'],["จำนวนประวัติ",a.length+' รายการ']];
+    ["SMU OH#"+ohNo(d),fmt(ohBase(d))+' ชม.'],["คงเหลือถึง OH#"+(ohNo(d)+1),fmt(d.remain_oh2)+' ชม.'],["วันที่ OH ครั้งหน้า",d.next_oh||'–'],["จำนวนประวัติ",a.length+' รายการ']];
   const rows=a.map((h,i)=>`<tr>
       <td class="c">${i+1}</td>
       <td class="nw">${h.date?ohDate(h.date):'ไม่ระบุ'}</td>
@@ -2491,22 +2506,25 @@ function motorCard(d){
   const remColor=d.remain_oh2==null?'var(--muted)':d.remain_oh2<=0?'#fb7185':d.remain_oh2<=5000?'#fbbf24':'var(--txt)';
   const used=d.lifeUsed==null?0:Math.min(100,d.lifeUsed);
   const inst=!d.location?'–':(/stand\s*by/i.test(d.location)?'สำรอง (Stand by)':locDisp(d.location,d.system)+(d.position?' · '+posLabel(d.position):''));
+  const N=ohNo(d), M=N+1;
   const det=[
     ["ระบบ / System",esc(d.system)],["ติดตั้งที่ (เครื่อง·ตำแหน่ง)",esc(inst)],["ตำแหน่ง Drive",esc(d.position?posLabel(d.position):"–")],
     ["แรงดัน / Voltage",d.voltage!=null?fmt(d.voltage)+" V":"–"],
-    ["SMU OH#1",fmt(d.smu_oh1)+" ชม."],["SMU ปัจจุบัน / Present",fmt(d.smu_now)+" ชม."],
+    ["SMU OH#"+N,fmt(ohBase(d))+" ชม."],["SMU ปัจจุบัน / Present",fmt(d.smu_now)+" ชม."],
     ["การนับ SMU", d.status!=="Running" ? '<span style="color:var(--muted)">ไม่นับ (สถานะ '+esc(d.status||"–")+')</span>'
         : d.smuPaused ? '<span style="color:#fbbf24">⏸ หยุดนับอยู่</span>'
         : '<span style="color:#34d399">▶ กำลังนับ '+HOURS_PER_DAY+' ชม./วัน</span>'],
     ["ชม.ที่กันออก (หยุดนับ)", (d.smuOffH||0)>=0.05 ? fmt(d.smuOffH)+" ชม." : "–"],
-    ["SMU หลัง OH#1",fmt(d.smu_after_oh1)+" ชม."],["Plan SMU OH#2",fmt(d.plan_oh2)+" ชม."],
-    ["คงเหลือถึง OH#2",fmt(d.remain_oh2)+" ชม."],["วันที่ OH ครั้งหน้า",esc(d.next_oh||"–")],
+    ["SMU หลัง OH#"+N,fmt(d.smu_after_oh1)+" ชม."],["Plan SMU OH#"+M,fmt(d.plan_oh2)+" ชม."],
+    ["คงเหลือถึง OH#"+M,fmt(d.remain_oh2)+" ชม."],["วันที่ OH ครั้งหน้า",esc(d.next_oh||"–")],
     ["Serial No.",esc(d.serial||"–")],["Item #",d.item],
+    ...Array.from({length:N-1},(_,i)=>["SMU OH#"+(i+1)+" (รอบก่อน)",fmt(d["smu_oh"+(i+1)])+" ชม."]),
+    ...(N>1?[["อัปเดต OH#"+N+" เสร็จเมื่อ",esc(d.oh_upd||"–")]]:[]),
   ];
   return `<div class="motor ${d.tier==='over'?'over':''} ${open?'open':''} ${d.smuPaused?'smupaused':''}" data-id="${d._id}">
     <div class="mhead">
       <div class="sdot ${(d.status==='Running'||d.status==='PRE OH')?'sdot-pulse':''}" style="background:${SC[d.status]||'#94a3b8'};--sc:${SC[d.status]||'#94a3b8'}"></div>
-      <div class="h-name"><b>${esc(d.name)}</b>${(n=>n?`<i class="ohico" title="มีประวัติการซ่อม / Overhaul ${n} รายการ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>OH History<em>${n}</em></i>`:'')(ohFor(d).length)}<span class="meta"><span class="loc">${esc(inst)}</span>${d.serial?` <span class="ser">· S/N ${esc(d.serial)}</span>`:''}${d.smuPaused?' <span class="smu-hold">⏸ หยุดนับ SMU</span>':''}</span></div>
+      <div class="h-name"><b>${esc(d.name)}</b>${N>1?`<i class="ohico ohdone" title="Overhaul รอบที่ ${N} เสร็จแล้ว · กำลังนับไปหา OH#${M}">✓ OH#${N}</i>`:''}${(n=>n?`<i class="ohico" title="มีประวัติการซ่อม / Overhaul ${n} รายการ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>OH History<em>${n}</em></i>`:'')(ohFor(d).length)}<span class="meta"><span class="loc">${esc(inst)}</span>${d.serial?` <span class="ser">· S/N ${esc(d.serial)}</span>`:''}${d.smuPaused?' <span class="smu-hold">⏸ หยุดนับ SMU</span>':''}</span></div>
       <div class="h-brand">${brandImg(d.brand)}<br>${fmtP(d.power)} kW · ${fmt(d.voltage)} V</div>
       <div><span class="bg ${SB[d.status]||'b-stb'}">${esc(d.status||'')}</span></div>
       <div class="lifewrap"><div class="lifebar"><i style="width:${lw}%;background:${lc}"></i></div>

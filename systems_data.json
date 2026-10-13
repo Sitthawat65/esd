@@ -11,11 +11,14 @@
         "location":  "SPD",
         "position":  "D2",
         "smu_oh1":  26520,
+        "oh_no":  2,
+        "smu_oh2":  64590,
+        "oh_upd":  "13/10/2026",
         "smu_now":  63091.34,
-        "smu_after_oh1":  36571.34,
+        "smu_after_oh1":  0,
         "plan_oh2":  35000,
-        "remain_oh2":  -1571.34,
-        "next_oh":  "19/4/2026"
+        "remain_oh2":  35000,
+        "next_oh":  "13/8/2032"
     },
     {
         "system":  "SPD",
@@ -29,11 +32,14 @@
         "location":  "SPD",
         "position":  "D1",
         "smu_oh1":  21818,
+        "oh_no":  2,
+        "smu_oh2":  64590,
+        "oh_upd":  "13/10/2026",
         "smu_now":  63091.34,
-        "smu_after_oh1":  41273.34,
+        "smu_after_oh1":  0,
         "plan_oh2":  35000,
-        "remain_oh2":  -6273.34,
-        "next_oh":  "19/7/2025"
+        "remain_oh2":  35000,
+        "next_oh":  "13/8/2032"
     },
     {
         "system":  "SPD",
@@ -65,11 +71,14 @@
         "location":  "SPD",
         "position":  "D3",
         "smu_oh1":  22900,
+        "oh_no":  2,
+        "smu_oh2":  64590,
+        "oh_upd":  "13/10/2026",
         "smu_now":  63091.34,
-        "smu_after_oh1":  40191.34,
+        "smu_after_oh1":  0,
         "plan_oh2":  35000,
-        "remain_oh2":  -5191.34,
-        "next_oh":  "19/9/2025"
+        "remain_oh2":  35000,
+        "next_oh":  "13/8/2032"
     },
     {
         "system":  "SPD",
