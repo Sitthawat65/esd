@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T20:53:49+07:00",
+  "updated": "2026-10-23T22:53:48+07:00",
   "source": "Trip.com (th)",
   "top_n": 4,
   "routes": {
@@ -13,7 +13,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -72,7 +72,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2735,
+            "price": 2765,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -107,7 +107,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1865,
+            "price": 1855,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -142,7 +142,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1495,
+            "price": 1515,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -188,7 +188,7 @@
           {
             "airline": "nokair",
             "name": "Nok Air",
-            "price": 1493,
+            "price": 1643,
             "depart": "11:35",
             "arrive": "12:40",
             "from": "NNT",
@@ -199,7 +199,7 @@
           {
             "airline": "airasia",
             "name": "Thai AirAsia",
-            "price": 1894,
+            "price": 2006,
             "depart": "19:20",
             "arrive": "20:30",
             "from": "NNT",
@@ -247,7 +247,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1510,
+            "price": 1520,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -352,7 +352,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1520,
+            "price": 1510,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -387,7 +387,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1650,
+            "price": 1655,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -422,7 +422,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1520,
+            "price": 1515,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -455,17 +455,6 @@
         ],
         "2026-11-06": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1410,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "nokair",
             "name": "Nok Air",
             "price": 1793,
@@ -492,7 +481,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1660,
+            "price": 1670,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -562,7 +551,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1870,
+            "price": 1865,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -597,7 +586,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1650,
+            "price": 1655,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -702,7 +691,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1465,
+            "price": 1460,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -737,7 +726,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1495,
+            "price": 1490,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -807,7 +796,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1870,
+            "price": 1970,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -842,7 +831,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1495,
+            "price": 1490,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1030,7 +1019,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1495,
+            "price": 1490,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1039,12 +1028,24 @@
             "src": "trip"
           }
         ],
-        "2026-11-24": [],
+        "2026-11-24": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1455,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-11-25": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1495,
+            "price": 1490,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1057,7 +1058,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1495,
+            "price": 1490,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1070,7 +1071,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1505,
+            "price": 1525,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1083,7 +1084,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1620,
+            "price": 1625,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1096,7 +1097,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1620,
+            "price": 1625,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1109,7 +1110,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1620,
+            "price": 1625,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1161,7 +1162,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1680,
+            "price": 1685,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1174,7 +1175,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1187,7 +1188,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1200,7 +1201,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2365,
+            "price": 2370,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1226,7 +1227,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1239,7 +1240,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1252,7 +1253,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1685,
+            "price": 1690,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1265,7 +1266,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1680,
+            "price": 1685,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1291,7 +1292,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1680,
+            "price": 1685,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1395,7 +1396,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1460,
+            "price": 1445,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1408,7 +1409,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1105,
+            "price": 1090,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1434,7 +1435,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1473,7 +1474,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1486,7 +1487,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1512,7 +1513,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1695,
+            "price": 1700,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1525,7 +1526,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2635,
+            "price": 2640,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1534,7 +1535,19 @@
             "src": "trip"
           }
         ],
-        "2027-01-02": [],
+        "2027-01-02": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 4140,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2027-01-03": [
           {
             "airline": "tripcom",
@@ -1565,7 +1578,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2015,
+            "price": 2025,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1604,7 +1617,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1320,
+            "price": 1325,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1617,7 +1630,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1320,
+            "price": 1325,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1643,7 +1656,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1320,
+            "price": 1325,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1695,7 +1708,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1300,
+            "price": 1305,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1708,7 +1721,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1320,
+            "price": 1325,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1734,7 +1747,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1320,
+            "price": 1325,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1781,7 +1794,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1625,
+            "price": 1630,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1792,7 +1805,7 @@
           {
             "airline": "nokair",
             "name": "Nok Air",
-            "price": 1723,
+            "price": 1873,
             "depart": "10:25",
             "arrive": "11:40",
             "from": "DMK",
@@ -1851,7 +1864,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1595,
+            "price": 1605,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1862,7 +1875,7 @@
           {
             "airline": "nokair",
             "name": "Nok Air",
-            "price": 1723,
+            "price": 1873,
             "depart": "10:20",
             "arrive": "11:35",
             "from": "DMK",
@@ -1886,7 +1899,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1430,
+            "price": 1435,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1921,7 +1934,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1450,
+            "price": 1435,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1956,7 +1969,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1685,
+            "price": 1695,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -1991,7 +2004,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2515,
+            "price": 2950,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2002,7 +2015,7 @@
           {
             "airline": "nokair",
             "name": "Nok Air",
-            "price": 2623,
+            "price": 2973,
             "depart": "09:50",
             "arrive": "11:05",
             "from": "DMK",
@@ -2026,7 +2039,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2820,
+            "price": 2825,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2061,7 +2074,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1735,
+            "price": 1750,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2096,7 +2109,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1585,
+            "price": 1595,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2166,7 +2179,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1620,
+            "price": 1625,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2201,7 +2214,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1950,
+            "price": 1945,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2271,7 +2284,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1920,
+            "price": 1950,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2306,7 +2319,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1665,
+            "price": 1635,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2341,7 +2354,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1460,
+            "price": 1450,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2411,7 +2424,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1420,
+            "price": 1425,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2446,7 +2459,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1670,
+            "price": 1675,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2481,7 +2494,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2175,
+            "price": 2195,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2551,7 +2564,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1445,
+            "price": 1440,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2586,7 +2599,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1465,
+            "price": 1455,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2726,7 +2739,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2155,
+            "price": 2160,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2761,7 +2774,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1535,
+            "price": 1560,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2796,7 +2809,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1745,
+            "price": 1750,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2805,8 +2818,32 @@
             "src": "trip"
           }
         ],
-        "2026-11-23": [],
-        "2026-11-24": [],
+        "2026-11-23": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1505,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
+        "2026-11-24": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1465,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-11-25": [
           {
             "airline": "tripcom",
@@ -2824,7 +2861,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1640,
+            "price": 1645,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2863,7 +2900,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1460,
+            "price": 1450,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2889,7 +2926,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1380,
+            "price": 1375,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2902,7 +2939,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1380,
+            "price": 1375,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2954,7 +2991,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1965,
+            "price": 1970,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -2963,7 +3000,19 @@
             "src": "trip"
           }
         ],
-        "2026-12-07": [],
+        "2026-12-07": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1640,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-12-08": [
           {
             "airline": "tripcom",
@@ -3007,7 +3056,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1690,
+            "price": 1695,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3029,19 +3078,7 @@
             "src": "trip"
           }
         ],
-        "2026-12-13": [
-          {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1690,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          }
-        ],
+        "2026-12-13": [],
         "2026-12-14": [
           {
             "airline": "tripcom",
@@ -3059,7 +3096,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1690,
+            "price": 1645,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3072,7 +3109,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1690,
+            "price": 1695,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3111,7 +3148,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1380,
+            "price": 1375,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3150,7 +3187,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1415,
+            "price": 1425,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3163,7 +3200,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1310,
+            "price": 1315,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3176,7 +3213,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1800,
+            "price": 1795,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3202,7 +3239,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2990,
+            "price": 2995,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3280,7 +3317,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1800,
+            "price": 1795,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3293,7 +3330,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1645,
+            "price": 1640,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3449,7 +3486,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1340,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3458,7 +3495,19 @@
             "src": "trip"
           }
         ],
-        "2027-01-15": [],
+        "2027-01-15": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1300,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2027-01-16": [
           {
             "airline": "tripcom",
@@ -3502,7 +3551,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1340,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3531,37 +3580,25 @@
       "from_name": "เชียงใหม่ (CNX)",
       "to_name": "กรุงเทพ (DMK/BKK)",
       "days": {
-        "2026-10-23": [
+        "2026-10-23": [],
+        "2026-10-24": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1390,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          },
           {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1395,
-            "depart": "21:30",
-            "arrive": "22:45",
-            "from": "CNX",
-            "to": "DMK",
-            "promos": [],
-            "src": "google"
-          },
-          {
-            "airline": "airasia",
-            "name": "Thai AirAsia",
-            "price": 1778,
-            "depart": "21:25",
-            "arrive": "22:35",
-            "from": "CNX",
-            "to": "DMK",
-            "promos": [],
-            "src": "google"
-          }
-        ],
-        "2026-10-24": [
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1495,
-            "depart": "07:10",
-            "arrive": "08:20",
+            "depart": "08:10",
+            "arrive": "09:25",
             "from": "CNX",
             "to": "DMK",
             "promos": [],
@@ -3594,7 +3631,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2225,
+            "price": 2260,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3605,7 +3642,7 @@
           {
             "airline": "nokair",
             "name": "Nok Air",
-            "price": 2283,
+            "price": 2583,
             "depart": "06:45",
             "arrive": "08:00",
             "from": "CNX",
@@ -3640,7 +3677,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1560,
+            "price": 1555,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3698,8 +3735,8 @@
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1395,
-            "depart": "10:30",
-            "arrive": "11:45",
+            "depart": "08:00",
+            "arrive": "09:15",
             "from": "CNX",
             "to": "DMK",
             "promos": [],
@@ -3732,7 +3769,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1100,
+            "price": 1200,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3778,7 +3815,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1260,
+            "price": 1300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -3962,7 +3999,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1260,
+            "price": 1270,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4006,17 +4043,6 @@
         ],
         "2026-11-03": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1265,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1295,
@@ -4051,6 +4077,17 @@
           }
         ],
         "2026-11-04": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1355,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          },
           {
             "airline": "lionair",
             "name": "Thai Lion Air",
@@ -4087,6 +4124,17 @@
         ],
         "2026-11-05": [
           {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1365,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          },
+          {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1395,
@@ -4101,8 +4149,8 @@
             "airline": "airasia",
             "name": "Thai AirAsia",
             "price": 1609,
-            "depart": "17:10",
-            "arrive": "18:25",
+            "depart": "06:30",
+            "arrive": "07:40",
             "from": "CNX",
             "to": "DMK",
             "promos": [],
@@ -4124,7 +4172,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1340,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4170,7 +4218,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1490,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4352,22 +4400,11 @@
         ],
         "2026-11-11": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1425,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "lionair",
             "name": "Thai Lion Air",
-            "price": 1495,
-            "depart": "07:05",
-            "arrive": "08:20",
+            "price": 1595,
+            "depart": "08:00",
+            "arrive": "09:15",
             "from": "CNX",
             "to": "DMK",
             "promos": [],
@@ -4400,7 +4437,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1475,
+            "price": 1470,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4443,6 +4480,17 @@
           }
         ],
         "2026-11-13": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1345,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          },
           {
             "airline": "lionair",
             "name": "Thai Lion Air",
@@ -4527,7 +4575,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1335,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4573,7 +4621,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1340,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4711,7 +4759,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1435,
+            "price": 1475,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4803,7 +4851,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1350,
+            "price": 1412,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4849,7 +4897,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1210,
+            "price": 1230,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4875,7 +4923,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1395,
+            "price": 1430,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4901,7 +4949,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 4345,
+            "price": 4415,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4914,7 +4962,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 3985,
+            "price": 3900,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4927,7 +4975,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2285,
+            "price": 2275,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4953,7 +5001,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2335,
+            "price": 2330,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4966,7 +5014,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1815,
+            "price": 1860,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4979,7 +5027,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1710,
+            "price": 1715,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -4992,7 +5040,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1715,
+            "price": 1650,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5005,7 +5053,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1815,
+            "price": 1855,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5018,7 +5066,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1635,
+            "price": 1640,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5040,12 +5088,24 @@
             "src": "trip"
           }
         ],
-        "2026-12-07": [],
+        "2026-12-07": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 2160,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-12-08": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1855,
+            "price": 1885,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5058,7 +5118,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1855,
+            "price": 1870,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5071,7 +5131,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1855,
+            "price": 1870,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5084,7 +5144,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1805,
+            "price": 1580,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5097,7 +5157,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1635,
+            "price": 1640,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5110,7 +5170,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1755,
+            "price": 1775,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5123,7 +5183,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1660,
+            "price": 1665,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5136,7 +5196,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1370,
+            "price": 1390,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5175,7 +5235,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1675,
+            "price": 1680,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5188,7 +5248,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1620,
+            "price": 1625,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5201,7 +5261,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1785,
+            "price": 1755,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5214,7 +5274,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1650,
+            "price": 1655,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5227,7 +5287,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1365,
+            "price": 1360,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5240,7 +5300,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1275,
+            "price": 1280,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5292,7 +5352,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2230,
+            "price": 2225,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5301,12 +5361,24 @@
             "src": "trip"
           }
         ],
-        "2026-12-28": [],
+        "2026-12-28": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 2065,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-12-29": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2060,
+            "price": 2495,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5319,7 +5391,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2240,
+            "price": 2225,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5345,7 +5417,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 3090,
+            "price": 2595,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5372,7 +5444,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2270,
+            "price": 2295,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5398,7 +5470,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1280,
+            "price": 1300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5411,7 +5483,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1770,
+            "price": 1105,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5420,24 +5492,12 @@
             "src": "trip"
           }
         ],
-        "2027-01-08": [
-          {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1295,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          }
-        ],
+        "2027-01-08": [],
         "2027-01-09": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1770,
+            "price": 1400,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5450,7 +5510,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1385,
+            "price": 1400,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5476,7 +5536,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1385,
+            "price": 1395,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5489,7 +5549,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1295,
+            "price": 1475,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5502,7 +5562,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1475,
+            "price": 1295,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5515,7 +5575,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1245,
+            "price": 1265,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5528,7 +5588,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1475,
+            "price": 1300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5541,7 +5601,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1755,
+            "price": 1585,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5567,7 +5627,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1755,
+            "price": 1300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5596,19 +5656,7 @@
       "from_name": "กรุงเทพ (DMK/BKK)",
       "to_name": "เชียงใหม่ (CNX)",
       "days": {
-        "2026-10-23": [
-          {
-            "airline": "nokair",
-            "name": "Nok Air",
-            "price": 1983,
-            "depart": "21:30",
-            "arrive": "22:45",
-            "from": "DMK",
-            "to": "CNX",
-            "promos": [],
-            "src": "google"
-          }
-        ],
+        "2026-10-23": [],
         "2026-10-24": [
           {
             "airline": "lionair",
@@ -5625,8 +5673,8 @@
             "airline": "nokair",
             "name": "Nok Air",
             "price": 1583,
-            "depart": "17:50",
-            "arrive": "19:05",
+            "depart": "21:30",
+            "arrive": "22:45",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -5649,8 +5697,8 @@
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1395,
-            "depart": "06:05",
-            "arrive": "07:20",
+            "depart": "08:35",
+            "arrive": "09:50",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -5681,11 +5729,22 @@
         ],
         "2026-10-26": [
           {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1320,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          },
+          {
             "airline": "lionair",
             "name": "Thai Lion Air",
-            "price": 1295,
-            "depart": "18:00",
-            "arrive": "19:20",
+            "price": 1395,
+            "depart": "06:05",
+            "arrive": "07:20",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -5762,17 +5821,6 @@
         ],
         "2026-10-28": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1290,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1295,
@@ -5845,7 +5893,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1350,
+            "price": 1490,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5891,7 +5939,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1340,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -5983,7 +6031,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1340,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6027,6 +6075,17 @@
         ],
         "2026-11-03": [
           {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1295,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          },
+          {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1395,
@@ -6064,7 +6123,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1340,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6076,8 +6135,8 @@
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1395,
-            "depart": "06:05",
-            "arrive": "07:20",
+            "depart": "16:45",
+            "arrive": "18:00",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -6087,8 +6146,8 @@
             "airline": "airasia",
             "name": "Thai AirAsia",
             "price": 1778,
-            "depart": "09:45",
-            "arrive": "11:00",
+            "depart": "06:45",
+            "arrive": "07:55",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -6178,17 +6237,6 @@
         ],
         "2026-11-07": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1350,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1595,
@@ -6223,17 +6271,6 @@
           }
         ],
         "2026-11-08": [
-          {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1410,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
           {
             "airline": "lionair",
             "name": "Thai Lion Air",
@@ -6294,9 +6331,9 @@
           {
             "airline": "airasia",
             "name": "Thai AirAsia",
-            "price": 1778,
-            "depart": "09:45",
-            "arrive": "11:00",
+            "price": 1609,
+            "depart": "08:25",
+            "arrive": "09:40",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -6362,22 +6399,11 @@
         ],
         "2026-11-11": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1430,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "lionair",
             "name": "Thai Lion Air",
-            "price": 1495,
-            "depart": "11:05",
-            "arrive": "12:25",
+            "price": 1595,
+            "depart": "06:05",
+            "arrive": "07:20",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -6410,7 +6436,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1500,
+            "price": 1567,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6422,8 +6448,8 @@
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1595,
-            "depart": "18:00",
-            "arrive": "19:20",
+            "depart": "16:45",
+            "arrive": "18:00",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -6433,8 +6459,8 @@
             "airline": "airasia",
             "name": "Thai AirAsia",
             "price": 1778,
-            "depart": "17:40",
-            "arrive": "19:00",
+            "depart": "18:40",
+            "arrive": "19:55",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -6456,7 +6482,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2045,
+            "price": 2050,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6513,9 +6539,9 @@
           {
             "airline": "lionair",
             "name": "Thai Lion Air",
-            "price": 1595,
-            "depart": "19:30",
-            "arrive": "20:45",
+            "price": 1695,
+            "depart": "18:00",
+            "arrive": "19:20",
             "from": "DMK",
             "to": "CNX",
             "promos": [],
@@ -6548,7 +6574,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1480,
+            "price": 1475,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6638,17 +6664,6 @@
         ],
         "2026-11-17": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1475,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1595,
@@ -6732,7 +6747,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2230,
+            "price": 2225,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6824,7 +6839,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 3255,
+            "price": 3215,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6892,12 +6907,24 @@
             "src": "trip"
           }
         ],
-        "2026-11-24": [],
+        "2026-11-24": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 2540,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-11-25": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2260,
+            "price": 2255,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6910,7 +6937,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1950,
+            "price": 1480,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6923,7 +6950,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1635,
+            "price": 1640,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -6988,7 +7015,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1710,
+            "price": 1715,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7001,7 +7028,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1710,
+            "price": 1715,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7014,7 +7041,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2105,
+            "price": 2110,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7023,12 +7050,24 @@
             "src": "trip"
           }
         ],
-        "2026-12-05": [],
+        "2026-12-05": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1975,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-12-06": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1805,
+            "price": 1775,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7042,7 +7081,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1620,
+            "price": 1625,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7081,7 +7120,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1635,
+            "price": 1640,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7107,7 +7146,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1805,
+            "price": 1640,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7120,7 +7159,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1465,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7133,7 +7172,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1465,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7146,7 +7185,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1717,
+            "price": 1580,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7159,7 +7198,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1710,
+            "price": 1715,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7172,7 +7211,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2135,
+            "price": 2065,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7185,7 +7224,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1620,
+            "price": 1650,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7194,7 +7233,19 @@
             "src": "trip"
           }
         ],
-        "2026-12-20": [],
+        "2026-12-20": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1815,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-12-21": [
           {
             "airline": "tripcom",
@@ -7212,7 +7263,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1460,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7225,7 +7276,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1660,
+            "price": 1725,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7238,7 +7289,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2270,
+            "price": 2255,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7251,7 +7302,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2535,
+            "price": 2540,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7264,7 +7315,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2670,
+            "price": 3150,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7277,7 +7328,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2535,
+            "price": 2540,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7303,7 +7354,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2830,
+            "price": 2835,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7329,7 +7380,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2060,
+            "price": 2065,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7342,7 +7393,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1585,
+            "price": 1600,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7351,12 +7402,24 @@
             "src": "trip"
           }
         ],
-        "2027-01-02": [],
+        "2027-01-02": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1595,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2027-01-03": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1585,
+            "price": 1600,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7369,7 +7432,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1480,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7382,7 +7445,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1280,
+            "price": 1295,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7395,7 +7458,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1295,
+            "price": 1300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7408,7 +7471,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1480,
+            "price": 1500,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7421,7 +7484,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2135,
+            "price": 1585,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7434,7 +7497,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1385,
+            "price": 1400,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7447,7 +7510,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1385,
+            "price": 1395,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7460,7 +7523,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1295,
+            "price": 1320,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7473,7 +7536,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1280,
+            "price": 1285,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7486,7 +7549,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1567,
+            "price": 1285,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7512,7 +7575,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1440,
+            "price": 1465,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7525,7 +7588,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1280,
+            "price": 1335,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7538,7 +7601,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1295,
+            "price": 1310,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7551,7 +7614,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1295,
+            "price": 1500,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7564,7 +7627,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1280,
+            "price": 1285,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7622,7 +7685,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 3885,
+            "price": 3900,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7646,7 +7709,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 3090,
+            "price": 3415,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7657,9 +7720,20 @@
           {
             "airline": "airasia",
             "name": "Thai AirAsia",
-            "price": 3591,
-            "depart": "20:10",
-            "arrive": "21:20",
+            "price": 3972,
+            "depart": "16:35",
+            "arrive": "17:50",
+            "from": "KOP",
+            "to": "DMK",
+            "promos": [],
+            "src": "google"
+          },
+          {
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 5540,
+            "depart": "19:25",
+            "arrive": "20:45",
             "from": "KOP",
             "to": "DMK",
             "promos": [],
@@ -7670,7 +7744,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 5445,
+            "price": 5140,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7679,11 +7753,11 @@
             "src": "trip"
           },
           {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 5540,
-            "depart": "09:20",
-            "arrive": "10:40",
+            "airline": "airasia",
+            "name": "Thai AirAsia",
+            "price": 6055,
+            "depart": "09:05",
+            "arrive": "10:15",
             "from": "KOP",
             "to": "DMK",
             "promos": [],
@@ -7694,7 +7768,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2790,
+            "price": 3300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7729,7 +7803,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1540,
+            "price": 1555,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7762,22 +7836,22 @@
             "src": "trip"
           },
           {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1715,
-            "depart": "19:25",
-            "arrive": "20:45",
+            "airline": "airasia",
+            "name": "Thai AirAsia",
+            "price": 1894,
+            "depart": "20:00",
+            "arrive": "21:10",
             "from": "KOP",
             "to": "DMK",
             "promos": [],
             "src": "google"
           },
           {
-            "airline": "airasia",
-            "name": "Thai AirAsia",
-            "price": 1894,
-            "depart": "20:00",
-            "arrive": "21:10",
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 5015,
+            "depart": "19:25",
+            "arrive": "20:45",
             "from": "KOP",
             "to": "DMK",
             "promos": [],
@@ -7823,7 +7897,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1495,
+            "price": 1510,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7858,7 +7932,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1290,
+            "price": 1305,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7882,7 +7956,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1300,
+            "price": 1305,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7917,7 +7991,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1195,
+            "price": 1200,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -7952,24 +8026,13 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1290,
+            "price": 1295,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1315,
-            "depart": "09:20",
-            "arrive": "10:40",
-            "from": "KOP",
-            "to": "DMK",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -7987,24 +8050,13 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1290,
+            "price": 1295,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1315,
-            "depart": "09:20",
-            "arrive": "10:40",
-            "from": "KOP",
-            "to": "DMK",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -8022,7 +8074,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1290,
+            "price": 1300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8092,7 +8144,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1300,
+            "price": 1295,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8125,15 +8177,15 @@
         ],
         "2026-11-10": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1390,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 1315,
+            "depart": "09:20",
+            "arrive": "10:40",
+            "from": "KOP",
+            "to": "DMK",
             "promos": [],
-            "src": "trip"
+            "src": "google"
           },
           {
             "airline": "airasia",
@@ -8186,7 +8238,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1300,
+            "price": 1305,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8219,22 +8271,22 @@
         ],
         "2026-11-13": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1425,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 1415,
+            "depart": "09:20",
+            "arrive": "10:40",
+            "from": "KOP",
+            "to": "DMK",
             "promos": [],
-            "src": "trip"
+            "src": "google"
           },
           {
             "airline": "airasia",
             "name": "Thai AirAsia",
             "price": 1894,
-            "depart": "16:35",
-            "arrive": "17:50",
+            "depart": "20:00",
+            "arrive": "21:10",
             "from": "KOP",
             "to": "DMK",
             "promos": [],
@@ -8245,7 +8297,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1285,
+            "price": 1310,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8278,15 +8330,15 @@
         ],
         "2026-11-15": [
           {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1415,
-            "depart": "09:20",
-            "arrive": "10:40",
-            "from": "KOP",
-            "to": "DMK",
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1445,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
             "promos": [],
-            "src": "google"
+            "src": "trip"
           },
           {
             "airline": "airasia",
@@ -8304,7 +8356,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1395,
+            "price": 1400,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8328,7 +8380,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1390,
+            "price": 1405,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8337,22 +8389,11 @@
             "src": "trip"
           },
           {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1415,
-            "depart": "19:25",
-            "arrive": "20:45",
-            "from": "KOP",
-            "to": "DMK",
-            "promos": [],
-            "src": "google"
-          },
-          {
             "airline": "airasia",
             "name": "Thai AirAsia",
             "price": 1894,
-            "depart": "20:00",
-            "arrive": "21:10",
+            "depart": "16:35",
+            "arrive": "17:50",
             "from": "KOP",
             "to": "DMK",
             "promos": [],
@@ -8363,31 +8404,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1285,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
-            "airline": "airasia",
-            "name": "Thai AirAsia",
-            "price": 1894,
-            "depart": "09:05",
-            "arrive": "10:15",
-            "from": "KOP",
-            "to": "DMK",
-            "promos": [],
-            "src": "google"
-          }
-        ],
-        "2026-11-19": [
-          {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1285,
+            "price": 1310,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8418,11 +8435,35 @@
             "src": "google"
           }
         ],
+        "2026-11-19": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1310,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          },
+          {
+            "airline": "airasia",
+            "name": "Thai AirAsia",
+            "price": 1894,
+            "depart": "09:05",
+            "arrive": "10:15",
+            "from": "KOP",
+            "to": "DMK",
+            "promos": [],
+            "src": "google"
+          }
+        ],
         "2026-11-20": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1315,
+            "price": 1400,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8457,24 +8498,13 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1395,
+            "price": 1385,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1415,
-            "depart": "09:20",
-            "arrive": "10:40",
-            "from": "KOP",
-            "to": "DMK",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -8492,7 +8522,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1390,
+            "price": 1405,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8505,7 +8535,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1390,
+            "price": 1405,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8514,12 +8544,24 @@
             "src": "trip"
           }
         ],
-        "2026-11-24": [],
+        "2026-11-24": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1365,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-11-25": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1390,
+            "price": 1405,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8532,7 +8574,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1400,
+            "price": 1395,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8545,7 +8587,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1440,
+            "price": 1420,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8558,7 +8600,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1390,
+            "price": 1410,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8584,7 +8626,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1390,
+            "price": 1410,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8597,7 +8639,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1235,
+            "price": 1240,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8610,7 +8652,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1235,
+            "price": 1240,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8623,7 +8665,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1295,
+            "price": 1300,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8636,7 +8678,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1480,
+            "price": 1470,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8675,7 +8717,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1440,
+            "price": 1695,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8740,7 +8782,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1480,
+            "price": 1495,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8753,7 +8795,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1750,
+            "price": 1745,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8766,7 +8808,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1675,
+            "price": 1680,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8779,7 +8821,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1480,
+            "price": 1495,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8805,7 +8847,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1235,
+            "price": 1240,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8818,7 +8860,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1235,
+            "price": 1240,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8870,7 +8912,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1245,
+            "price": 1305,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -8883,7 +8925,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1180,
+            "price": 1225,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9013,7 +9055,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 3080,
+            "price": 3260,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9026,7 +9068,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 3000,
+            "price": 2995,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9234,7 +9276,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1315,
+            "price": 1320,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9292,7 +9334,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2935,
+            "price": 3420,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9303,9 +9345,9 @@
           {
             "airline": "lionair",
             "name": "Thai Lion Air",
-            "price": 3295,
-            "depart": "07:20",
-            "arrive": "08:40",
+            "price": 3795,
+            "depart": "17:30",
+            "arrive": "18:45",
             "from": "DMK",
             "to": "KOP",
             "promos": [],
@@ -9314,7 +9356,7 @@
           {
             "airline": "airasia",
             "name": "Thai AirAsia",
-            "price": 3570,
+            "price": 3951,
             "depart": "07:10",
             "arrive": "08:35",
             "from": "DMK",
@@ -9327,24 +9369,13 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1710,
+            "price": 1750,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1895,
-            "depart": "17:30",
-            "arrive": "18:45",
-            "from": "DMK",
-            "to": "KOP",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -9356,13 +9387,24 @@
             "to": "KOP",
             "promos": [],
             "src": "google"
+          },
+          {
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 2595,
+            "depart": "17:30",
+            "arrive": "18:45",
+            "from": "DMK",
+            "to": "KOP",
+            "promos": [],
+            "src": "google"
           }
         ],
         "2026-10-27": [
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1475,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9406,17 +9448,6 @@
             "src": "trip"
           },
           {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1495,
-            "depart": "17:30",
-            "arrive": "18:45",
-            "from": "DMK",
-            "to": "KOP",
-            "promos": [],
-            "src": "google"
-          },
-          {
             "airline": "airasia",
             "name": "Thai AirAsia",
             "price": 1889,
@@ -9432,7 +9463,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1430,
+            "price": 1450,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9502,7 +9533,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1475,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9537,7 +9568,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1380,
+            "price": 1370,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9572,7 +9603,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1380,
+            "price": 1385,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9607,7 +9638,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1375,
+            "price": 1370,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9616,11 +9647,22 @@
             "src": "trip"
           },
           {
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 1395,
+            "depart": "07:20",
+            "arrive": "08:40",
+            "from": "DMK",
+            "to": "KOP",
+            "promos": [],
+            "src": "google"
+          },
+          {
             "airline": "airasia",
             "name": "Thai AirAsia",
             "price": 1889,
-            "depart": "07:10",
-            "arrive": "08:35",
+            "depart": "14:45",
+            "arrive": "16:05",
             "from": "DMK",
             "to": "KOP",
             "promos": [],
@@ -9666,7 +9708,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1280,
+            "price": 1270,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9701,13 +9743,24 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1470,
+            "price": 1485,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
+          },
+          {
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 1495,
+            "depart": "17:30",
+            "arrive": "18:45",
+            "from": "DMK",
+            "to": "KOP",
+            "promos": [],
+            "src": "google"
           },
           {
             "airline": "airasia",
@@ -9725,13 +9778,24 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1375,
+            "price": 1370,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
+          },
+          {
+            "airline": "lionair",
+            "name": "Thai Lion Air",
+            "price": 1395,
+            "depart": "17:30",
+            "arrive": "18:45",
+            "from": "DMK",
+            "to": "KOP",
+            "promos": [],
+            "src": "google"
           },
           {
             "airline": "airasia",
@@ -9770,17 +9834,6 @@
           }
         ],
         "2026-11-09": [
-          {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1270,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
           {
             "airline": "lionair",
             "name": "Thai Lion Air",
@@ -9841,17 +9894,6 @@
         ],
         "2026-11-11": [
           {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1330,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          },
-          {
             "airline": "lionair",
             "name": "Thai Lion Air",
             "price": 1395,
@@ -9902,24 +9944,13 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1455,
+            "price": 1465,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1495,
-            "depart": "17:30",
-            "arrive": "18:45",
-            "from": "DMK",
-            "to": "KOP",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -9937,7 +9968,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1365,
+            "price": 1390,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -9979,17 +10010,6 @@
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1395,
-            "depart": "17:30",
-            "arrive": "18:45",
-            "from": "DMK",
-            "to": "KOP",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -10042,24 +10062,13 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1365,
+            "price": 1390,
             "depart": "",
             "arrive": "",
             "from": "",
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1395,
-            "depart": "17:30",
-            "arrive": "18:45",
-            "from": "DMK",
-            "to": "KOP",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -10077,7 +10086,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1365,
+            "price": 1390,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10119,17 +10128,6 @@
             "to": "",
             "promos": [],
             "src": "trip"
-          },
-          {
-            "airline": "lionair",
-            "name": "Thai Lion Air",
-            "price": 1495,
-            "depart": "07:20",
-            "arrive": "08:40",
-            "from": "DMK",
-            "to": "KOP",
-            "promos": [],
-            "src": "google"
           },
           {
             "airline": "airasia",
@@ -10182,7 +10180,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1465,
+            "price": 1450,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10239,7 +10237,19 @@
             "src": "trip"
           }
         ],
-        "2026-11-24": [],
+        "2026-11-24": [
+          {
+            "airline": "tripcom",
+            "name": "ถูกสุดบน Trip.com",
+            "price": 1380,
+            "depart": "",
+            "arrive": "",
+            "from": "",
+            "to": "",
+            "promos": [],
+            "src": "trip"
+          }
+        ],
         "2026-11-25": [
           {
             "airline": "tripcom",
@@ -10257,7 +10267,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1460,
+            "price": 1455,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10318,19 +10328,7 @@
             "src": "trip"
           }
         ],
-        "2026-12-01": [
-          {
-            "airline": "tripcom",
-            "name": "ถูกสุดบน Trip.com",
-            "price": 1250,
-            "depart": "",
-            "arrive": "",
-            "from": "",
-            "to": "",
-            "promos": [],
-            "src": "trip"
-          }
-        ],
+        "2026-12-01": [],
         "2026-12-02": [
           {
             "airline": "tripcom",
@@ -10348,7 +10346,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1255,
+            "price": 1260,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10374,7 +10372,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1645,
+            "price": 1680,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10387,7 +10385,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1530,
+            "price": 1525,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10413,7 +10411,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1530,
+            "price": 1525,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10439,7 +10437,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1645,
+            "price": 1650,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10452,7 +10450,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1780,
+            "price": 1770,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10465,7 +10463,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1555,
+            "price": 1580,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10478,7 +10476,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1555,
+            "price": 1525,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10504,7 +10502,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1530,
+            "price": 1525,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10569,7 +10567,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1345,
+            "price": 1350,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10582,7 +10580,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1280,
+            "price": 1265,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10595,7 +10593,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1325,
+            "price": 1370,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10608,7 +10606,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1360,
+            "price": 1350,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10621,7 +10619,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1740,
+            "price": 1745,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10634,7 +10632,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2060,
+            "price": 2065,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10647,7 +10645,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2270,
+            "price": 2255,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10660,7 +10658,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2075,
+            "price": 2065,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10686,7 +10684,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 2060,
+            "price": 2065,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10738,7 +10736,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1355,
+            "price": 1465,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10751,7 +10749,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1480,
+            "price": 1500,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10777,7 +10775,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1385,
+            "price": 1380,
             "depart": "",
             "arrive": "",
             "from": "",
@@ -10816,7 +10814,7 @@
           {
             "airline": "tripcom",
             "name": "ถูกสุดบน Trip.com",
-            "price": 1385,
+            "price": 1380,
             "depart": "",
             "arrive": "",
             "from": "",
